@@ -1,9 +1,9 @@
 import { LabSize } from './types';
 
 export const calculateLabSize = (memberCount: number): LabSize => {
-  if (memberCount >= 10) {
+  if (memberCount >= 20) {
     return 'large';
-  } else if (memberCount >= 5) {
+  } else if (memberCount >= 8) {
     return 'medium';
   } else {
     return 'small';
@@ -11,7 +11,7 @@ export const calculateLabSize = (memberCount: number): LabSize => {
 };
 
 export const LAB_SIZE_CRITERIA = {
-  large: '10명 이상',
-  medium: '5-9명',
-  small: '4명 이하'
+  large: '20명 이상',
+  medium: '8-19명',
+  small: '7명 이하'
 } as const;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { University, Professor, LabSize } from '@/lib/types';
+import { University, Professor, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
 import { calculateLabSize, LAB_SIZE_CRITERIA } from '@/lib/utils';
 
 type ProfessorListProps = {
   university: University;
   onBack: () => void;
-  selectedSubField: string;
+  selectedSubFields: SelectedSubFields;
+  enabledFields: ResearchField[];
 };
 
 const getLabSizeLabel = (size: LabSize): string => {
@@ -31,7 +32,28 @@ const getLabSizeColor = (size: LabSize): string => {
   }
 };
 
-export default function ProfessorList({ university, onBack, selectedSubField }: ProfessorListProps) {
+export default function ProfessorList({ university, onBack, selectedSubFields, enabledFields }: ProfessorListProps) {
+  const filteredProfessors = university.professors.filter(professor => {
+    const matchesEnabledField = enabledFields.length > 0 && professor.researchFields.some(
+      researchField => enabledFields.some(
+        enabledField => enabledField.name === researchField.field
+      )
+    );
+
+    const matchesSelectedSubFields = Object.entries(selectedSubFields).some(([fieldName, subFields]) =>
+      professor.researchFields.some(
+        researchField =>
+          researchField.field === fieldName &&
+          researchField.subFields.some(sf => subFields.includes(sf))
+      )
+    );
+
+    return matchesEnabledField || matchesSelectedSubFields;
+  });
+
+  const totalPaperCount = filteredProfessors.reduce((sum, prof) => sum + prof.paperCount, 0);
+  const totalLabCount = filteredProfessors.length;
+
   return (
     <div className="p-6">
       <button
@@ -46,7 +68,7 @@ export default function ProfessorList({ university, onBack, selectedSubField }: 
         {university.name}
       </h2>
       <p className="text-sm text-muted-foreground mb-2">
-        전체 논문 수: {university.paperCount} | 연구실: {university.labCount}개
+        전체 논문 수: {totalPaperCount} | 연구실: {totalLabCount}개
       </p>
       <div className="flex gap-2 mb-6">
         {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
@@ -60,11 +82,12 @@ export default function ProfessorList({ university, onBack, selectedSubField }: 
       </div>
 
       <div className="space-y-4">
-        {university.professors.map((professor) => {
+        {filteredProfessors.map((professor) => {
           const labSize = calculateLabSize(professor.labMemberCount);
-          const relevantFields = professor.researchFields
-            .filter(field => field.subFields.includes(selectedSubField))
-            .map(field => field.field)
+          
+          const allSubFields = professor.researchFields
+            .flatMap(field => field.subFields)
+            .filter((value, index, self) => self.indexOf(value) === index)
             .join(', ');
 
           return (
@@ -79,7 +102,7 @@ export default function ProfessorList({ university, onBack, selectedSubField }: 
                     논문 수: {professor.paperCount} | 연구원: {professor.labMemberCount}명
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    연구 분야: {relevantFields}
+                    연구 분야: {allSubFields}
                   </p>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>

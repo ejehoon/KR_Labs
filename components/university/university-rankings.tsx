@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { University, ResearchField } from '@/lib/types';
+import { University, ResearchField, SelectedSubFields } from '@/lib/types';
 import ProfessorList from './professor-list';
 
 // 임시 데이터
@@ -20,7 +20,11 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Computer vision", "Machine learning"]
+            subFields: [
+              "Computer vision",
+              "Machine learning",
+              "Artificial intelligence"
+            ]
           }
         ]
       },
@@ -33,7 +37,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "Systems",
-            subFields: ["Computer networks", "Computer security"]
+            subFields: [
+              "Computer networks",
+              "Computer security",
+              "Mobile computing",
+              "Operating systems"
+            ]
           }
         ]
       },
@@ -46,12 +55,19 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Natural language processing"]
+            subFields: [
+              "Natural language processing",
+              "Machine learning",
+              "The Web & information retrieval"
+            ]
           },
           {
             category: "Computer Science",
             field: "Systems",
-            subFields: ["Databases"]
+            subFields: [
+              "Databases",
+              "Software engineering"
+            ]
           }
         ]
       },
@@ -71,7 +87,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Machine learning", "Natural language processing"]
+            subFields: [
+              "Machine learning",
+              "Natural language processing",
+              "Computer vision",
+              "The Web & information retrieval"
+            ]
           }
         ]
       },
@@ -84,7 +105,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "Systems",
-            subFields: ["Operating systems", "Computer networks"]
+            subFields: [
+              "Operating systems",
+              "Computer networks",
+              "High-performance computing",
+              "Computer security"
+            ]
           }
         ]
       }
@@ -104,7 +130,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Computer vision", "The Web & information retrieval"]
+            subFields: [
+              "Computer vision",
+              "Machine learning",
+              "The Web & information retrieval",
+              "Artificial intelligence"
+            ]
           }
         ]
       },
@@ -117,7 +148,11 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "Theory",
-            subFields: ["Algorithms & complexity", "Cryptography"]
+            subFields: [
+              "Algorithms & complexity",
+              "Cryptography",
+              "Logic & verification"
+            ]
           }
         ]
       }
@@ -137,7 +172,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Machine learning", "Artificial intelligence"]
+            subFields: [
+              "Machine learning",
+              "Artificial intelligence",
+              "Computer vision",
+              "Natural language processing"
+            ]
           }
         ]
       },
@@ -150,7 +190,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "Systems",
-            subFields: ["Databases", "Software engineering"]
+            subFields: [
+              "Databases",
+              "Software engineering",
+              "High-performance computing",
+              "Programming languages"
+            ]
           }
         ]
       }
@@ -170,7 +215,12 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "AI",
-            subFields: ["Natural language processing", "Machine learning"]
+            subFields: [
+              "Natural language processing",
+              "Machine learning",
+              "The Web & information retrieval",
+              "Artificial intelligence"
+            ]
           }
         ]
       },
@@ -183,7 +233,123 @@ const mockUniversities: University[] = [
           {
             category: "Computer Science",
             field: "Interdisciplinary Areas",
-            subFields: ["Human-computer interaction", "Computer graphics"]
+            subFields: [
+              "Human-computer interaction",
+              "Computer graphics",
+              "Visualization",
+              "Computer science education"
+            ]
+          },
+          {
+            category: "Computer Science",
+            field: "Systems",
+            subFields: [
+              "Software engineering",
+              "Programming languages"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "단국대학교",
+    paperCount: 95,
+    labCount: 5,
+    professors: [
+      {
+        id: "12",
+        name: "오교수",
+        paperCount: 25,
+        labMemberCount: 9,
+        researchFields: [
+          {
+            category: "Computer Science",
+            field: "AI",
+            subFields: [
+              "Machine learning",
+              "Computer vision",
+              "Artificial intelligence",
+              "The Web & information retrieval"
+            ]
+          }
+        ]
+      },
+      {
+        id: "13",
+        name: "신교수",
+        paperCount: 22,
+        labMemberCount: 16,
+        researchFields: [
+          {
+            category: "Computer Science",
+            field: "Systems",
+            subFields: [
+              "Computer networks",
+              "Mobile computing",
+              "Computer security",
+              "Operating systems"
+            ]
+          }
+        ]
+      },
+      {
+        id: "14",
+        name: "황교수",
+        paperCount: 18,
+        labMemberCount: 25,
+        researchFields: [
+          {
+            category: "Computer Science",
+            field: "Theory",
+            subFields: [
+              "Algorithms & complexity",
+              "Logic & verification",
+              "Cryptography"
+            ]
+          },
+          {
+            category: "Computer Science",
+            field: "AI",
+            subFields: [
+              "Artificial intelligence",
+              "Machine learning"
+            ]
+          }
+        ]
+      },
+      {
+        id: "15",
+        name: "백교수",
+        paperCount: 16,
+        labMemberCount: 14,
+        researchFields: [
+          {
+            category: "Computer Science",
+            field: "Interdisciplinary Areas",
+            subFields: [
+              "Computer graphics",
+              "Visualization",
+              "Human-computer interaction"
+            ]
+          }
+        ]
+      },
+      {
+        id: "16",
+        name: "문교수",
+        paperCount: 14,
+        labMemberCount: 23,
+        researchFields: [
+          {
+            category: "Computer Science",
+            field: "Systems",
+            subFields: [
+              "Software engineering",
+              "Programming languages",
+              "Operating systems",
+              "High-performance computing"
+            ]
           }
         ]
       }
@@ -192,43 +358,65 @@ const mockUniversities: University[] = [
 ];
 
 type UniversityRankingsProps = {
-  selectedSubField: string | null;
+  selectedSubFields: SelectedSubFields;
   enabledFields: ResearchField[];
 };
 
-export default function UniversityRankings({ selectedSubField, enabledFields }: UniversityRankingsProps) {
+export default function UniversityRankings({ selectedSubFields, enabledFields }: UniversityRankingsProps) {
   const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null);
+
+  // enabledFields나 selectedSubFields가 변경될 때마다 selectedUniversity 업데이트
+  React.useEffect(() => {
+    if (selectedUniversity) {
+      // 원본 대학 데이터 찾기
+      const originalUniversity = mockUniversities.find(
+        univ => univ.name === selectedUniversity.name
+      );
+      if (originalUniversity) {
+        setSelectedUniversity(originalUniversity);
+      }
+    }
+  }, [enabledFields, selectedSubFields]);
+
+  const filterProfessors = (professors: Professor[]) => {
+    return professors.filter(professor => {
+      // 1. 활성화된 필드에 속한 교수 찾기
+      const matchesEnabledField = professor.researchFields.some(
+        researchField => enabledFields.some(
+          enabledField => enabledField.name === researchField.field
+        )
+      );
+
+      // 2. 선택된 세부 분야에 속한 교수 찾기
+      const matchesSelectedSubFields = Object.entries(selectedSubFields).some(([fieldName, subFields]) =>
+        professor.researchFields.some(
+          researchField =>
+            researchField.field === fieldName &&
+            (subFields.length === 0 || // 세부 분야가 선택되지 않았거나
+            researchField.subFields.some(sf => subFields.includes(sf))) // 선택된 세부 분야와 일치
+        )
+      );
+
+      return matchesEnabledField || matchesSelectedSubFields;
+    });
+  };
 
   const filterUniversities = (universities: University[]) => {
     return universities.map(university => {
-      const filteredProfessors = university.professors.filter(professor => {
-        // 1. 활성화된 필드에 속한 교수 찾기
-        const matchesEnabledField = enabledFields.length > 0 && professor.researchFields.some(
-          researchField => enabledFields.some(
-            enabledField => enabledField.name === researchField.field
-          )
-        );
+      const filteredProfessors = filterProfessors(university.professors);
 
-        // 2. 선택된 세부 분야에 속한 교수 찾기
-        const matchesSelectedSubField = selectedSubField && professor.researchFields.some(
-          researchField => researchField.subFields.includes(selectedSubField)
-        );
-
-        // 둘 중 하나라도 만족하면 포함
-        return matchesEnabledField || matchesSelectedSubField;
-      });
-
-      // 필터링된 교수들의 정보로 대학 정보 업데이트
       return {
         ...university,
         professors: filteredProfessors,
         paperCount: filteredProfessors.reduce((sum, prof) => sum + prof.paperCount, 0),
         labCount: filteredProfessors.length
       };
-    }).filter(university => university.professors.length > 0);
+    })
+    .filter(university => university.professors.length > 0)
+    .sort((a, b) => b.paperCount - a.paperCount);
   };
 
-  if (!selectedSubField && enabledFields.length === 0) {
+  if (!Object.keys(selectedSubFields).length && enabledFields.length === 0) {
     return (
       <div className="flex items-center justify-center h-full text-muted-foreground">
         왼쪽에서 연구 분야를 선택하거나 활성화해주세요.
@@ -239,24 +427,23 @@ export default function UniversityRankings({ selectedSubField, enabledFields }: 
   const filteredUniversities = filterUniversities(mockUniversities);
 
   if (selectedUniversity) {
+    // 선택된 대학의 모든 교수 데이터를 유지하면서 필터링
+    const currentUniversity = {
+      ...selectedUniversity,
+      professors: filterProfessors(selectedUniversity.professors)
+    };
+
+    // 필터링된 교수가 없는 경우에도 대학 정보는 유지
     return (
       <ProfessorList 
         university={{
-          ...selectedUniversity,
-          professors: selectedUniversity.professors.filter(professor => {
-            const matchesEnabledField = enabledFields.length > 0 && professor.researchFields.some(
-              researchField => enabledFields.some(
-                enabledField => enabledField.name === researchField.field
-              )
-            );
-            const matchesSelectedSubField = selectedSubField && professor.researchFields.some(
-              researchField => researchField.subFields.includes(selectedSubField)
-            );
-            return matchesEnabledField || matchesSelectedSubField;
-          })
+          ...currentUniversity,
+          paperCount: currentUniversity.professors.reduce((sum, prof) => sum + prof.paperCount, 0),
+          labCount: currentUniversity.professors.length
         }}
         onBack={() => setSelectedUniversity(null)}
-        selectedSubField={selectedSubField}
+        selectedSubFields={selectedSubFields}
+        enabledFields={enabledFields}
       />
     );
   }
@@ -264,7 +451,7 @@ export default function UniversityRankings({ selectedSubField, enabledFields }: 
   return (
     <div className="p-6">
       <h2 className="text-xl font-semibold mb-6">
-        {selectedSubField ? `${selectedSubField} 분야` : '활성화된 분야'} 대학 순위
+        {Object.keys(selectedSubFields).length ? '선택된 분야' : '활성화된 분야'} 대학 순위
       </h2>
       <div className="space-y-4">
         {filteredUniversities.map((university, index) => (
