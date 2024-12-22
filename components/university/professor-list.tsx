@@ -10,7 +10,7 @@ type ProfessorListProps = {
   enabledFields: ResearchField[];
 };
 
-const getLabSizeLabel = (size: LabSize): string => {
+const getLabSizeLabel = (size: LabSize | 'unknown'): string => {
   switch (size) {
     case 'large':
       return '대형';
@@ -18,10 +18,12 @@ const getLabSizeLabel = (size: LabSize): string => {
       return '중형';
     case 'small':
       return '소형';
+    case 'unknown':
+      return '알 수 없음';
   }
 };
 
-const getLabSizeColor = (size: LabSize): string => {
+const getLabSizeColor = (size: LabSize | 'unknown'): string => {
   switch (size) {
     case 'large':
       return 'text-blue-600 bg-blue-50';
@@ -29,6 +31,8 @@ const getLabSizeColor = (size: LabSize): string => {
       return 'text-green-600 bg-green-50';
     case 'small':
       return 'text-orange-600 bg-orange-50';
+    case 'unknown':
+      return 'text-gray-600 bg-gray-50';
   }
 };
 
@@ -83,7 +87,9 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
 
       <div className="space-y-4">
         {filteredProfessors.map((professor) => {
-          const labSize = calculateLabSize(professor.labMemberCount);
+          const labSize = professor.labMemberCount != null 
+            ? calculateLabSize(professor.labMemberCount)
+            : 'unknown';
           
           const allSubFields = professor.researchFields
             .flatMap(field => field.subFields)
@@ -125,15 +131,22 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {professor.department} | 2019년 이후 인용 수: {professor.citationsSince2019} | 연구원: {professor.labMemberCount}명
+                    {professor.department} | 2019년 이후 인용 수: {professor.citationsSince2019} | 
+                    연구원: {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     연구 분야: {allSubFields}
                   </p>
                 </div>
-                <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
-                  {getLabSizeLabel(labSize)} 연구실
-                </span>
+                {professor.labMemberCount != null ? (
+                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
+                    {getLabSizeLabel(labSize)} 연구실
+                  </span>
+                ) : (
+                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor('unknown')}`}>
+                    알 수 없음
+                  </span>
+                )}
               </div>
             </div>
           );
