@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Home, BookOpen } from 'lucide-react';
 import { University, Professor, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
 import { calculateLabSize, LAB_SIZE_CRITERIA } from '@/lib/utils';
 
@@ -97,7 +97,33 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium">{professor.name}</h3>
+                  <div className="flex items-center gap-2">
+                    {professor.labUrl ? (
+                      <a
+                        href={professor.labUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium hover:text-blue-600 transition-colors group flex items-center gap-2"
+                        title="연구실 홈페이지 방문"
+                      >
+                        <h3>{professor.name}</h3>
+                        <Home className="h-4 w-4 text-muted-foreground group-hover:text-blue-600" />
+                      </a>
+                    ) : (
+                      <h3 className="font-medium">{professor.name}</h3>
+                    )}
+                    {professor.scholarUrl && (
+                      <a
+                        href={professor.scholarUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-blue-600 transition-colors"
+                        title="구글 스칼라 프로필 방문"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     논문 수: {professor.paperCount} | 연구원: {professor.labMemberCount}명
                   </p>

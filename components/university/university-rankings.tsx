@@ -16,6 +16,8 @@ const mockUniversities: University[] = [
         name: "김교수",
         paperCount: 45,
         labMemberCount: 15,
+        labUrl: "https://arc.snu.ac.kr/",
+        scholarUrl: "https://scholar.google.com/citations?user=PA-QN6IAAAAJ",
         researchFields: [
           {
             category: "Computer Science",

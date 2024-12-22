@@ -23,6 +23,7 @@ export type Professor = {
   paperCount: number;
   labMemberCount: number;
   labUrl?: string;
+  scholarUrl?: string;
   researchFields: ProfessorField[];
 };
 
