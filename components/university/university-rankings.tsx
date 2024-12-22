@@ -380,24 +380,18 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
 
   const filterProfessors = (professors: Professor[]) => {
     return professors.filter(professor => {
-      // 1. 활성화된 필드에 속한 교수 찾기
-      const matchesEnabledField = professor.researchFields.some(
-        researchField => enabledFields.some(
-          enabledField => enabledField.name === researchField.field
-        )
-      );
-
-      // 2. 선택된 세부 분야에 속한 교수 찾기
-      const matchesSelectedSubFields = Object.entries(selectedSubFields).some(([fieldName, subFields]) =>
-        professor.researchFields.some(
-          researchField =>
-            researchField.field === fieldName &&
-            (subFields.length === 0 || // 세부 분야가 선택되지 않았거나
-            researchField.subFields.some(sf => subFields.includes(sf))) // 선택된 세부 분야와 일치
-        )
-      );
-
-      return matchesEnabledField || matchesSelectedSubFields;
+      return professor.researchFields.some(researchField => {
+        // 해당 필드의 세부 분야가 선택되어 있는지 확인
+        const selectedSubFieldsForField = selectedSubFields[researchField.field] || [];
+        
+        // 세부 분야가 선택되어 있다면, 필드의 활성화 여부와 관계없이 포함
+        if (selectedSubFieldsForField.length > 0) {
+          return researchField.subFields.some(sf => selectedSubFieldsForField.includes(sf));
+        }
+        
+        // 세부 분야가 선택되어 있지 않다면, 필드가 활성화된 경우에만 포함
+        return enabledFields.some(field => field.name === researchField.field);
+      });
     });
   };
 
