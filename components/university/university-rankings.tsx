@@ -14,7 +14,8 @@ const mockUniversities: University[] = [
       {
         id: "1",
         name: "김교수",
-        paperCount: 45,
+        department: "컴퓨터공학부",
+        citationsSince2019: 3500,
         labMemberCount: 15,
         labUrl: "https://arc.snu.ac.kr/",
         scholarUrl: "https://scholar.google.com/citations?user=PA-QN6IAAAAJ",
@@ -33,7 +34,8 @@ const mockUniversities: University[] = [
       {
         id: "2",
         name: "이교수",
-        paperCount: 38,
+        department: "컴퓨터공학부",
+        citationsSince2019: 3000,
         labMemberCount: 8,
         researchFields: [
           {
@@ -51,7 +53,8 @@ const mockUniversities: University[] = [
       {
         id: "3",
         name: "박교수",
-        paperCount: 35,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2800,
         labMemberCount: 4,
         researchFields: [
           {
@@ -83,7 +86,8 @@ const mockUniversities: University[] = [
       {
         id: "4",
         name: "정교수",
-        paperCount: 42,
+        department: "컴퓨터공학부",
+        citationsSince2019: 3200,
         labMemberCount: 12,
         researchFields: [
           {
@@ -101,7 +105,8 @@ const mockUniversities: University[] = [
       {
         id: "5",
         name: "최교수",
-        paperCount: 36,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2500,
         labMemberCount: 7,
         researchFields: [
           {
@@ -126,7 +131,8 @@ const mockUniversities: University[] = [
       {
         id: "6",
         name: "한교수",
-        paperCount: 40,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2700,
         labMemberCount: 10,
         researchFields: [
           {
@@ -144,7 +150,8 @@ const mockUniversities: University[] = [
       {
         id: "7",
         name: "임교수",
-        paperCount: 32,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2200,
         labMemberCount: 6,
         researchFields: [
           {
@@ -168,7 +175,8 @@ const mockUniversities: University[] = [
       {
         id: "8",
         name: "송교수",
-        paperCount: 38,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2500,
         labMemberCount: 9,
         researchFields: [
           {
@@ -186,7 +194,8 @@ const mockUniversities: University[] = [
       {
         id: "9",
         name: "윤교수",
-        paperCount: 30,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2000,
         labMemberCount: 5,
         researchFields: [
           {
@@ -211,7 +220,8 @@ const mockUniversities: University[] = [
       {
         id: "10",
         name: "강교수",
-        paperCount: 35,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2300,
         labMemberCount: 8,
         researchFields: [
           {
@@ -229,7 +239,8 @@ const mockUniversities: University[] = [
       {
         id: "11",
         name: "조교수",
-        paperCount: 28,
+        department: "컴퓨터공학부",
+        citationsSince2019: 1800,
         labMemberCount: 6,
         researchFields: [
           {
@@ -262,7 +273,8 @@ const mockUniversities: University[] = [
       {
         id: "12",
         name: "오교수",
-        paperCount: 25,
+        department: "컴퓨터공학부",
+        citationsSince2019: 2000,
         labMemberCount: 9,
         researchFields: [
           {
@@ -280,7 +292,8 @@ const mockUniversities: University[] = [
       {
         id: "13",
         name: "신교수",
-        paperCount: 22,
+        department: "컴퓨터공학부",
+        citationsSince2019: 1700,
         labMemberCount: 16,
         researchFields: [
           {
@@ -298,7 +311,8 @@ const mockUniversities: University[] = [
       {
         id: "14",
         name: "황교수",
-        paperCount: 18,
+        department: "컴퓨터공학부",
+        citationsSince2019: 1500,
         labMemberCount: 25,
         researchFields: [
           {
@@ -323,7 +337,8 @@ const mockUniversities: University[] = [
       {
         id: "15",
         name: "백교수",
-        paperCount: 16,
+        department: "컴퓨터공학부",
+        citationsSince2019: 1400,
         labMemberCount: 14,
         researchFields: [
           {
@@ -340,7 +355,8 @@ const mockUniversities: University[] = [
       {
         id: "16",
         name: "문교수",
-        paperCount: 14,
+        department: "컴퓨터공학부",
+        citationsSince2019: 1300,
         labMemberCount: 23,
         researchFields: [
           {

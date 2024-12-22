@@ -51,7 +51,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
     return matchesEnabledField || matchesSelectedSubFields;
   });
 
-  const totalPaperCount = filteredProfessors.reduce((sum, prof) => sum + prof.paperCount, 0);
+  const totalCitations = filteredProfessors.reduce((sum, prof) => sum + prof.citationsSince2019, 0);
   const totalLabCount = filteredProfessors.length;
 
   return (
@@ -68,7 +68,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
         {university.name}
       </h2>
       <p className="text-sm text-muted-foreground mb-2">
-        전체 논문 수: {totalPaperCount} | 연구실: {totalLabCount}개
+        2019년 이후 총 인용 수: {totalCitations} | 연구실: {totalLabCount}개
       </p>
       <div className="flex gap-2 mb-6">
         {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
@@ -125,7 +125,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    논문 수: {professor.paperCount} | 연구원: {professor.labMemberCount}명
+                    {professor.department} | 2019년 이후 인용 수: {professor.citationsSince2019} | 연구원: {professor.labMemberCount}명
                   </p>
                   <p className="text-sm text-muted-foreground">
                     연구 분야: {allSubFields}

@@ -20,7 +20,8 @@ export type ProfessorField = {
 export type Professor = {
   id: string;
   name: string;
-  paperCount: number;
+  department: string;
+  citationsSince2019: number;
   labMemberCount: number;
   labUrl?: string;
   scholarUrl?: string;
