@@ -15,3 +15,4 @@ export const LAB_SIZE_CRITERIA = {
   medium: '8-19명',
   small: '7명 이하'
 } as const;
+
