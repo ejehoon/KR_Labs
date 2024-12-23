@@ -1,37 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KR-rankings (한국 대학 연구실 순위)
 
-## Getting Started
+## 프로젝트 소개 👋
 
-First, run the development server:
+안녕하세요! 이 프로젝트는 한국 대학의 컴퓨터공학 분야 연구실들을 쉽게 찾아볼 수 있도록 만든 웹 애플리케이션입니다. 취업 준비생으로서 대학원 진학을 고민하며, 각 대학의 연구실 정보를 일일이 찾아보는 것이 불편하다고 느껴 이 프로젝트를 시작하게 되었습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 주요 기능 🚀
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. 연구 분야별 필터링
+- CS 분야의 세부 카테고리(AI, Systems, Theory, Interdisciplinary Areas)별로 연구실 검색
+- 각 카테고리의 세부 연구 분야별 필터링 가능
+- ON/OFF 토글로 빠른 필터링
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. 대학 순위 확인
+- 2019년 이후 논문 인용 수 기반 순위 제공
+- 연구실 규모 정보 제공 (대형/중형/소형)
+- 선택한 연구 분야에 따른 맞춤형 순위 확인
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. 교수/연구실 정보
+- 교수별 상세 정보 (인용 수, 연구원 수, 연구 분야)
+- 연구실 홈페이지 링크
+- Google Scholar 프로필 연동
 
-## Learn More
+## 기술 스택 💻
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Backend**: Supabase (PostgreSQL)
+- **Deployment**: Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 프로젝트를 통해 배운 점 📚
 
-## Deploy on Vercel
+1. **데이터 모델링**: 연구 분야와 교수 정보를 효율적으로 저장하고 조회하기 위한 DB 설계
+2. **상태 관리**: 복잡한 필터링 로직을 React 상태로 관리하는 방법
+3. **성능 최적화**: 대량의 데이터를 효율적으로 처리하는 방법
+4. **TypeScript**: 타입 안전성을 통한 버그 예방
+5. **Supabase**: BaaS를 활용한 백엔드 구현
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 향후 계획 🎯
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# KRcsrank
+- [ ] 연구실 리뷰 기능 추가
+- [ ] 연구 분야 트렌드 분석
+- [ ] 모바일 최적화
+- [ ] 영문 버전 지원
+
+## 기여하기 🤝
+
+이 프로젝트는 개선의 여지가 많습니다. 버그 리포트, 새로운 기능 제안, PR 모두 환영합니다!
+
+
+## 연락처 📧
+
+프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요!
+- Email: kaak2203@naver.com
