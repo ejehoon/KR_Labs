@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Home, BookOpen } from 'lucide-react';
+import { ArrowLeft, Home, BookOpen, Database } from 'lucide-react';
 import { University, Professor, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
 import { calculateLabSize, LAB_SIZE_CRITERIA } from '@/lib/utils';
 
@@ -90,11 +90,6 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
           const labSize = professor.labMemberCount != null 
             ? calculateLabSize(professor.labMemberCount)
             : 'unknown';
-          
-          const allSubFields = professor.researchFields
-            .flatMap(field => field.subFields)
-            .filter((value, index, self) => self.indexOf(value) === index)
-            .join(', ');
 
           return (
             <div
@@ -104,49 +99,56 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    {professor.labUrl ? (
-                      <a
-                        href={professor.labUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium hover:text-blue-600 transition-colors group flex items-center gap-2"
-                        title="연구실 홈페이지 방문"
-                      >
-                        <h3>{professor.name}</h3>
-                        <Home className="h-4 w-4 text-muted-foreground group-hover:text-blue-600" />
-                      </a>
-                    ) : (
-                      <h3 className="font-medium">{professor.name}</h3>
-                    )}
-                    {professor.scholarUrl && (
-                      <a
-                        href={professor.scholarUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-blue-600 transition-colors"
-                        title="구글 스칼라 프로필 방문"
-                      >
-                        <BookOpen className="h-4 w-4" />
-                      </a>
-                    )}
+                    <h3 className="font-medium">{professor.name}</h3>
+                    <div className="flex gap-2">
+                      {professor.labUrl && (
+                        <a
+                          href={professor.labUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-blue-600 transition-colors"
+                          title="연구실 홈페이지"
+                        >
+                          <Home className="h-4 w-4" />
+                        </a>
+                      )}
+                      {professor.scholarUrl && (
+                        <a
+                          href={professor.scholarUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-blue-600 transition-colors"
+                          title="Google Scholar"
+                        >
+                          <BookOpen className="h-4 w-4" />
+                        </a>
+                      )}
+                      {professor.dblpUrl && (
+                        <a
+                          href={professor.dblpUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-blue-600 transition-colors"
+                          title="DBLP"
+                        >
+                          <Database className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {professor.department} | 2019년 이후 인용 수: {professor.citationsSince2019} | 
-                    연구원: {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
+                    {professor.department} | 논문 {professor.paperCount}편 | 
+                    연구원 {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    연구 분야: {allSubFields}
+                    연구 분야: {professor.researchFields
+                      .flatMap(field => field.subFields)
+                      .join(', ')}
                   </p>
                 </div>
-                {professor.labMemberCount != null ? (
-                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
-                    {getLabSizeLabel(labSize)} 연구실
-                  </span>
-                ) : (
-                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor('unknown')}`}>
-                    알 수 없음
-                  </span>
-                )}
+                <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
+                  {getLabSizeLabel(labSize)} 연구실
+                </span>
               </div>
             </div>
           );

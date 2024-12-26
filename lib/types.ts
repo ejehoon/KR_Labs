@@ -21,10 +21,11 @@ export type Professor = {
   id: string;
   name: string;
   department: string;
-  citationsSince2019: number;
+  paperCount: number;
   labMemberCount: number;
   labUrl?: string;
   scholarUrl?: string;
+  dblpUrl?: string;
   researchFields: ProfessorField[];
 };
 

@@ -101,7 +101,7 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
                 <div>
                   <h3 className="font-medium">{university.name}</h3>
                   <p className="text-sm text-muted-foreground">
-                    2019년 이후 총 인용 수: {university.paperCount} | 연구실: {university.labCount}개
+                    총 논문 수: {university.paperCount}편 | 연구실: {university.labCount}개
                   </p>
                 </div>
               </div>
