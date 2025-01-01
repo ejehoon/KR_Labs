@@ -7,7 +7,7 @@ export async function getUniversities(params?: {
 }): Promise<University[]> {
   try {
     // 1. 기본 쿼리 구성
-    let query = supabase
+    const query = supabase
       .from('professors')
       .select(`
         id,

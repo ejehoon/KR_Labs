@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Home, BookOpen, Database } from 'lucide-react';
-import { University, Professor, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
+import { University, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
 import { calculateLabSize, LAB_SIZE_CRITERIA } from '@/lib/utils';
 
 type ProfessorListProps = {
