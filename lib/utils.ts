@@ -14,7 +14,9 @@ export const LAB_SIZE_CRITERIA = {
 } as const;
 
 export function calculateLabSize(memberCount: number | null): LabSize {
-  if (memberCount === null) return 'unknown';
+  // null이거나 0명일 경우 'unknown' 반환
+  if (memberCount === null || memberCount === 0) return 'unknown';
+  
   if (memberCount >= LAB_SIZE_THRESHOLDS.large) return 'large';
   if (memberCount >= LAB_SIZE_THRESHOLDS.medium) return 'medium';
   return 'small';

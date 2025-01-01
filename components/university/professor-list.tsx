@@ -36,6 +36,11 @@ const getLabSizeColor = (size: LabSize | 'unknown'): string => {
   }
 };
 
+const getLabSizeText = (labSize: LabSize) => {
+  if (labSize === 'unknown') return '알 수 없음';
+  return `${labSize === 'large' ? '대형' : labSize === 'medium' ? '중형' : '소형'} 연구실`;
+};
+
 export default function ProfessorList({ university, onBack, selectedSubFields, enabledFields }: ProfessorListProps) {
   const filteredProfessors = university.professors.filter(professor => {
     const matchesEnabledField = enabledFields.length > 0 && professor.researchFields.some(
@@ -147,7 +152,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                   </p>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
-                  {getLabSizeLabel(labSize)} 연구실
+                  {getLabSizeText(labSize)}
                 </span>
               </div>
             </div>
