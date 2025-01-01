@@ -19,7 +19,7 @@ export default function ResearchFieldSelector({
   selectedSubFields
 }: ResearchFieldSelectorProps) {
   const [categories] = useState<ResearchCategory[]>(RESEARCH_CATEGORIES);
-  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(['CS']);
   const [expandedFields, setExpandedFields] = useState<string[]>([]);
 
   const toggleCategory = (categoryName: string) => {
