@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import { University } from './types';
+import { University, ProfessorFromDB } from './types';
 
 export async function getUniversities(params?: {
   selectedSubFields?: { [fieldName: string]: string[] };
@@ -26,7 +26,7 @@ export async function getUniversities(params?: {
       `);
 
     // 2. 데이터 가져오기
-    const { data: professors, error } = await query;
+    const { data: professors, error } = await query as { data: ProfessorFromDB[] | null, error: any };
     if (error) throw error;
 
     // 3. 연구 분야 정보 가져오기
@@ -46,7 +46,8 @@ export async function getUniversities(params?: {
     const universitiesMap = new Map<string, University>();
 
     professors?.forEach(professor => {
-      const universityName = professor.universities.name;
+      const universityName = professor.universities?.name;
+      if (!universityName) return;
 
       // 교수의 연구 분야 데이터 변환
       const researchFields = new Map<string, { category: string; field: string; subFields: string[] }>();
@@ -149,10 +150,15 @@ export async function getUniversity(id: string): Promise<University | null> {
         )
       `)
       .eq('id', id)
-      .single();
+      .single() as { data: ProfessorFromDB | null, error: any };
 
     if (error) throw error;
     if (!professor) return null;
+
+    // universities 객체가 존재하는지 확인
+    if (!professor.universities?.name) {
+      throw new Error('University information not found');
+    }
 
     // 대학 정보 구성
     const university: University = {
@@ -162,10 +168,10 @@ export async function getUniversity(id: string): Promise<University | null> {
         name: professor.name,
         department: professor.department,
         paperCount: professor.paper_count,
-        labMemberCount: professor.lab_member_count,
-        labUrl: professor.lab_url,
-        scholarUrl: professor.scholar_url,
-        dblpUrl: professor.dblp_url,
+        labMemberCount: professor.lab_member_count ?? 0, // null인 경우 0으로 처리
+        labUrl: professor.lab_url ?? undefined,
+        scholarUrl: professor.scholar_url ?? undefined,
+        dblpUrl: professor.dblp_url ?? undefined,
         researchFields: professor.professor_research_fields.map(prf => ({
           category: String(prf.research_fields.category_id),
           field: prf.research_fields.name,
