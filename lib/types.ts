@@ -56,4 +56,38 @@ export type ProfessorFromDB = {
     id: string;
     name: string;
   };
+};
+
+// Supabase 에러 타입 추가
+export type PostgrestError = {
+  message: string;
+  details: string;
+  hint: string;
+  code: string;
+};
+
+// Supabase 응답 타입 추가
+export type SubFieldFromDB = {
+  id: number;
+  name: string;
+  research_fields: {
+    id: number;
+    name: string;
+    category_id: number;
+  };
+};
+
+// professor_research_fields 타입 추가
+export type ProfessorResearchFieldFromDB = {
+  research_fields: {
+    id: number;
+    name: string;
+    category_id: number;
+  };
+  professor_sub_fields: {
+    research_sub_fields: {
+      id: number;
+      name: string;
+    };
+  }[];
 }; 

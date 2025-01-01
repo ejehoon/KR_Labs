@@ -1,5 +1,11 @@
 import { supabase } from './supabase';
-import { University, ProfessorFromDB } from './types';
+import { 
+  University, 
+  ProfessorFromDB, 
+  PostgrestError, 
+  SubFieldFromDB,
+  ProfessorResearchFieldFromDB 
+} from './types';
 
 export async function getUniversities(params?: {
   selectedSubFields?: { [fieldName: string]: string[] };
@@ -26,7 +32,10 @@ export async function getUniversities(params?: {
       `);
 
     // 2. 데이터 가져오기
-    const { data: professors, error } = await query as { data: ProfessorFromDB[] | null, error: any };
+    const { data: professors, error } = await query as { 
+      data: ProfessorFromDB[] | null; 
+      error: PostgrestError | null 
+    };
     if (error) throw error;
 
     // 3. 연구 분야 정보 가져오기
@@ -40,7 +49,10 @@ export async function getUniversities(params?: {
           name,
           category_id
         )
-      `);
+      `) as { 
+        data: SubFieldFromDB[] | null; 
+        error: PostgrestError | null 
+      };
 
     // 4. 대학별로 데이터 그룹화
     const universitiesMap = new Map<string, University>();
@@ -150,7 +162,10 @@ export async function getUniversity(id: string): Promise<University | null> {
         )
       `)
       .eq('id', id)
-      .single() as { data: ProfessorFromDB | null, error: any };
+      .single() as { 
+        data: (ProfessorFromDB & { professor_research_fields: ProfessorResearchFieldFromDB[] }) | null; 
+        error: PostgrestError | null 
+      };
 
     if (error) throw error;
     if (!professor) return null;
