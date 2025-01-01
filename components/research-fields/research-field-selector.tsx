@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Check } from 'lucide-react';
-import { RESEARCH_CATEGORIES } from '@/lib/constants';
+import { RESEARCH_CATEGORIES, ResearchCategory } from '@/lib/constants';
 import { ResearchField, SelectedSubFields } from '@/lib/types';
 
 type ResearchFieldSelectorProps = {
@@ -18,7 +18,7 @@ export default function ResearchFieldSelector({
   enabledFields,
   selectedSubFields
 }: ResearchFieldSelectorProps) {
-  const [categories] = useState(RESEARCH_CATEGORIES);
+  const [categories] = useState<ResearchCategory[]>(RESEARCH_CATEGORIES);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [expandedFields, setExpandedFields] = useState<string[]>([]);
 
@@ -51,7 +51,7 @@ export default function ResearchFieldSelector({
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-4">연구 분야</h2>
         <div className="space-y-2">
-          {categories.map((category) => (
+          {categories.map((category: ResearchCategory) => (
             <div key={category.name} className="space-y-1">
               <button
                 onClick={() => toggleCategory(category.name)}
@@ -67,7 +67,7 @@ export default function ResearchFieldSelector({
               
               {expandedCategories.includes(category.name) && (
                 <div className="ml-4 space-y-1">
-                  {category.fields.map((field) => (
+                  {category.fields.map((field: ResearchField) => (
                     <div key={field.name} className="space-y-1">
                       <div className="flex items-center justify-between">
                         <button

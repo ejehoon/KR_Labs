@@ -1,3 +1,10 @@
+import { ResearchField } from './types';
+
+export type ResearchCategory = {
+  name: string;
+  fields: ResearchField[];
+};
+
 export const RESEARCH_CATEGORIES: ResearchCategory[] = [
   {
     name: 'CS',
