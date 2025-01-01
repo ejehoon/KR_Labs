@@ -1,5 +1,3 @@
-import { ResearchCategory } from './types';
-
 export const RESEARCH_CATEGORIES: ResearchCategory[] = [
   {
     name: 'CS',
@@ -55,6 +53,14 @@ export const RESEARCH_CATEGORIES: ResearchCategory[] = [
           'Visualization',
         ],
       },
+      // etc 카테고리 추가
+      {
+        name: 'etc',
+        isEnabled: false,
+        subFields: [
+          'Uncategorized'
+        ],
+      },
     ],
   },
-]; 
+];
