@@ -9,7 +9,7 @@ export type ResearchCategory = {
   fields: ResearchField[];
 };
 
-export type LabSize = 'large' | 'medium' | 'small';
+export type LabSize = 'large' | 'medium' | 'small' | 'unknown';
 
 export type ProfessorField = {
   category: string;
@@ -22,10 +22,10 @@ export type Professor = {
   name: string;
   department: string;
   paperCount: number;
-  labMemberCount: number;
-  labUrl?: string;
-  scholarUrl?: string;
-  dblpUrl?: string;
+  labMemberCount: number | null;
+  labUrl?: string | null;
+  scholarUrl?: string | null;
+  dblpUrl?: string | null;
   researchFields: ProfessorField[];
 };
 

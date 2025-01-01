@@ -1,14 +1,11 @@
 import { LabSize } from './types';
 
-export const calculateLabSize = (memberCount: number): LabSize => {
-  if (memberCount >= 20) {
-    return 'large';
-  } else if (memberCount >= 8) {
-    return 'medium';
-  } else {
-    return 'small';
-  }
-};
+export function calculateLabSize(memberCount: number | null): LabSize | 'unknown' {
+  if (memberCount === null) return 'unknown';
+  if (memberCount >= LAB_SIZE_CRITERIA.large) return 'large';
+  if (memberCount >= LAB_SIZE_CRITERIA.medium) return 'medium';
+  return 'small';
+}
 
 export const LAB_SIZE_CRITERIA = {
   large: '20명 이상',

@@ -83,6 +83,14 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
     );
   }
 
+  if (!universities || universities.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-muted-foreground">데이터가 없습니다.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6">
       <h2 className="text-xl font-semibold mb-6">

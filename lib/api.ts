@@ -110,10 +110,10 @@ export async function getUniversities(params?: {
           name: professor.name,
           department: professor.department,
           paperCount: professor.paper_count,
-          labMemberCount: professor.lab_member_count,
-          labUrl: professor.lab_url,
-          scholarUrl: professor.scholar_url,
-          dblpUrl: professor.dblp_url,
+          labMemberCount: professor.lab_member_count ?? 0,
+          labUrl: professor.lab_url ?? undefined,
+          scholarUrl: professor.scholar_url ?? undefined,
+          dblpUrl: professor.dblp_url ?? undefined,
           researchFields: professorResearchFields
         });
         university.paperCount += professor.paper_count;
@@ -183,7 +183,7 @@ export async function getUniversity(id: string): Promise<University | null> {
         name: professor.name,
         department: professor.department,
         paperCount: professor.paper_count,
-        labMemberCount: professor.lab_member_count ?? 0, // null인 경우 0으로 처리
+        labMemberCount: professor.lab_member_count ?? 0,
         labUrl: professor.lab_url ?? undefined,
         scholarUrl: professor.scholar_url ?? undefined,
         dblpUrl: professor.dblp_url ?? undefined,
