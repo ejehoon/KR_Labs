@@ -86,7 +86,7 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
   if (!universities || universities.length === 0) {
     return (
       <div className="flex items-center justify-center h-full">
-        <p className="text-muted-foreground">데이터가 없습니다.</p>
+        <p className="text-muted-foreground">왼쪽에서 연구 분야를 선택하거나 활성화해주세요.</p>
       </div>
     );
   }

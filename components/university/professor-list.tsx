@@ -79,6 +79,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
       <p className="text-sm text-muted-foreground mb-2">
         총 논문 수: {totalPapers} | 연구실: {totalLabCount}개
       </p>
+
       <div className="flex gap-2 mb-6">
         {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
           <div

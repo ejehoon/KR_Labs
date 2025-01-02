@@ -71,28 +71,3 @@ export const RESEARCH_CATEGORIES: ResearchCategory[] = [
     ],
   },
 ];
-
-export const RESEARCH_FIELDS = [
-  {
-    name: 'CS',
-    isEnabled: true,
-    subFields: [
-      'Computer vision',
-      'Machine learning',
-      'Artificial intelligence',
-      'Natural language processing',
-      'Robotics',
-      'Systems',
-      'Graphics',
-      'Security',
-      'Database',
-      'Networks',
-      'Programming languages',
-      'Software engineering',
-      'Theory',
-      'Human-computer interaction',
-      'Computer architecture'
-    ]
-  },
-  // ... 다른 필드들
-];

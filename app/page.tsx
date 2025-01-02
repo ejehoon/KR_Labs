@@ -4,10 +4,17 @@ import React, { useState } from 'react';
 import ResearchFieldSelector from '@/components/research-fields/research-field-selector';
 import UniversityRankings from '@/components/university/university-rankings';
 import { ResearchField, SelectedSubFields } from '@/lib/types';
+import { RESEARCH_CATEGORIES } from '@/lib/constants';
 
 export default function Home() {
   const [selectedSubFields, setSelectedSubFields] = useState<SelectedSubFields>({});
-  const [enabledFields, setEnabledFields] = useState<ResearchField[]>([]);
+  const [enabledFields, setEnabledFields] = useState<ResearchField[]>([
+    {
+      name: 'CS',
+      isEnabled: true,
+      subFields: RESEARCH_CATEGORIES[0].fields.flatMap(f => f.subFields)
+    }
+  ]);
 
   const handleFieldToggle = (field: ResearchField) => {
     setEnabledFields(prev => {
