@@ -65,100 +65,103 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
 
   return (
     <div className="p-6">
-      <button
-        onClick={onBack}
-        className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
-      >
-        <ArrowLeft className="h-4 w-4 mr-1" />
-        대학 목록으로 돌아가기
-      </button>
+      <div className="w-[550px]">
+        <button
+          onClick={onBack}
+          className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
+        >
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          대학 목록으로 돌아가기
+        </button>
 
-      <h2 className="text-xl font-semibold mb-2">
-        {university.name}
-      </h2>
-      <p className="text-sm text-muted-foreground mb-2">
-        총 논문 수: {totalPapers} | 연구실: {totalLabCount}개
-      </p>
+        <h2 className="text-xl font-semibold mb-2">
+          {university.name}
+        </h2>
+        <p className="text-sm text-muted-foreground mb-2">
+          총 논문 수: {totalPapers} | 연구실: {totalLabCount}개
+        </p>
 
-      <div className="flex gap-2 mb-6">
-        {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
-          <div
-            key={size}
-            className={`text-xs px-2 py-1 rounded-full ${getLabSizeColor(size as LabSize)}`}
-          >
-            {getLabSizeLabel(size as LabSize)}: {criteria}
-          </div>
-        ))}
-      </div>
-
-      <div className="space-y-4">
-        {filteredProfessors.map((professor) => {
-          const labSize = professor.labMemberCount != null 
-            ? calculateLabSize(professor.labMemberCount)
-            : 'unknown';
-
-          return (
+        <div className="flex gap-2 mb-6">
+          {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
             <div
-              key={professor.id}
-              className="p-4 rounded-lg border hover:bg-accent/50 transition-colors"
+              key={size}
+              className={`text-xs px-2 py-1 rounded-full ${getLabSizeColor(size as LabSize)}`}
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-medium">{professor.name}</h3>
-                    <div className="flex gap-2">
-                      {professor.labUrl && (
-                        <a
-                          href={professor.labUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-blue-600 transition-colors"
-                          title="연구실 홈페이지"
-                        >
-                          <Home className="h-4 w-4" />
-                        </a>
-                      )}
-                      {professor.scholarUrl && (
-                        <a
-                          href={professor.scholarUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-blue-600 transition-colors"
-                          title="Google Scholar"
-                        >
-                          <BookOpen className="h-4 w-4" />
-                        </a>
-                      )}
-                      {professor.dblpUrl && (
-                        <a
-                          href={professor.dblpUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-blue-600 transition-colors"
-                          title="DBLP"
-                        >
-                          <Database className="h-4 w-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {professor.department} | 논문 {professor.paperCount}편 | 
-                    연구원 {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    연구 분야: {professor.researchFields
-                      .flatMap(field => field.subFields)
-                      .join(', ')}
-                  </p>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
-                  {getLabSizeText(labSize)}
-                </span>
-              </div>
+              {getLabSizeLabel(size as LabSize)}: {criteria}
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <div className="space-y-2">
+          {filteredProfessors.map((professor) => {
+            const labSize = professor.labMemberCount != null 
+              ? calculateLabSize(professor.labMemberCount)
+              : 'unknown';
+
+            return (
+              <div
+                key={professor.id}
+                className="w-full bg-white/50 hover:bg-white/30 p-4 rounded-xl transition-all 
+                  duration-200 backdrop-blur-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-medium">{professor.name}</h3>
+                      <div className="flex gap-2">
+                        {professor.labUrl && (
+                          <a
+                            href={professor.labUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            title="연구실 홈페이지"
+                          >
+                            <Home className="h-4 w-4" />
+                          </a>
+                        )}
+                        {professor.scholarUrl && (
+                          <a
+                            href={professor.scholarUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            title="Google Scholar"
+                          >
+                            <BookOpen className="h-4 w-4" />
+                          </a>
+                        )}
+                        {professor.dblpUrl && (
+                          <a
+                            href={professor.dblpUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            title="DBLP"
+                          >
+                            <Database className="h-4 w-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {professor.department} | 논문 {professor.paperCount}편 | 
+                      연구원 {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      연구 분야: {professor.researchFields
+                        .flatMap(field => field.subFields)
+                        .join(', ')}
+                    </p>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
+                    {getLabSizeText(labSize)}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

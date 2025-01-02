@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { University, ResearchField, SelectedSubFields } from '@/lib/types';
 import ProfessorList from './professor-list';
 import { getUniversities } from '@/lib/api';
+import { ArrowLeft } from 'lucide-react';
 
 type UniversityRankingsProps = {
   selectedSubFields: SelectedSubFields;
@@ -92,30 +93,62 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-semibold mb-6">
-        {Object.keys(selectedSubFields).length ? '선택된 분야' : '활성화된 분야'} 대학 순위
-      </h2>
-      <div className="space-y-4">
-        {universities.map((university, index) => (
-          <button
-            key={university.name}
-            onClick={() => setSelectedUniversity(university)}
-            className="w-full p-4 rounded-lg border hover:bg-accent/50 transition-colors text-left"
-          >
-            <div className="flex items-center justify-between">
+    <div className="p-6 relative z-10">
+      <div className="w-[550px]">
+        <button
+          onClick={() => setSelectedUniversity(null)}
+          className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
+        >
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          대학 목록으로 돌아가기
+        </button>
+
+        <h2 className="text-xl font-semibold mb-2">
+          선택된 분야 대학 순위
+        </h2>
+
+        <div className="space-y-2">
+          {universities.map((university, index) => (
+            <button
+              key={university.name}
+              onClick={() => setSelectedUniversity(university)}
+              className="w-full bg-white/50 hover:bg-white/30 p-4 rounded-xl transition-all 
+                duration-200 text-left backdrop-blur-sm"
+            >
               <div className="flex items-center gap-4">
-                <span className="text-lg font-medium w-8">{index + 1}</span>
+                <span className="text-lg font-medium w-6">
+                  {index + 1}
+                </span>
                 <div>
                   <h3 className="font-medium">{university.name}</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground mt-1">
                     총 논문 수: {university.paperCount}편 | 연구실: {university.labCount}개
                   </p>
                 </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          ))}
+        </div>
+
+        {loading && (
+          <div className="w-[600px] bg-white/20 backdrop-blur-sm p-4 rounded-xl flex items-center justify-center">
+            <p className="text-muted-foreground">데이터를 불러오는 중...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="w-[600px] bg-white/20 backdrop-blur-sm p-4 rounded-xl flex items-center justify-center">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
+
+        {!Object.keys(selectedSubFields).length && enabledFields.length === 0 && (
+          <div className="w-[600px] bg-white/20 backdrop-blur-sm p-4 rounded-xl flex items-center justify-center">
+            <p className="text-muted-foreground">
+              왼쪽에서 연구 분야를 선택하거나 활성화해주세요.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

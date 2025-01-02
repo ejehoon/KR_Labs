@@ -61,19 +61,22 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen">
-      <ResearchFieldSelector 
-        onFieldToggle={handleFieldToggle}
-        onSubFieldToggle={handleSubFieldToggle}
-        enabledFields={enabledFields}
-        selectedSubFields={selectedSubFields}
-      />
-      <div className="flex-1">
-        <UniversityRankings 
-          selectedSubFields={selectedSubFields}
+    <>
+      <div className="cloud-bg" />
+      <main className="flex min-h-screen relative z-10">
+        <ResearchFieldSelector 
+          onFieldToggle={handleFieldToggle}
+          onSubFieldToggle={handleSubFieldToggle}
           enabledFields={enabledFields}
+          selectedSubFields={selectedSubFields}
         />
-      </div>
-    </main>
+        <div className="flex-1">
+          <UniversityRankings 
+            selectedSubFields={selectedSubFields}
+            enabledFields={enabledFields}
+          />
+        </div>
+      </main>
+    </>
   );
 }
