@@ -113,7 +113,7 @@ export default function UniversityRankings({ selectedSubFields, enabledFields }:
               key={university.name}
               onClick={() => setSelectedUniversity(university)}
               className="w-full bg-white/50 hover:bg-white/30 p-4 rounded-xl transition-all 
-                duration-200 text-left backdrop-blur-sm"
+                duration-200 text-left"
             >
               <div className="flex items-center gap-4">
                 <span className="text-lg font-medium w-6">

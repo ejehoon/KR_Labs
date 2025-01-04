@@ -102,7 +102,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
               <div
                 key={professor.id}
                 className="w-full bg-white/50 hover:bg-white/30 p-4 rounded-xl transition-all 
-                  duration-200 backdrop-blur-sm"
+                  duration-200"
               >
                 <div className="flex items-center justify-between">
                   <div>
