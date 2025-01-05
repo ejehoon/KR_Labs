@@ -2,7 +2,6 @@
 
 [KR-rankings 웹사이트 미리보기](https://kr-labstest.vercel.app/)
 
-<a href="https://kr-labstest.vercel.app/" target="_blank">KR-rankings를 확인하세요!</a>
 
 ## 프로젝트 소개 👋
 
