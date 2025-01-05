@@ -1,6 +1,7 @@
 # KR-rankings (한국 대학 연구실 순위)
 
-https://kr-labstest.vercel.app/
+[KR-rankings 웹사이트 미리보기](https://kr-labstest.vercel.app/)
+
 
 ## 프로젝트 소개 👋
 
