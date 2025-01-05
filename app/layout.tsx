@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import DrOhChat from "@/components/dr-oh/dr-oh-chat";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -85,6 +86,8 @@ export default function RootLayout({
               className="absolute bottom-0 right-0 w-full h-full object-contain"
             />
           </div>
+
+          <DrOhChat />
         </main>
       </body>
     </html>
