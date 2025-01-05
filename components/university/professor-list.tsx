@@ -26,13 +26,13 @@ const getLabSizeLabel = (size: LabSize | 'unknown'): string => {
 const getLabSizeColor = (size: LabSize | 'unknown'): string => {
   switch (size) {
     case 'large':
-      return 'text-blue-600 bg-blue-50';
+      return 'bg-indigo-100 text-indigo-700';
     case 'medium':
-      return 'text-green-600 bg-green-50';
+      return 'bg-emerald-100 text-emerald-700';
     case 'small':
-      return 'text-orange-600 bg-orange-50';
+      return 'bg-amber-100 text-amber-700';
     case 'unknown':
-      return 'text-gray-600 bg-gray-50';
+      return 'bg-slate-100 text-slate-600';
   }
 };
 
@@ -64,25 +64,29 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
   const totalLabCount = filteredProfessors.length;
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       <div className="w-[550px]">
         <button
           onClick={onBack}
-          className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
+          className="flex items-center text-sm text-gray-500 hover:text-gray-900 mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-1" />
           대학 목록으로 돌아가기
         </button>
 
-        <h2 className="text-xl font-semibold mb-2">
+        <h2 className="text-lg font-bold mb-2">
           {university.name}
         </h2>
-        <p className="text-sm text-muted-foreground mb-2">
+        <p className="text-sm text-gray-500 mb-4">
           총 논문 수: {totalPapers} | 연구실: {totalLabCount}개
         </p>
 
-        <div className="flex gap-2 mb-6">
-          {(Object.entries(LAB_SIZE_CRITERIA) as [LabSize, string][]).map(([size, criteria]) => (
+        <div className="flex gap-2 mb-4">
+          {[
+            ['small', LAB_SIZE_CRITERIA.small],
+            ['medium', LAB_SIZE_CRITERIA.medium],
+            ['large', LAB_SIZE_CRITERIA.large]
+          ].map(([size, criteria]) => (
             <div
               key={size}
               className={`text-xs px-2 py-1 rounded-full ${getLabSizeColor(size as LabSize)}`}
@@ -101,8 +105,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
             return (
               <div
                 key={professor.id}
-                className="w-full bg-white/50 hover:bg-white/30 p-4 rounded-xl transition-all 
-                  duration-200"
+                className="w-full bg-white p-4 border rounded-md"
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -114,7 +117,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                             href={professor.labUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            className="text-gray-400 hover:text-blue-600 transition-colors"
                             title="연구실 홈페이지"
                           >
                             <Home className="h-4 w-4" />
@@ -125,7 +128,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                             href={professor.scholarUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            className="text-gray-400 hover:text-blue-600 transition-colors"
                             title="Google Scholar"
                           >
                             <BookOpen className="h-4 w-4" />
@@ -136,7 +139,7 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                             href={professor.dblpUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-blue-600 transition-colors"
+                            className="text-gray-400 hover:text-blue-600 transition-colors"
                             title="DBLP"
                           >
                             <Database className="h-4 w-4" />
@@ -144,11 +147,11 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                         )}
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-gray-500 mt-1">
                       {professor.department} | 논문 {professor.paperCount}편 | 
                       연구원 {professor.labMemberCount != null ? `${professor.labMemberCount}명` : '알 수 없음'}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-500">
                       연구 분야: {professor.researchFields
                         .flatMap(field => field.subFields)
                         .join(', ')}

@@ -27,52 +27,54 @@ export default function RootLayout({
   return (
     <html lang="ko" className="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen overflow-x-hidden`}
-        style={{
-          background: '#E0F7FA'
-        }}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-white`}
       >
-        <div className="bg-[#E3F2FD] p-4 border-b border-[#1A237E]/10">
-          <h1 className="text-2xl font-bold text-[#1A237E] mb-2">
-            KR_Labs: 한국 컴퓨터공학 연구실 순위
-          </h1>
-          <p className="text-[#1A237E]/70 text-sm leading-relaxed">
-            KR_Labs는 한국의 주요 컴퓨터공학 연구실들을 논문 수와 연구 분야별로 순위화한 메트릭 기반 순위 시스템입니다. 
-            왼쪽의 연구 분야를 선택하거나 <span className="text-[#1A237E] font-medium">ON/OFF</span>하여 
-            원하는 분야의 연구실을 찾아보세요.
-          </p>
+        <div className="bg-gray-50 border-b">
+          <div className="max-w-screen-xl mx-auto px-6 py-8 text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-3">
+              KR_Labs: 한국 CS 연구실 순위
+            </h1>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-3xl mx-auto">
+              KR_Labs는 논문 수와 연구 분야를 기반으로 한국의 주요 CS 연구실들을 분석한 메트릭 기반 순위 시스템입니다람쥐. <br/>
+              왼쪽의 연구 분야를 선택하거나 <span className="text-gray-900 font-medium">ON/OFF</span>하여 
+              관심 있는 분야의 연구실을 찾아보세용가리.
+            </p>
+          </div>
         </div>
 
-        <nav className="bg-white/50 backdrop-blur-sm border-b border-[#1A237E]/10">
-          <div className="px-6 py-2 flex items-center gap-6">
-            <a 
-              href="/" 
-              className="text-[#1A237E] hover:text-[#1A237E]/80 transition-colors flex items-center gap-2"
-            >
-              <span className="text-lg font-bold">KR_Labs</span>
-            </a>
-            <div className="h-4 w-[1px] bg-[#1A237E]/20" />
-            <div className="flex gap-4">
+        <nav className="bg-white border-b">
+          <div className="px-6 py-3">
+            <div className="flex items-center">
               <a 
-                href="#" 
-                className="text-sm text-[#1A237E]/70 hover:text-[#1A237E] transition-colors px-2 py-1 rounded-md"
+                href="/" 
+                className="text-gray-900 hover:text-gray-600 transition-colors"
               >
-                학교별
+                <span className="text-lg font-bold">KR_Labs</span>
               </a>
-              <a 
-                href="#" 
-                className="text-sm text-[#1A237E]/70 hover:text-[#1A237E] transition-colors px-2 py-1 rounded-md"
-              >
-                블로그
-              </a>
+              <div className="ml-6 flex gap-6">
+                <a 
+                  href="#" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  학교별
+                </a>
+                <a 
+                  href="https://github.com/ejehoon/KR_Labs/blob/main/README.md" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  블로그
+                </a>
+              </div>
             </div>
           </div>
         </nav>
 
-        <div className="relative flex min-h-screen">
+        <main className="relative min-h-screen">
           {children}
           
-          <div className="fixed bottom-0 right-0 w-[800px] h-[800px] hidden lg:block" 
+          <div className="fixed bottom-0 right-0 w-[800px] h-[800px] hidden lg:block pointer-events-none" 
             style={{ 
               transform: 'translateX(3%) translateY(5%)',
               zIndex: 10
@@ -81,12 +83,9 @@ export default function RootLayout({
               src="/images/mascot.png"
               alt="마스코트"
               className="absolute bottom-0 right-0 w-full h-full object-contain"
-              style={{
-                transform: 'scale(1)'
-              }}
             />
           </div>
-        </div>
+        </main>
       </body>
     </html>
   );

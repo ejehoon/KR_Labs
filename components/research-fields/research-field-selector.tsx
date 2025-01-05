@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Check } from 'lucide-react';
+import { ChevronDown, ChevronRight, Check, Search } from 'lucide-react';
 import { RESEARCH_CATEGORIES, ResearchCategory } from '@/lib/constants';
 import { ResearchField, SelectedSubFields } from '@/lib/types';
 
@@ -47,27 +47,28 @@ export default function ResearchFieldSelector({
   };
 
   return (
-    <div className="w-[360px] min-h-screen">
-      <div className="p-6">
-        <h2 className="text-xl font-bold mb-6 text-[#1A237E] flex items-center">
-          <span className="bg-white rounded-full p-2 mr-2">
-            🔍
-          </span>
-          연구 분야
-        </h2>
-        <div className="space-y-2 bg-white/20 rounded-xl p-4 backdrop-blur-sm">
+    <div className="w-[280px] min-h-screen bg-white border-r">
+      <div className="p-4">
+        <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-2 mb-4">
+          <Search className="h-4 w-4 text-gray-500" />
+          <input
+            type="text"
+            placeholder="연구 분야"
+            className="bg-transparent w-full text-sm focus:outline-none"
+          />
+        </div>
+
+        <div className="space-y-2">
           {categories.map((category: ResearchCategory) => (
             <div key={category.name} className="space-y-1">
               <button
                 onClick={() => toggleCategory(category.name)}
-                className="flex items-center w-full hover-effect rounded-lg p-3 text-sm font-bold
-                  bg-white/70 hover:bg-[#FFF8E1] hover:text-[#F57F17] transition-all
-                  shadow-sm hover:shadow"
+                className="flex items-center w-full text-left p-2 hover:bg-gray-100 rounded text-sm font-medium"
               >
                 {expandedCategories.includes(category.name) ? (
-                  <ChevronDown className="h-4 w-4 mr-2 text-[#F57F17]" />
+                  <ChevronDown className="h-4 w-4 mr-2 text-gray-500" />
                 ) : (
-                  <ChevronRight className="h-4 w-4 mr-2 text-[#F57F17]" />
+                  <ChevronRight className="h-4 w-4 mr-2 text-gray-500" />
                 )}
                 {category.name}
               </button>
@@ -79,23 +80,23 @@ export default function ResearchFieldSelector({
                       <div className="flex items-center justify-between group">
                         <button
                           onClick={() => toggleField(field.name)}
-                          className="flex items-center flex-1 hover-effect rounded-lg p-2.5 text-sm min-w-0"
+                          className="flex items-center flex-1 p-2 hover:bg-gray-100 rounded text-sm"
                         >
                           {expandedFields.includes(field.name) ? (
-                            <ChevronDown className="h-4 w-4 mr-2 text-[#F57F17]/70 flex-shrink-0" />
+                            <ChevronDown className="h-3 w-3 mr-2 text-gray-400" />
                           ) : (
-                            <ChevronRight className="h-4 w-4 mr-2 text-[#F57F17]/70 flex-shrink-0" />
+                            <ChevronRight className="h-3 w-3 mr-2 text-gray-400" />
                           )}
-                          <span className="truncate leading-normal">{field.name}</span>
+                          <span className="truncate">{field.name}</span>
                         </button>
                         <button
                           onClick={() => onFieldToggle(field)}
-                          className="p-1.5 rounded-full hover-effect ml-2 flex-shrink-0"
+                          className="px-2 py-1 text-xs font-medium rounded"
                         >
-                          <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full whitespace-nowrap
+                          <span className={`inline-block px-2 py-0.5 rounded
                             ${isFieldEnabled(field.name) 
-                              ? 'bg-[#F57F17] text-white' 
-                              : 'bg-gray-200 text-gray-500'}`}
+                              ? 'bg-blue-100 text-blue-700' 
+                              : 'bg-gray-100 text-gray-500'}`}
                           >
                             {isFieldEnabled(field.name) ? 'ON' : 'OFF'}
                           </span>
@@ -103,22 +104,18 @@ export default function ResearchFieldSelector({
                       </div>
                       
                       {expandedFields.includes(field.name) && (
-                        <div className="ml-6 space-y-1 animate-slideDown">
+                        <div className="ml-6 space-y-1">
                           {field.subFields.map((subField) => (
                             <button
                               key={subField}
                               onClick={() => onSubFieldToggle(field.name, subField)}
-                              className={`w-full flex items-center justify-between p-2.5 text-sm rounded-lg
-                                hover-effect transition-all
+                              className={`w-full text-left p-2 text-sm rounded
                                 ${isSubFieldSelected(field.name, subField)
-                                  ? 'bg-[#FFF8E1] text-[#F57F17] font-bold shadow-sm'
-                                  : 'hover:bg-[#FFF8E1] hover:text-[#F57F17]'
+                                  ? 'bg-blue-50 text-blue-700'
+                                  : 'hover:bg-gray-100'
                                 }`}
                             >
-                              <span className="truncate mr-2">{subField}</span>
-                              {isSubFieldSelected(field.name, subField) && (
-                                <Check className="h-4 w-4 flex-shrink-0 text-[#F57F17]" />
-                              )}
+                              <span className="truncate">{subField}</span>
                             </button>
                           ))}
                         </div>

@@ -7,10 +7,10 @@ const LAB_SIZE_THRESHOLDS = {
 } as const;
 
 // 표시용 텍스트는 별도로 정의
-export const LAB_SIZE_CRITERIA = {
-  large: '20명 이상',
+export const LAB_SIZE_CRITERIA: Record<LabSize, string> = {
+  small: '7명 이하',
   medium: '8-19명',
-  small: '7명 이하'
+  large: '20명 이상'
 } as const;
 
 export function calculateLabSize(memberCount: number | null): LabSize {
