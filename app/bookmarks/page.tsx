@@ -14,6 +14,15 @@ interface ResearchSubField {
   field_id: number;
 }
 
+interface ResearchFieldInfo {
+  field_name: string;
+  sub_field_name: string;
+}
+
+interface ProfessorResearchField {
+  research_fields: ResearchFieldInfo;
+}
+
 interface Professor {
   id: string;
   name: string;
@@ -28,12 +37,23 @@ interface Professor {
   universities: {
     name: string;
   };
+  professor_research_fields?: ProfessorResearchField[];
+  researchFields?: {
+    field: string;
+    subFields: string[];
+  }[];
 }
 
 interface ResearchArea {
   id: string;
   name: string;
   subFieldIds: number[];
+}
+
+interface ResearchField {
+  id: number;
+  field_name: string;
+  sub_field_name: string;
 }
 
 const RESEARCH_AREAS: ResearchArea[] = [
@@ -139,9 +159,29 @@ export default function BookmarksPage() {
           return;
         }
 
-        if (professorsData) {
-          setBookmarks(professorsData as unknown as Professor[]);
-        }
+        // 연구 분야 정보 가져오기
+        const { data: researchFieldsData } = await supabase
+          .from('research_fields')
+          .select('*');
+
+        // 데이터 구조 변환
+        const processedData = professorsData.map(prof => {
+          const researchFields = prof.research_sub_fields?.map((fieldId: number) => {
+            const fieldInfo = researchFieldsData?.find(f => f.id === fieldId);
+            return fieldInfo ? {
+              field: fieldInfo.field_name,
+              subFields: [fieldInfo.sub_field_name]
+            } : null;
+          }).filter(Boolean) || [];
+
+          return {
+            ...prof,
+            researchFields
+          };
+        });
+
+        console.log('최종 가공된 데이터:', processedData);
+        setBookmarks(processedData as unknown as Professor[]);
 
       } catch (error) {
         console.error('전체 에러:', error);
@@ -286,14 +326,13 @@ export default function BookmarksPage() {
                       연구원 {professor.lab_member_count != null ? `${professor.lab_member_count}명` : '알 수 없음'}
                     </p>
                     <p className="text-sm text-gray-500">
-                      연구 분야: {professor.research_sub_fields?.join(', ') || '정보 없음'}
+                      연구 분야: {professor.researchFields?.flatMap(field => field.subFields).join(', ') || '정보 없음'}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
                     <BookmarkButton 
                       professorId={professor.id}
                       onBookmarkChange={() => {
-                        // 북마크 해제 후 목록에서 제거
                         setBookmarks(prev => prev.filter(p => p.id !== professor.id));
                       }}
                     />
