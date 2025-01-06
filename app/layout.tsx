@@ -65,6 +65,14 @@ export default function RootLayout({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
+                  Github
+                </a>
+                <a 
+                  href="https://leejaehoon.tistory.com/entry/KRRankings-%EA%B0%9C%EB%B0%9C%EA%B8%B0-1" 
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   블로그
                 </a>
               </div>
