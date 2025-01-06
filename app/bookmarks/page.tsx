@@ -8,6 +8,13 @@ import { calculateLabSize } from '@/lib/utils';
 import { LabSize } from '@/lib/types';
 import BookmarkButton from '@/components/bookmark-button';
 
+// 연구 분야 인터페이스 추가
+interface ResearchSubField {
+  id: number;
+  name: string;
+  field_id: number;
+}
+
 // 인터페이스 정의 추가
 interface Professor {
   id: string;
@@ -19,7 +26,7 @@ interface Professor {
   scholar_url: string | null;
   dblp_url: string | null;
   university_id: string;
-  research_sub_fields: number[];  // 연구 분야 ID 배열
+  research_sub_fields: ResearchSubField[];  // 타입 수정
   universities: {
     name: string;
   };
@@ -154,8 +161,8 @@ export default function BookmarksPage() {
         const selectedAreaInfo = RESEARCH_AREAS.find(area => area.id === selectedArea);
         if (!selectedAreaInfo) return false;
 
-        return professor.research_sub_fields?.some((subFieldId: number) => 
-          selectedAreaInfo.subFieldIds.includes(subFieldId)
+        return professor.research_sub_fields?.some((subField: ResearchSubField) => 
+          selectedAreaInfo.subFieldIds.includes(subField.id)
         );
       })
     : bookmarks;
@@ -282,7 +289,7 @@ export default function BookmarksPage() {
                     </p>
                     <p className="text-sm text-gray-500">
                       연구 분야: {professor.research_sub_fields
-                        ?.map(subField => subField.name)
+                        ?.map((subField: ResearchSubField) => subField.name)
                         .join(', ') || '정보 없음'}
                     </p>
                   </div>
