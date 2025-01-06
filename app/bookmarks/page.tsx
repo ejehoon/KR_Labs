@@ -8,7 +8,31 @@ import { calculateLabSize } from '@/lib/utils';
 import { LabSize } from '@/lib/types';
 import BookmarkButton from '@/components/bookmark-button';
 
-const RESEARCH_AREAS = [
+// 인터페이스 정의 추가
+interface Professor {
+  id: string;
+  name: string;
+  department: string;
+  paper_count: number;
+  lab_member_count: number | null;
+  lab_url: string | null;
+  scholar_url: string | null;
+  dblp_url: string | null;
+  university_id: string;
+  research_sub_fields: number[];  // 연구 분야 ID 배열
+  universities: {
+    name: string;
+  };
+}
+
+// RESEARCH_AREAS 타입 정의
+interface ResearchArea {
+  id: string;
+  name: string;
+  subFieldIds: number[];
+}
+
+const RESEARCH_AREAS: ResearchArea[] = [
   { 
     id: 'ai', 
     name: 'AI', 
@@ -126,12 +150,11 @@ export default function BookmarksPage() {
 
   // 필터링된 북마크 목록
   const filteredBookmarks = selectedArea 
-    ? bookmarks.filter(professor => {
+    ? bookmarks.filter((professor: Professor) => {
         const selectedAreaInfo = RESEARCH_AREAS.find(area => area.id === selectedArea);
         if (!selectedAreaInfo) return false;
 
-        // professors 테이블의 research_sub_fields 배열과 선택된 분야의 subFieldIds 비교
-        return professor.research_sub_fields?.some(subFieldId => 
+        return professor.research_sub_fields?.some((subFieldId: number) => 
           selectedAreaInfo.subFieldIds.includes(subFieldId)
         );
       })
