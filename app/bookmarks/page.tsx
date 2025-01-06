@@ -8,38 +8,7 @@ import { calculateLabSize } from '@/lib/utils';
 import { LabSize } from '@/lib/types';
 import BookmarkButton from '@/components/bookmark-button';
 
-// 연구 분야 인터페이스 추가
-interface ResearchSubField {
-  id: number;
-  name: string;
-  field_id: number;
-}
-
-// 인터페이스 정의 추가
-interface Professor {
-  id: string;
-  name: string;
-  department: string;
-  paper_count: number;
-  lab_member_count: number | null;
-  lab_url: string | null;
-  scholar_url: string | null;
-  dblp_url: string | null;
-  university_id: string;
-  research_sub_fields: ResearchSubField[];  // 타입 수정
-  universities: {
-    name: string;
-  };
-}
-
-// RESEARCH_AREAS 타입 정의
-interface ResearchArea {
-  id: string;
-  name: string;
-  subFieldIds: number[];
-}
-
-const RESEARCH_AREAS: ResearchArea[] = [
+const RESEARCH_AREAS = [
   { 
     id: 'ai', 
     name: 'AI', 
@@ -157,12 +126,13 @@ export default function BookmarksPage() {
 
   // 필터링된 북마크 목록
   const filteredBookmarks = selectedArea 
-    ? bookmarks.filter((professor: Professor) => {
+    ? bookmarks.filter(professor => {
         const selectedAreaInfo = RESEARCH_AREAS.find(area => area.id === selectedArea);
         if (!selectedAreaInfo) return false;
 
-        return professor.research_sub_fields?.some((subField: ResearchSubField) => 
-          selectedAreaInfo.subFieldIds.includes(subField.id)
+        // professors 테이블의 research_sub_fields 배열과 선택된 분야의 subFieldIds 비교
+        return professor.research_sub_fields?.some(subFieldId => 
+          selectedAreaInfo.subFieldIds.includes(subFieldId)
         );
       })
     : bookmarks;
@@ -289,7 +259,7 @@ export default function BookmarksPage() {
                     </p>
                     <p className="text-sm text-gray-500">
                       연구 분야: {professor.research_sub_fields
-                        ?.map((subField: ResearchSubField) => subField.name)
+                        ?.map(subField => subField.name)
                         .join(', ') || '정보 없음'}
                     </p>
                   </div>
