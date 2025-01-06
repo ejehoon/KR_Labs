@@ -1,4 +1,6 @@
 import { LabSize } from './types';
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 // 기준값을 숫자로 정의
 const LAB_SIZE_THRESHOLDS = {
@@ -21,6 +23,10 @@ export function calculateLabSize(memberCount: number | null): LabSize {
   if (memberCount >= LAB_SIZE_THRESHOLDS.large) return 'large';
   if (memberCount >= LAB_SIZE_THRESHOLDS.medium) return 'medium';
   return 'small';
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
 
 

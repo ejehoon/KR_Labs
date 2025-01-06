@@ -1,7 +1,9 @@
-import React from 'react';
-import { ArrowLeft, Home, BookOpen, Database } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, Home, BookOpen, Database, Star, Bookmark } from 'lucide-react';
 import { University, LabSize, ResearchField, SelectedSubFields } from '@/lib/types';
 import { calculateLabSize, LAB_SIZE_CRITERIA } from '@/lib/utils';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import BookmarkButton from '@/components/bookmark-button';
 
 type ProfessorListProps = {
   university: University;
@@ -42,6 +44,101 @@ const getLabSizeText = (labSize: LabSize) => {
 };
 
 export default function ProfessorList({ university, onBack, selectedSubFields, enabledFields }: ProfessorListProps) {
+  const supabase = createClientComponentClient();
+  const [bookmarkedLabs, setBookmarkedLabs] = useState<string[]>([]);
+
+  // 현재 사용자의 북마크 목록 가져오기
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data: bookmarks } = await supabase
+        .from('bookmarks')
+        .select('lab_id')
+        .eq('user_id', session.user.id);
+
+      if (bookmarks) {
+        setBookmarkedLabs(bookmarks.map(b => b.lab_id));
+      }
+    };
+
+    fetchBookmarks();
+  }, [supabase]);
+
+  const handleBookmark = async (professorId: string) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        alert('북마크는 로그인 후 이용 가능합니다.');
+        return;
+      }
+
+      const userId = session.user.id;
+      
+      // 현재 북마크 상태 확인
+      const { data: existingBookmark, error: checkError } = await supabase
+        .from('bookmarks')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('lab_id', professorId)
+        .single();
+
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('북마크 확인 에러:', checkError);
+        throw checkError;
+      }
+
+      const isCurrentlyBookmarked = !!existingBookmark;
+      console.log('현재 북마크 상태:', {
+        userId,
+        professorId,
+        isCurrentlyBookmarked,
+        existingBookmark
+      });
+
+      if (isCurrentlyBookmarked) {
+        // 북마크 제거
+        const { error: deleteError } = await supabase
+          .from('bookmarks')
+          .delete()
+          .eq('user_id', userId)
+          .eq('lab_id', professorId);
+
+        if (deleteError) {
+          console.error('북마크 삭제 에러:', deleteError);
+          throw deleteError;
+        }
+        
+        setBookmarkedLabs(prev => prev.filter(id => id !== professorId));
+        console.log('북마크 삭제 성공');
+      } else {
+        // 북마크 추가
+        const { data: insertedData, error: insertError } = await supabase
+          .from('bookmarks')
+          .insert([
+            {
+              user_id: userId,
+              lab_id: professorId
+            }
+          ])
+          .select();
+
+        if (insertError) {
+          console.error('북마크 추가 에러:', insertError);
+          throw insertError;
+        }
+
+        console.log('북마크 추가 성공:', insertedData);
+        setBookmarkedLabs(prev => [...prev, professorId]);
+      }
+    } catch (error) {
+      console.error('북마크 처리 중 에러:', error);
+      alert('북마크 처리 중 오류가 발생했습니다.');
+    }
+  };
+
   const filteredProfessors = university.professors.filter(professor => {
     const matchesEnabledField = enabledFields.length > 0 && professor.researchFields.some(
       researchField => enabledFields.some(
@@ -98,6 +195,12 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
 
         <div className="space-y-2">
           {filteredProfessors.map((professor) => {
+            console.log('교수 정보:', {
+              id: professor.id,
+              name: professor.name,
+              type: typeof professor.id
+            });
+            
             const labSize = professor.labMemberCount != null 
               ? calculateLabSize(professor.labMemberCount)
               : 'unknown';
@@ -157,9 +260,12 @@ export default function ProfessorList({ university, onBack, selectedSubFields, e
                         .join(', ')}
                     </p>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
-                    {getLabSizeText(labSize)}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    <BookmarkButton professorId={professor.id} />
+                    <span className={`px-3 py-1 rounded-full text-sm ${getLabSizeColor(labSize)}`}>
+                      {getLabSizeText(labSize)}
+                    </span>
+                  </div>
                 </div>
               </div>
             );
