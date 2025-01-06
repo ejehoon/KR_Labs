@@ -8,37 +8,64 @@ import { calculateLabSize } from '@/lib/utils';
 import { LabSize } from '@/lib/types';
 import BookmarkButton from '@/components/bookmark-button';
 
-const RESEARCH_AREAS = [
+interface ResearchSubField {
+  id: number;
+  name: string;
+  field_id: number;
+}
+
+interface Professor {
+  id: string;
+  name: string;
+  department: string;
+  paper_count: number;
+  lab_member_count: number | null;
+  lab_url: string | null;
+  scholar_url: string | null;
+  dblp_url: string | null;
+  university_id: string;
+  research_sub_fields: number[];
+  universities: {
+    name: string;
+  };
+}
+
+interface ResearchArea {
+  id: string;
+  name: string;
+  subFieldIds: number[];
+}
+
+const RESEARCH_AREAS: ResearchArea[] = [
   { 
     id: 'ai', 
     name: 'AI', 
-    subFieldIds: [1, 2, 3, 4, 5]  // AI 관련 research_sub_fields의 id들
+    subFieldIds: [1, 2, 3, 4, 5]
   },
   { 
     id: 'systems', 
     name: 'Systems', 
-    subFieldIds: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]  // Systems 관련 id들
+    subFieldIds: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
   },
   { 
     id: 'theory', 
     name: 'Theory', 
-    subFieldIds: [18, 19, 20]  // Theory 관련 id들
+    subFieldIds: [18, 19, 20]
   },
   { 
     id: 'interdisciplinary', 
     name: 'Interdisciplinary Areas', 
-    subFieldIds: [21, 22, 23, 24, 25]  // Interdisciplinary 관련 id들
+    subFieldIds: [21, 22, 23, 24, 25]
   },
   { 
     id: 'etc', 
     name: 'etc', 
-    subFieldIds: [55]  // etc 관련 id들
+    subFieldIds: [55]
   }
-
 ];
 
 export default function BookmarksPage() {
-  const [bookmarks, setBookmarks] = useState<any[]>([]);
+  const [bookmarks, setBookmarks] = useState<Professor[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -126,12 +153,11 @@ export default function BookmarksPage() {
 
   // 필터링된 북마크 목록
   const filteredBookmarks = selectedArea 
-    ? bookmarks.filter(professor => {
+    ? bookmarks.filter((professor: Professor) => {
         const selectedAreaInfo = RESEARCH_AREAS.find(area => area.id === selectedArea);
         if (!selectedAreaInfo) return false;
 
-        // professors 테이블의 research_sub_fields 배열과 선택된 분야의 subFieldIds 비교
-        return professor.research_sub_fields?.some(subFieldId => 
+        return professor.research_sub_fields?.some((subFieldId: number) => 
           selectedAreaInfo.subFieldIds.includes(subFieldId)
         );
       })
