@@ -139,7 +139,9 @@ export default function BookmarksPage() {
           return;
         }
 
-        setBookmarks(professorsData);
+        if (professorsData) {
+          setBookmarks(professorsData as unknown as Professor[]);
+        }
 
       } catch (error) {
         console.error('전체 에러:', error);
@@ -157,8 +159,8 @@ export default function BookmarksPage() {
         const selectedAreaInfo = RESEARCH_AREAS.find(area => area.id === selectedArea);
         if (!selectedAreaInfo) return false;
 
-        return professor.research_sub_fields?.some((subFieldId: number) => 
-          selectedAreaInfo.subFieldIds.includes(subFieldId)
+        return professor.research_sub_fields?.some((fieldId: number) => 
+          selectedAreaInfo.subFieldIds.includes(fieldId)
         );
       })
     : bookmarks;
@@ -284,9 +286,7 @@ export default function BookmarksPage() {
                       연구원 {professor.lab_member_count != null ? `${professor.lab_member_count}명` : '알 수 없음'}
                     </p>
                     <p className="text-sm text-gray-500">
-                      연구 분야: {professor.research_sub_fields
-                        ?.map(subField => subField.name)
-                        .join(', ') || '정보 없음'}
+                      연구 분야: {professor.research_sub_fields?.join(', ') || '정보 없음'}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-2">
