@@ -99,13 +99,15 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
       }
     } catch (error) {
       console.error('회원가입 에러:', error);
-      const errorMessages = {
+      const errorMessages: { [key: string]: string } = {
         'Invalid email': '유효하지 않은 이메일 주소입니다.',
         'Signup requires a valid password': '유효하지 않은 비밀번호입니다.',
         'Password should be at least 6 characters': '비밀번호는 최소 6자 이상이어야 합니다.',
         'User already registered': '이미 가입된 이메일입니다. 로그인을 시도해주세요.',
       };
-      setError(errorMessages[error.message] || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+      
+      const errorMessage = error instanceof Error ? error.message : '알 수 없는 에러가 발생했습니다.';
+      setError(errorMessages[errorMessage] || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
     } finally {
       setIsLoading(false);
     }
