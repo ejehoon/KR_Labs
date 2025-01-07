@@ -103,8 +103,8 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
         setConfirmationRequired(true);
         setError(null);
       }
-    } catch (error) {
-      console.error('회원가입 에러:', error);
+    } catch (err) {
+      console.error('회원가입 에러:', err);
       const errorMessages: ErrorMessages = {
         'Invalid email': '유효하지 않은 이메일 주소입니다.',
         'Signup requires a valid password': '유효한 비밀번호가 필요합니다.',
@@ -112,13 +112,12 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
         'User already registered': '이미 가입된 이메일입니다. 로그인을 시도해주세요.',
       };
 
-      // error 타입 체크 및 처리
-      const authError = error as AuthError;
-      setError(
-        authError.message && errorMessages[authError.message]
-          ? errorMessages[authError.message]
-          : '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.'
-      );
+      if (err && typeof err === 'object' && 'message' in err) {
+        const errorMessage = err.message as string;
+        setError(errorMessages[errorMessage] || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+      } else {
+        setError('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setIsLoading(false);
     }
