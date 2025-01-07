@@ -1,11 +1,25 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
+// OpenAI API 키 체크
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('Missing OpenAI API Key');
+}
+
+// OpenAI 클라이언트 초기화
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true, // 브라우저 환경 허용
 });
 
 export async function POST(req: Request) {
+  if (!process.env.OPENAI_API_KEY) {
+    return NextResponse.json(
+      { error: 'OpenAI API key not configured' },
+      { status: 500 }
+    );
+  }
+
   try {
     const { messages } = await req.json();
 
@@ -51,10 +65,10 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(response.choices[0].message);
-  } catch (error) {
+  } catch (error: any) {
     console.error('ChatGPT API 에러:', error);
     return NextResponse.json(
-      { error: '죄송합니다. 오류가 발생했습니다.' },
+      { error: error?.message || '죄송합니다. 오류가 발생했습니다.' },
       { status: 500 }
     );
   }
