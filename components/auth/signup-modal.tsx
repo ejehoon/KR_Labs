@@ -11,6 +11,10 @@ interface SignUpModalProps {
   onClose: () => void;
 }
 
+type ErrorMessages = {
+  [key: string]: string;
+};
+
 export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   const supabase = createClientComponentClient();
   const [email, setEmail] = useState("");
@@ -99,9 +103,9 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
       }
     } catch (error) {
       console.error('회원가입 에러:', error);
-      const errorMessages = {
+      const errorMessages: ErrorMessages = {
         'Invalid email': '유효하지 않은 이메일 주소입니다.',
-        'Signup requires a valid password': '유효하지 않은 비밀번호입니다.',
+        'Signup requires a valid password': '유효한 비밀번호가 필요합니다.',
         'Password should be at least 6 characters': '비밀번호는 최소 6자 이상이어야 합니다.',
         'User already registered': '이미 가입된 이메일입니다. 로그인을 시도해주세요.',
       };
