@@ -15,6 +15,10 @@ type ErrorMessages = {
   [key: string]: string;
 };
 
+interface AuthError {
+  message: string;
+}
+
 export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   const supabase = createClientComponentClient();
   const [email, setEmail] = useState("");
@@ -96,9 +100,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
       }
 
       if (data?.user) {
-        // 이메일 인증 대기 상태로 변경
         setConfirmationRequired(true);
-        // 사용자에게 이메일 확인 안내
         setError(null);
       }
     } catch (error) {
@@ -109,7 +111,14 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
         'Password should be at least 6 characters': '비밀번호는 최소 6자 이상이어야 합니다.',
         'User already registered': '이미 가입된 이메일입니다. 로그인을 시도해주세요.',
       };
-      setError(errorMessages[error.message] || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+
+      // error 타입 체크 및 처리
+      const authError = error as AuthError;
+      setError(
+        authError.message && errorMessages[authError.message]
+          ? errorMessages[authError.message]
+          : '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.'
+      );
     } finally {
       setIsLoading(false);
     }
