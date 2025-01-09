@@ -90,7 +90,7 @@
 
 ### 데이터 수집 자동화 파이프라인
 
-![자동화 파이프라인 구조도](.public/images/진행중인_자동화.png](https://github.com/ejehoon/KR_Labs/blob/main/public/images/%EC%A7%84%ED%96%89%EC%A4%91%EC%9D%B8_%EC%9E%90%EB%8F%99%ED%99%94.png))
+![자동화 파이프라인 구조도](https://github.com/ejehoon/KR_Labs/blob/main/public/images/%EC%A7%84%ED%96%89%EC%A4%91%EC%9D%B8_%EC%9E%90%EB%8F%99%ED%99%94.png)
 
 ### 자동화 프로세스 상세
 
