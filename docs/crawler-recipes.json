@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-21T15:57:34.380Z",
+  "recipes": [
+    {
+      "schoolSlug": "hanyang-grad",
+      "schoolName": "한양대학교",
+      "seedUrls": [
+        "http://www.grad.hanyang.ac.kr/department/departmentintro.php"
+      ],
+      "allowedDomains": [
+        "grad.hanyang.ac.kr"
+      ],
+      "lastReportPath": "reports/seed-discovery-hanyang-grad.json",
+      "lastRunAt": "2026-05-21T12:57:54.782Z",
+      "pageTypeCounts": {
+        "department": 24,
+        "lab": 1
+      },
+      "notes": [],
+      "fixes": [
+        {
+          "date": "2026-05-21T12:55:08.263Z",
+          "description": "Require an explicit professor title when extracting professor candidates from faculty-style links so generic links like 교원연구성과검색 are not counted as professors.",
+          "files": [
+            "packages/crawler/src/core/entityExtract.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T13:10:26.053Z",
+          "description": "Follow Hanyang Food & Nutrition department homepage fn.hanyang.ac.kr for official professor and lab pages, replacing stale graduate lab_03 rows for that department.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts",
+            "scripts/report-hanyang-food-nutrition-professors.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T13:18:21.657Z",
+          "description": "Separate professor homepage URLs from department lab-introduction pages and generalize the Hanyang department-homepage enrichment into a site-template extractor instead of a department-name branch.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts",
+            "scripts/report-hanyang-food-nutrition-professors.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T13:40:48.575Z",
+          "description": "Extract hidden professor detail modals from Hanyang department profile cards and use modal research-interest text for professor classification without creating lab records when no lab page exists.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts",
+            "scripts/report-hanyang-food-nutrition-professors.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T14:12:26.141Z",
+          "description": "Prefer verified department homepage lab_all tables for Hanyang EECE over the graduate lab index, extracting table rows with professor, phone, location, and homepage URLs.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts",
+            "scripts/report-hanyang-department-labs.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T15:31:34.789Z",
+          "description": "Normalize research-scope text before storage/classification by cutting professor biography, education, career, publications, awards, and society sections from detailed research text.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T15:46:29.833Z",
+          "description": "Make the classification pipeline taxonomy-first: treat crawled research text as evidence, store professor interests as taxonomy labels, show category labels in UI, and document threshold-based category assignment/new-category review steps.",
+          "files": [
+            "docs/crawling-classification-pipeline.md",
+            "docs/school-crawling-playbook.md",
+            "docs/taxonomy-evolution.md",
+            "apps/web/src/components/LabCard.tsx",
+            "scripts/upsert-hanyang-grad.ts",
+            "scripts/report-hanyang-department-labs.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T15:49:22.554Z",
+          "description": "Use verified department-local categories as taxonomy priors for Hanyang EECE so official tracks like 반도체, 신호처리, 통신, 회로, 전기에너지, 제어/로봇 assign existing KR_Labs categories above threshold before creating suggestions.",
+          "files": [
+            "packages/crawler/src/schools/hanyangGraduateDiscovery.ts",
+            "scripts/report-hanyang-department-labs.ts"
+          ]
+        },
+        {
+          "date": "2026-05-21T15:57:34.380Z",
+          "description": "Add a reusable overall Hanyang HTML report summarizing discovery counts, taxonomy distribution, source domains, local categories, and review-priority rows after full pipeline reruns.",
+          "files": [
+            "scripts/report-hanyang-overall.ts",
+            "package.json"
+          ]
+        }
+      ]
+    },
+    {
+      "schoolSlug": "hanyang-seed",
+      "schoolName": "한양대학교",
+      "seedUrls": [
+        "http://www.grad.hanyang.ac.kr/department/departmentintro.php"
+      ],
+      "allowedDomains": [
+        "grad.hanyang.ac.kr"
+      ],
+      "lastReportPath": "reports/seed-discovery-hanyang-seed.json",
+      "lastRunAt": "2026-05-21T12:36:15.887Z",
+      "pageTypeCounts": {
+        "department": 4,
+        "lab": 1
+      },
+      "notes": [],
+      "fixes": [
+        {
+          "date": "2026-05-21T12:36:16.477Z",
+          "description": "Prefer URL-level department/faculty/lab role hints before full-text keyword hits so department index pages with lab links are not mislabeled as lab pages.",
+          "files": [
+            "packages/crawler/src/core/linkDiscovery.ts",
+            "scripts/discover-seed.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "schoolSlug": "sogang-korea",
+      "schoolName": "서강대학교",
+      "seedUrls": [
+        "https://korea.sogang.ac.kr/korea/index_new.html"
+      ],
+      "allowedDomains": [
+        "korea.sogang.ac.kr"
+      ],
+      "lastReportPath": "reports/seed-discovery-sogang-korea.json",
+      "lastRunAt": "2026-05-21T12:39:23.625Z",
+      "pageTypeCounts": {
+        "faculty": 5
+      },
+      "notes": [],
+      "fixes": [
+        {
+          "date": "2026-05-21T12:39:27.949Z",
+          "description": "Suppress generic cloud/distributed taxonomy evidence on humanities pages unless explicit distributed/cloud computing context is present.",
+          "files": [
+            "packages/crawler/src/taxonomy/researchTaxonomy.ts"
+          ]
+        }
+      ]
+    }
+  ]
+}

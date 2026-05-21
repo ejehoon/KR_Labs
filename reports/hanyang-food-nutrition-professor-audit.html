@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한양대 식품영양학과 교수 추출 검증 리포트</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #fff;
+      --ink: #1e2632;
+      --muted: #687385;
+      --line: #dbe2eb;
+      --good: #147a4b;
+      --good-bg: #e7f6ee;
+      --warn: #975a16;
+      --warn-bg: #fff4de;
+      --bad: #b42318;
+      --bad-bg: #fee4e2;
+      --muted-bg: #eef2f6;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; }
+    header { background: #263549; color: #fff; padding: 34px 40px; }
+    header h1 { margin: 0 0 10px; font-size: 29px; letter-spacing: 0; }
+    header p { margin: 0; color: #d9e1ed; }
+    main { max-width: 1380px; margin: 0 auto; padding: 28px; }
+    section { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 22px; margin-bottom: 18px; }
+    h2 { margin: 0 0 14px; font-size: 20px; }
+    a { color: #175cd3; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    .metric { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfcfe; }
+    .metric span { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 5px; font-size: 28px; }
+    .finding { border-left: 4px solid var(--warn); background: #fbfcfe; border-radius: 8px; padding: 14px 16px; margin: 10px 0; }
+    .finding.good { border-color: var(--good); }
+    .finding.bad { border-color: var(--bad); }
+    .pill { display: inline-flex; align-items: center; min-height: 24px; padding: 3px 8px; border-radius: 999px; font-size: 12px; font-weight: 800; margin: 2px 3px 2px 0; white-space: nowrap; }
+    .pill.good { color: var(--good); background: var(--good-bg); }
+    .pill.warn { color: var(--warn); background: var(--warn-bg); }
+    .pill.bad { color: var(--bad); background: var(--bad-bg); }
+    .pill.muted { color: #526071; background: var(--muted-bg); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1280px; }
+    th, td { text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); padding: 12px 10px; }
+    th { color: var(--muted); background: #f3f6fa; font-size: 12px; position: sticky; top: 0; z-index: 1; }
+    td p { margin: 6px 0 0; max-width: 390px; }
+    .small, .notes { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    ul { margin: 0; padding-left: 18px; }
+    @media (max-width: 820px) {
+      header { padding: 26px 20px; }
+      main { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>한양대 식품영양학과 교수 추출 검증 리포트</h1>
+    <p>공식 교수진: <a href="https://fn.hanyang.ac.kr/-13">https://fn.hanyang.ac.kr/-13</a> · 학과 연구실 소개: 학과 홈페이지 연구실 메뉴 · 기존 대학원 연구실 소개: <a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=141000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=141000</a> · 생성: 2026. 5. 22. 오전 1:09:17</p>
+  </header>
+  <main>
+    <section>
+      <div class="metrics">
+        <div class="metric"><span>공식 교수진</span><strong>6</strong></div>
+        <div class="metric"><span>교수진 외부 홈페이지 URL</span><strong>3</strong></div>
+        <div class="metric"><span>학과 연구실 소개 페이지</span><strong>5</strong></div>
+        <div class="metric"><span>현재 파이프라인 연구실</span><strong>5</strong></div>
+        <div class="metric"><span>매칭</span><strong>5</strong></div>
+        <div class="metric"><span>기존 추출 누락</span><strong>1</strong></div>
+        <div class="metric"><span>추출 결과만 존재</span><strong>0</strong></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>판정</h2>
+      <div class="finding good"><strong>현재 파이프라인은 식품영양학과 공식 교수진 6명과 학과 연구실 소개 페이지 5개를 기준으로 대조합니다.</strong><br />교수진 페이지의 집 아이콘으로 노출되는 외부 홈페이지 URL은 이현규, 박용순, 고광웅 3명만 있습니다.</div>
+      <div class="finding"><strong>여기서 5개는 외부 연구실 홈페이지 주소가 아니라 학과 홈페이지 연구실 메뉴에 있는 소개 페이지 수입니다.</strong><br />각 페이지는 담당교수와 연구분야를 적은 학과 내부 소개 페이지이며, 일부만 외부 홈페이지 URL을 추가로 가집니다.</div>
+      <div class="finding"><strong>Hyunsook Kim은 교수 상세 프로필 모달이 있으므로 연구관심분야까지 교수 레코드에 저장합니다.</strong><br />다만 학과 연구실 메뉴에는 담당 연구실 소개 페이지가 없고, 교수 카드에도 외부 홈페이지 URL이 없으므로 별도 연구실 레코드는 만들지 않습니다.</div>
+    </section>
+
+    <section>
+      <h2>교수별 대조</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>교수</th>
+              <th>상태</th>
+              <th>공식 교수진</th>
+              <th>학과 연구실 소개 페이지</th>
+              <th>연구분야 분류</th>
+              <th>현재 파이프라인 추출</th>
+            </tr>
+          </thead>
+          <tbody><tr>
+      <td><strong>이현규</strong><div class="small">교수</div></td>
+      <td><span class="pill good">기존 추출 매칭</span><div class="notes"></div></td>
+      <td>
+        식품가공기술, 기능성식품개발<div class="small">02-2220-1202 · hyeonlee@hanyang.ac.kr</div><a href="http://hyeonlee.hanyang.ac.kr/">http://hyeonlee.hanyang.ac.kr/</a>
+      </td>
+      <td>
+        <a href="https://fn.hanyang.ac.kr/-33">기능성식품 및 식품가공연구실</a><div class="small">한양대학교 서울캠퍼스 생활과학대학(401) 205호 · 02-2220-1201</div><p>● 기능성 성분의 캡슐화: 천연 생리활성 물질의 생체이용률 증진을 위한 캡슐 소재화 연구 ● 기능성 다당체 연구: biopolymer의 효능 및 구조 변화를 통한 기능성 식품 소재 개발연구 ● 식품 소재화 및 고품질화: 식품 원료 및 가공에 따른 생리활성 탐색 및 고부가치 식품 개발 연구</p>
+      </td>
+      <td><span class="pill muted">재료/공정 71%</span></td>
+      <td>
+        기능성식품 및 식품가공연구실<div class="small">hyeonlee@hanyang.ac.kr · 02-2220-1201</div><a href="http://hyeonlee.hanyang.ac.kr/">대학원 연구실 소개</a><div><span class="pill warn">학과 홈페이지 연구실 페이지에서 보강</span></div>
+      </td>
+    </tr><tr>
+      <td><strong>박용순</strong><div class="small">교수</div></td>
+      <td><span class="pill good">기존 추출 매칭</span><div class="notes"></div></td>
+      <td>
+        영양소 및 생리활성 물질의 생체 대사와 질병예방 작용기전, 지방 및 지방산, 심혈관계질환, 비만, 골관절질환식품의 기능성 평가<div class="small">02-2220-1205 · yongsoon@hanyang.ac.kr</div><a href="http://www.clinnutr.hanyang.ac.kr/">http://www.clinnutr.hanyang.ac.kr/</a>
+      </td>
+      <td>
+        <a href="https://fn.hanyang.ac.kr/-34">임상영양과대사실험실</a><div class="small">한양대학교 서울캠퍼스 생활과학대학(401) 207호 · 02-2220-1207</div><p>● 노쇠 사업단: 노인 노쇠의 영양 중재 기술개발 및 효과 검증 ● 건강기능식품인체적용시험 - 류미티스관절염과 오메가-3 - 검정콩껍질 에탄올 추출물, 배박추출물과 항비만 효과 - 미강발효분말, 베타글루칸, 녹차유래 효소처리 다당등의 섭취와 면역기능 - 유자추출물과 혈중 콜레스테롤 ● 오메가-3 지방산과 우울증 ● 코호트 구축: ALS 환자, 유방암 및 갑상선암 환자의 식생활습관과 식생활 습관의 관계 규명</p>
+      </td>
+      <td><span class="pill muted">감염/면역 71%</span></td>
+      <td>
+        임상영양과대사실험실<div class="small">yongsoon@hanyang.ac.kr · 02-2220-1207</div><a href="http://www.clinnutr.hanyang.ac.kr/">대학원 연구실 소개</a><div><span class="pill warn">학과 홈페이지 연구실 페이지에서 보강</span></div>
+      </td>
+    </tr><tr>
+      <td><strong>신원선</strong><div class="small">교수</div></td>
+      <td><span class="pill good">기존 추출 매칭</span><div class="notes"></div></td>
+      <td>
+        식품화학, 조리과학, 분자미식학<div class="small">02-2220-1204 · hime@hanyang.ac.kr</div>
+      </td>
+      <td>
+        <a href="https://fn.hanyang.ac.kr/-35">조리실습실 및 식품화학연구실</a><div class="small">한양대학교 서울캠퍼스 생활과학대학(401) 103호 · 02-2220-1204</div><p>● 식품의 계량, 손질법, 식기의 선택과 배선법 ● 조리한 음식의 기계적평가법: Texture Profile Analysis(TPA) 등을 이용한 음식의 물성 평가 ● 조리한 음식의 관능검사법 ● 식품 물성개선: 다양한 조리법, 식품첨가물을 이용한 식품의 물성 개선과 실제 적용성 평가 ● 식품가공 및 저장 실험: 가공 중 식품에서 일어날 수 있는 다양한 반응을 통한 기능성 성분의 생체이용률, 저장성 증진 방법 탐구</p>
+      </td>
+      <td><span class="pill warn">조리실습실 및 식품화학연구실</span> <span class="pill warn">● 식품의 계량</span> <span class="pill warn">손질법</span></td>
+      <td>
+        조리실습실 및 식품화학연구실<div class="small">hime@hanyang.ac.kr · 02-2220-1204</div><a href="https://fn.hanyang.ac.kr/-35">대학원 연구실 소개</a><div><span class="pill warn">학과 홈페이지 연구실 페이지에서 보강</span> <span class="pill warn">외부 연구실 홈페이지 없음</span></div>
+      </td>
+    </tr><tr>
+      <td><strong>고광웅</strong><div class="small">학과장 교수</div></td>
+      <td><span class="pill good">기존 추출 매칭</span><div class="notes"></div></td>
+      <td>
+        영양유전체학 비만, 심혈관계질환, 2형 당뇨병, 대사증후군 기능성 소재 생리활성 평가<div class="small">02-2220-1206 · gwgo1015@hanyang.ac.kr</div><a href="http://gwgolab.com/">http://gwgolab.com/</a>
+      </td>
+      <td>
+        <a href="https://fn.hanyang.ac.kr/-36">건강기능영양유전체학연구실</a><div class="small">한양대학교 서울캠퍼스 생활과학대학(401) 208호 · 02-2220-4546</div><p>● 생리활성평가: 다양한 생물학적기법(동물, 세포주)을 활용하여 대사질환 예방 및 개선을 위한 건강기능식품 연구 ● 영양유전체분석: 오믹스(유전체, 전사체) 정보의 통합에 기반한 건강기능식품의 작용기전 및 표적유전자 발굴 ● 신호전달기전규명: 첨단 분자생물학적기법(knock-down, overexpression)을 이용하여 대사질환의 병태생리 및 세포신호전달 규명</p>
+      </td>
+      <td><span class="pill good">생명과학 89%</span> <span class="pill muted">유전체/정밀의학 71%</span></td>
+      <td>
+        건강기능영양유전체학연구실<div class="small">gwgo1015@hanyang.ac.kr · 02-2220-4546</div><a href="https://nurtigenomics.imweb.me/">대학원 연구실 소개</a><div><span class="pill warn">학과 홈페이지 연구실 페이지에서 보강</span></div>
+      </td>
+    </tr><tr>
+      <td><strong>김진실</strong><div class="small">교수</div></td>
+      <td><span class="pill good">기존 추출 매칭</span><div class="notes"></div></td>
+      <td>
+        식품 내 식중독균의 분리 및 특성 분석 식중독균의 병원성, 항생제 내성 및 스트레스 저항성 기작 규명 박테리오파지–숙주 상호작용 기작 연구 박테리오파지를 활용한 식중독균 제어 전략 연구<div class="small">02-2220-1198 · jinshilkim@hanyang.ac.kr</div>
+      </td>
+      <td>
+        <a href="https://fn.hanyang.ac.kr/-32">식품분자미생물 연구실</a><div class="small">한양대학교 서울캠퍼스 생활과학대학(401) 101호 · 02-2220-1198</div><p>● 식품미생물학 ● 분자생물학 ● 식품위생학</p>
+      </td>
+      <td><span class="pill good">생명과학 89%</span></td>
+      <td>
+        식품분자미생물 연구실<div class="small">jinshilkim@hanyang.ac.kr · 02-2220-1198</div><a href="https://fn.hanyang.ac.kr/-32">대학원 연구실 소개</a><div><span class="pill warn">학과 홈페이지 연구실 페이지에서 보강</span> <span class="pill warn">외부 연구실 홈페이지 없음</span></div>
+      </td>
+    </tr><tr>
+      <td><strong>Hyunsook Kim</strong><div class="small">Professor</div></td>
+      <td><span class="pill warn">기존 추출 누락</span><div class="notes"><div>기존 대학원 discovery 결과에는 없음</div><div>교수 상세 프로필은 있으나 학과 연구실 메뉴에는 연결 연구실 없음</div></div></td>
+      <td>
+        비만과 대사성 이상질환 개선, 식물유래/유산균 관련 소재 개발 및 기능성 평가, 장내 마이크로바이옴 개선<div class="small">02-2220-1208 · hyunsk15@hanyang.ac.kr</div>
+      </td>
+      <td>
+        <span class="pill warn">공식 연구실 페이지 없음</span>
+      </td>
+      <td><span class="pill muted">근거 없음</span></td>
+      <td>
+        <span class="pill warn">없음</span>
+      </td>
+    </tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

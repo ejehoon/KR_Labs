@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한양대 전체 크롤링 리포트</title>
+  <style>
+    :root { --ink:#172026; --muted:#64727d; --line:#d9e1e7; --soft:#f5f7f8; --accent:#155c58; --warn:#9c5708; --warn-bg:#fff5e8; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:#fff; }
+    header { padding:36px 40px 24px; background:#f8faf9; border-bottom:1px solid var(--line); }
+    main { max-width:1320px; padding:24px 40px 48px; }
+    h1 { margin:0 0 8px; font-size:30px; letter-spacing:0; }
+    h2 { margin:28px 0 12px; font-size:20px; letter-spacing:0; }
+    p { color:var(--muted); line-height:1.6; }
+    a { color:#115d8c; overflow-wrap:anywhere; }
+    .metrics { display:grid; grid-template-columns:repeat(6,minmax(130px,1fr)); gap:10px; margin-top:20px; }
+    .metric { min-height:74px; padding:14px 16px; border:1px solid var(--line); background:#fff; }
+    .metric span { display:block; margin-bottom:8px; color:var(--muted); font-size:13px; }
+    .metric strong { font-size:26px; line-height:1; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .panel { border:1px solid var(--line); padding:18px; background:#fff; overflow:auto; }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th,td { padding:9px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:var(--soft); color:#34424b; }
+    .chip { display:inline-flex; align-items:center; min-height:23px; margin:2px 4px 2px 0; padding:2px 7px; border:1px solid #b7ccd0; background:#eef7f6; color:#174e4a; font-size:12px; }
+    .warn { display:inline-flex; min-height:23px; padding:2px 7px; border:1px solid #efca96; background:var(--warn-bg); color:var(--warn); font-size:12px; }
+    @media (max-width:960px) { header,main{padding-left:18px;padding-right:18px}.metrics{grid-template-columns:repeat(2,minmax(120px,1fr))}.grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>한양대 전체 크롤링 리포트</h1>
+    <p>원본: reports/hanyang-grad-discovery.json · discovery 생성: 2026-05-21T16:09:03.688Z · 리포트 생성: 2026-05-21T16:09:12.176Z</p>
+    <div class="metrics">
+      <div class="metric"><span>학과/프로그램</span><strong>173</strong></div>
+      <div class="metric"><span>연구실 후보</span><strong>521</strong></div>
+      <div class="metric"><span>교수 후보</span><strong>38</strong></div>
+      <div class="metric"><span>카테고리 매칭</span><strong>422</strong></div>
+      <div class="metric"><span>카테고리 리뷰</span><strong>99</strong></div>
+      <div class="metric"><span>fallback URL</span><strong>109</strong></div>
+      <div class="metric"><span>홈페이지 URL</span><strong>412</strong></div>
+      <div class="metric"><span>전자공학과</span><strong>32</strong></div>
+      <div class="metric"><span>식품영양학과</span><strong>5</strong></div>
+      <div class="metric"><span>Validation</span><strong>needs_review</strong></div>
+    </div>
+  </header>
+  <main>
+    <section class="grid">
+      <div class="panel">
+        <h2>학과별 연구실 수</h2>
+        <table><thead><tr><th>학과</th><th>연구실</th></tr></thead><tbody><tr><td>전자공학과</td><td>32</td></tr><tr><td>융합기계공학과</td><td>23</td></tr><tr><td>전자컴퓨터통신공학과</td><td>22</td></tr><tr><td>기계설계공학과</td><td>20</td></tr><tr><td>신소재공학과</td><td>20</td></tr><tr><td>나노반도체공학과</td><td>18</td></tr><tr><td>바이오나노학과</td><td>18</td></tr><tr><td>생명과학과</td><td>17</td></tr><tr><td>화학공학과</td><td>17</td></tr><tr><td>재료화학공학과</td><td>16</td></tr><tr><td>화학과</td><td>16</td></tr><tr><td>약학과</td><td>14</td></tr><tr><td>컴퓨터공학과</td><td>14</td></tr><tr><td>건설환경공학과</td><td>12</td></tr><tr><td>컴퓨터·소프트웨어학과</td><td>12</td></tr><tr><td>응용물리학과</td><td>11</td></tr><tr><td>전기공학과</td><td>11</td></tr><tr><td>건축공학과</td><td>10</td></tr><tr><td>에너지공학과</td><td>10</td></tr><tr><td>인공지능학과</td><td>10</td></tr><tr><td>건축학과</td><td>9</td></tr><tr><td>생명공학과</td><td>9</td></tr><tr><td>건설환경시스템공학과</td><td>8</td></tr><tr><td>교통·물류공학과</td><td>8</td></tr><tr><td>물리학과</td><td>8</td></tr><tr><td>미래자동차공학과</td><td>8</td></tr><tr><td>생체공학과</td><td>8</td></tr><tr><td>융합국방학과</td><td>8</td></tr><tr><td>응용화학과</td><td>8</td></tr><tr><td>자원환경공학과</td><td>8</td></tr><tr><td>건축설계학과</td><td>7</td></tr><tr><td>산업공학과</td><td>7</td></tr><tr><td>산업데이터엔지니어링학과</td><td>7</td></tr><tr><td>유기나노공학과</td><td>7</td></tr><tr><td>건축시스템공학과</td><td>6</td></tr><tr><td>도시공학과</td><td>6</td></tr><tr><td>산업경영공학과</td><td>6</td></tr><tr><td>원자력공학과</td><td>6</td></tr><tr><td>해양융합과학과</td><td>6</td></tr><tr><td>휴먼컴퓨터인터랙션학과</td><td>6</td></tr><tr><td>식품영양학과</td><td>5</td></tr><tr><td>지능형로봇학과</td><td>5</td></tr><tr><td>경제금융학과</td><td>4</td></tr><tr><td>나노융합과학과</td><td>4</td></tr><tr><td>메카트로닉스공학과</td><td>4</td></tr><tr><td>의류학과</td><td>4</td></tr><tr><td>인공지능융합학과</td><td>4</td></tr><tr><td>정보시스템학과</td><td>4</td></tr><tr><td>디자인학부</td><td>3</td></tr><tr><td>응용수학과</td><td>3</td></tr><tr><td>정보디스플레이공학과</td><td>3</td></tr><tr><td>분자생명과학과</td><td>2</td></tr><tr><td>실내건축디자인학과</td><td>2</td></tr><tr><td>정보보안학과</td><td>2</td></tr><tr><td>경영학과</td><td>1</td></tr><tr><td>수학과</td><td>1</td></tr><tr><td>응용통계학과</td><td>1</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h2>최종 카테고리 분포</h2>
+        <table><thead><tr><th>카테고리</th><th>건수</th></tr></thead><tbody><tr><td>재료/공정</td><td>111</td></tr><tr><td>고분자/나노화학</td><td>29</td></tr><tr><td>반도체/집적회로</td><td>28</td></tr><tr><td>물리학</td><td>22</td></tr><tr><td>RF/무선통신</td><td>20</td></tr><tr><td>디스플레이/광전자</td><td>19</td></tr><tr><td>열유체/에너지</td><td>19</td></tr><tr><td>생명과학</td><td>18</td></tr><tr><td>고성능 컴퓨팅</td><td>17</td></tr><tr><td>네트워크</td><td>17</td></tr><tr><td>머신러닝</td><td>17</td></tr><tr><td>데이터 분석</td><td>16</td></tr><tr><td>보안</td><td>14</td></tr><tr><td>약리/약학</td><td>14</td></tr><tr><td>교통/물류 시스템</td><td>13</td></tr><tr><td>임베디드 시스템</td><td>13</td></tr><tr><td>건설/환경공학</td><td>12</td></tr><tr><td>분석화학</td><td>11</td></tr><tr><td>전력/에너지 시스템</td><td>11</td></tr><tr><td>감염/면역</td><td>10</td></tr><tr><td>경영학</td><td>10</td></tr><tr><td>신경과학</td><td>10</td></tr><tr><td>재생의학/줄기세포</td><td>10</td></tr><tr><td>딥러닝</td><td>9</td></tr><tr><td>제어/계측</td><td>9</td></tr><tr><td>건축학</td><td>8</td></tr><tr><td>나노바이오/나노과학</td><td>8</td></tr><tr><td>로보틱스</td><td>7</td></tr><tr><td>무기/재료화학</td><td>7</td></tr><tr><td>신호처리</td><td>7</td></tr><tr><td>유전체/정밀의학</td><td>7</td></tr><tr><td>컴퓨터 구조</td><td>7</td></tr><tr><td>기계공학</td><td>6</td></tr><tr><td>아트&amp;테크놀로지</td><td>6</td></tr><tr><td>유기화학</td><td>6</td></tr><tr><td>전산설계/CAE</td><td>6</td></tr><tr><td>화공생명공학</td><td>6</td></tr><tr><td>데이터베이스</td><td>5</td></tr><tr><td>물리/계산화학</td><td>5</td></tr><tr><td>바이오역학/의공학</td><td>5</td></tr><tr><td>분산시스템</td><td>5</td></tr><tr><td>산업공학</td><td>5</td></tr><tr><td>디자인/패션/공예</td><td>4</td></tr><tr><td>소프트웨어 공학</td><td>4</td></tr><tr><td>컴퓨터 비전</td><td>4</td></tr><tr><td>화학생물학</td><td>4</td></tr><tr><td>암/종양</td><td>3</td></tr><tr><td>AI</td><td>2</td></tr><tr><td>건축환경/건축음향</td><td>2</td></tr><tr><td>경제학</td><td>2</td></tr><tr><td>심리학</td><td>2</td></tr><tr><td>의학/의생명</td><td>2</td></tr><tr><td>자연어처리</td><td>2</td></tr><tr><td>전기전자공학</td><td>2</td></tr><tr><td>컴퓨터 그래픽스</td><td>2</td></tr><tr><td>공공정책/행정</td><td>1</td></tr><tr><td>기술경영</td><td>1</td></tr><tr><td>멀티모달 AI</td><td>1</td></tr><tr><td>미디어/커뮤니케이션</td><td>1</td></tr><tr><td>부동산/도시</td><td>1</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h2>학과 내부 카테고리</h2>
+        <table><thead><tr><th>로컬 카테고리</th><th>건수</th></tr></thead><tbody><tr><td>통신</td><td>7</td></tr><tr><td>반도체</td><td>5</td></tr><tr><td>신호처리</td><td>5</td></tr><tr><td>회로</td><td>5</td></tr><tr><td>전기에너지</td><td>4</td></tr><tr><td>컴퓨터</td><td>4</td></tr><tr><td>제어/로봇</td><td>2</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h2>소스 도메인</h2>
+        <table><thead><tr><th>도메인</th><th>건수</th></tr></thead><tbody><tr><td>www.grad.hanyang.ac.kr</td><td>484</td></tr><tr><td>eece.hanyang.ac.kr</td><td>32</td></tr><tr><td>fn.hanyang.ac.kr</td><td>5</td></tr></tbody></table>
+      </div>
+    </section>
+    <section>
+      <h2>리뷰 우선 후보</h2>
+      <div class="panel">
+        <table>
+          <thead><tr><th>학과</th><th>교수</th><th>연구실</th><th>최종 분류</th><th>경고</th><th>URL</th></tr></thead>
+          <tbody>
+    <tr>
+      <td>경제금융학과</td>
+      <td>이정환</td>
+      <td>Financial IT Lab(피트랩)</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://bk21econ.hanyang.ac.kr/sub/sub04_01.php">http://bk21econ.hanyang.ac.kr/sub/sub04_01.php</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축공학과</td>
+      <td>한상환</td>
+      <td>내진·진동 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://earthquake.hanyang.ac.kr/">http://earthquake.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축공학과</td>
+      <td>유은종</td>
+      <td>최적화 및 구조해석 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101100">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101100</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축공학과</td>
+      <td>박준석</td>
+      <td>건축환경디자인 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101100">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101100</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축공학과</td>
+      <td>김주형</td>
+      <td>클라이언트 브리핑 &amp; 건설사업관리 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://cbpm.hanyang.ac.kr/">http://cbpm.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축학과</td>
+      <td>한동수</td>
+      <td>동아시아건축역사 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://fahl.hanyang.ac.kr/">http://fahl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축학과</td>
+      <td>김재경</td>
+      <td>CODE Lab.</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://co-de.com/">http://co-de.com/</a></td>
+    </tr>
+  
+    <tr>
+      <td>나노반도체공학과</td>
+      <td>이상선</td>
+      <td>유비쿼터스통신 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://u-crl.hanyang.ac.kr/">http://u-crl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>나노반도체공학과</td>
+      <td>원유집</td>
+      <td>ESOS Lab</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://esos.hanyang.ac.kr/">http://esos.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>나노반도체공학과</td>
+      <td>박진섭</td>
+      <td>차세대 화합물 반도체 광전자 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://acsol.hanyang.ac.kr/">http://acsol.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>도시공학과</td>
+      <td>박진아</td>
+      <td>도시설계 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://udl.hanyang.ac.kr/">http://udl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>도시공학과</td>
+      <td>김흥순</td>
+      <td>도시공간계획 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://spatialplanning.dothome.co.kr/">http://spatialplanning.dothome.co.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>도시공학과</td>
+      <td>김홍배</td>
+      <td>지역개발 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://www.region-lab.re.kr/">http://www.region-lab.re.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>도시공학과</td>
+      <td>오규식</td>
+      <td>환경계획 및 GIS 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://epgis.hanyang.ac.kr/">http://epgis.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>미래자동차공학과</td>
+      <td>유지형</td>
+      <td>광학계측 및 열관리 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://easy.hanyang.ac.kr/">https://easy.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>미래자동차공학과</td>
+      <td>윤영두</td>
+      <td>전력전자 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://ae.hanyang.ac.kr/index/asset/laboratory_0112.php">http://ae.hanyang.ac.kr/index/asset/laboratory_0112.php</a></td>
+    </tr>
+  
+    <tr>
+      <td>미래자동차공학과</td>
+      <td>허건수</td>
+      <td>기계감지 및 제어 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://mmc.hanyang.ac.kr/">http://mmc.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>미래자동차공학과</td>
+      <td>박장현</td>
+      <td>지능기계 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://imlab.hanyang.ac.kr/">http://imlab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>산업공학과</td>
+      <td>배석주</td>
+      <td>확률통계모형 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://psm.hanyang.ac.kr/">http://psm.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>원자력공학과</td>
+      <td>김찬형</td>
+      <td>첨단방사선공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://hurel.hanyang.ac.kr/">http://hurel.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>원자력공학과</td>
+      <td>제무성</td>
+      <td>원자력안전해석 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://site.hanyang.ac.kr/web/nasa">http://site.hanyang.ac.kr/web/nasa</a></td>
+    </tr>
+  
+    <tr>
+      <td>원자력공학과</td>
+      <td>홍서기</td>
+      <td>전산수송및노물리 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://ctrp.hanyang.ac.kr/">http://ctrp.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>유기나노공학과</td>
+      <td>안희준</td>
+      <td>표면과학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://www.surfacesciencelab.com/">http://www.surfacesciencelab.com/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>김용모</td>
+      <td>연소해석 및 가상엔진 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://cleancom.hanyang.ac.kr/">http://cleancom.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>이세헌</td>
+      <td>용접자동제어 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://www.awjlab.net/">http://www.awjlab.net/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>박준홍</td>
+      <td>음향진동 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://avl.hanyang.ac.kr/">http://avl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>문승재</td>
+      <td>에너지열공정 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://etplab.wixsite.com/hanyang">https://etplab.wixsite.com/hanyang</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>조진수</td>
+      <td>응용공기역학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://aero.hanyang.ac.kr/">http://aero.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>Erfan Zal Nezhand</td>
+      <td>Thin film coating lab</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://sites.google.com/site/surfacenanocoating/">https://sites.google.com/site/surfacenanocoating/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>이관수</td>
+      <td>냉열기기 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://heat.hanyang.ac.kr/">http://heat.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>융합기계공학과</td>
+      <td>한석영</td>
+      <td>구조강도 및 최적화 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://ssod.hanyang.ac.kr/">http://ssod.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>자원환경공학과</td>
+      <td>전병훈</td>
+      <td>바이오에너지 &amp; 환경복원 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://bhjeon.hanyang.ac.kr/">http://bhjeon.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>자원환경공학과</td>
+      <td>이근상</td>
+      <td>석유시추공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://oilgas.hanyang.ac.kr/">http://oilgas.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>자원환경공학과</td>
+      <td>왕지훈</td>
+      <td>석유공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://perg.hanyang.ac.kr/">http://perg.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>자원환경공학과</td>
+      <td>변중무</td>
+      <td>물리탐사 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://riselab.hanyang.ac.kr/">http://riselab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>자원환경공학과</td>
+      <td>김선준</td>
+      <td>환경지구화학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101400">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101400</a></td>
+    </tr>
+  
+    <tr>
+      <td>전기공학과</td>
+      <td>정정주</td>
+      <td>시스템제어 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://scl.hanyang.ac.kr/">http://scl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>전기공학과</td>
+      <td>고광철</td>
+      <td>대전력응용공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101800">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101800</a></td>
+    </tr>
+  
+    <tr>
+      <td>전자컴퓨터통신공학과</td>
+      <td>정제창</td>
+      <td>영상통신 및 신호처리 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://icsp.hanyang.ac.kr/">http://icsp.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>전자컴퓨터통신공학과</td>
+      <td>정제명</td>
+      <td>광통신 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101500">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101500</a></td>
+    </tr>
+  
+    <tr>
+      <td>전자컴퓨터통신공학과</td>
+      <td>정재일</td>
+      <td>유비쿼터스통신 및 네트워킹 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://unlab.hanyang.ac.kr/">http://unlab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>정보시스템학과</td>
+      <td>김은찬</td>
+      <td>Data and Business Intelligence 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://dbilab.hanyang.ac.kr/">https://dbilab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>정보시스템학과</td>
+      <td>이욱</td>
+      <td>정보시스템 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101700">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=101700</a></td>
+    </tr>
+  
+    <tr>
+      <td>컴퓨터·소프트웨어학과</td>
+      <td>장의선</td>
+      <td>디지털미디어 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://dmlab.hanyang.ac.kr/">http://dmlab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>컴퓨터·소프트웨어학과</td>
+      <td>김광욱</td>
+      <td>HCI Lab.</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://kennylab.hanyang.ac.kr/">http://kennylab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>화학공학과</td>
+      <td>염봉준</td>
+      <td>나노계면구조 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://nise-hanyang.com/">http://nise-hanyang.com/</a></td>
+    </tr>
+  
+    <tr>
+      <td>화학공학과</td>
+      <td>김진국</td>
+      <td>에너지 및 환경시스템공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://leese.hanyang.ac.kr/">http://leese.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>화학공학과</td>
+      <td>문성용</td>
+      <td>바이오 분리시스템공학 및 고효율 분리공정개발 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://sepa.mireene.com/">http://sepa.mireene.com/</a></td>
+    </tr>
+  
+    <tr>
+      <td>화학공학과</td>
+      <td>박홍우</td>
+      <td>생물공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=102100">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=102100</a></td>
+    </tr>
+  
+    <tr>
+      <td>화학공학과</td>
+      <td>서영웅</td>
+      <td>그린나노촉매 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://gncpl.hanyang.ac.kr/">http://gncpl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>건설환경시스템공학과</td>
+      <td>곽동엽</td>
+      <td>지반방재 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200</a></td>
+    </tr>
+  
+    <tr>
+      <td>건설환경시스템공학과</td>
+      <td>김문일</td>
+      <td>수질공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://welab.hanyang.ac.kr/">http://welab.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>건설환경시스템공학과</td>
+      <td>배우근</td>
+      <td>폐기물공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200</a></td>
+    </tr>
+  
+    <tr>
+      <td>건설환경시스템공학과</td>
+      <td>윤성범</td>
+      <td>수리해안 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200</a></td>
+    </tr>
+  
+    <tr>
+      <td>건설환경시스템공학과</td>
+      <td>이종세</td>
+      <td>구조역학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161200</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축설계학과</td>
+      <td>임지택</td>
+      <td>도시건축설계 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축설계학과</td>
+      <td>이강준</td>
+      <td>건축형태분석 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축설계학과</td>
+      <td>안치원</td>
+      <td>건축설계 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축설계학과</td>
+      <td>양내원</td>
+      <td>병원건축 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축설계학과</td>
+      <td>김용승</td>
+      <td>공간분석 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161000</a></td>
+    </tr>
+  
+    <tr>
+      <td>건축시스템공학과</td>
+      <td>노삼영</td>
+      <td>구조역학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://sml.hanyang.ac.kr/">http://sml.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>홍석준</td>
+      <td>나노광공정 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://sites.google.com/site/onlhanyang/">http://sites.google.com/site/onlhanyang/</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>김영득</td>
+      <td>에너지 및 환경공학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://eee.hanyang.ac.kr/">http://eee.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>이성환</td>
+      <td>나노지능형가공 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://iml.hanyang.ac.kr/">http://iml.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>정진태</td>
+      <td>진동 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://vibra.hanyang.ac.kr/">http://vibra.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>조남규</td>
+      <td>정밀계측 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://pmelab.wixsite.com/pmehanyang">http://pmelab.wixsite.com/pmehanyang</a></td>
+    </tr>
+  
+    <tr>
+      <td>기계설계공학과</td>
+      <td>이기형</td>
+      <td>엔진 및 광계측 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161700">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=161700</a></td>
+    </tr>
+  
+    <tr>
+      <td>바이오나노학과</td>
+      <td>신동수</td>
+      <td>반도체광자응용 실험실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://spl.hanyang.ac.kr/">http://spl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>바이오나노학과</td>
+      <td>홍종욱</td>
+      <td>융합바이오공학 및 미래의학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://www.cfuturemedicine.com/">http://www.cfuturemedicine.com/</a></td>
+    </tr>
+  
+    <tr>
+      <td>산업경영공학과</td>
+      <td>신동민</td>
+      <td>인터렉션시스템 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://interact.hanyang.ac.kr/">http://interact.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용물리학과</td>
+      <td>오혜근</td>
+      <td>Lithography 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181000">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181000</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용수학과</td>
+      <td>김성욱</td>
+      <td>통계계산 실습실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181400">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181400</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용수학과</td>
+      <td>배준우, Cedric Beny</td>
+      <td>양자정보이론 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://sites.google.com/site/qithanyang/">https://sites.google.com/site/qithanyang/</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용화학과</td>
+      <td>민선준</td>
+      <td>유기의약화학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="https://sites.google.com/site/sunjoonmin/home">https://sites.google.com/site/sunjoonmin/home</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용화학과</td>
+      <td>전형필</td>
+      <td>분자고체 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://inorg.hanyang.ac.kr/">http://inorg.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>응용화학과</td>
+      <td>이용우</td>
+      <td>차세대에너지환경 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td>연구실 홈페이지 없음, fallback 사용</td>
+      <td><a href="http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181100">http://www.grad.hanyang.ac.kr/graduate/lab_03.php?catcode=181100</a></td>
+    </tr>
+  
+    <tr>
+      <td>해양융합과학과</td>
+      <td>예상욱</td>
+      <td>기후진단연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://climate.hanyang.ac.kr/">http://climate.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>해양융합과학과</td>
+      <td>현정호</td>
+      <td>해양미생물생태·생지화학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://microcean.hanyang.ac.kr/">http://microcean.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>해양융합과학과</td>
+      <td>신경훈</td>
+      <td>수권환경생지화학 연구실</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://eabl.hanyang.ac.kr/">http://eabl.hanyang.ac.kr/</a></td>
+    </tr>
+  
+    <tr>
+      <td>디자인학부</td>
+      <td>최인영</td>
+      <td>Design Research &amp; Education Lab</td>
+      <td><span class="warn">미분류</span>
+      </td>
+      <td></td>
+      <td><a href="http://www.designresearchlab.com/">http://www.designresearchlab.com/</a></td>
+    </tr>
+  </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

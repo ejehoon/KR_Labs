@@ -1,0 +1,1136 @@
+{
+  "school": "snu",
+  "maxPages": 2,
+  "generatedAt": "2026-05-19T08:09:53.957Z",
+  "visited": 2,
+  "pages": [
+    {
+      "url": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+      "finalUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+      "pageType": "department",
+      "httpStatus": 200,
+      "title": "대학 - 대학 - 교육 - 서울대학교",
+      "textLength": 3467,
+      "linkCount": 161,
+      "entityCounts": {
+        "departments": 51,
+        "professors": 2,
+        "labs": 0,
+        "publications": 0
+      },
+      "sample": {
+        "departments": [
+          {
+            "nameKo": "대학원",
+            "homepageUrl": "https://www.snu.ac.kr/academics/graduate/graduate_schools",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "전문대학원",
+            "homepageUrl": "https://www.snu.ac.kr/academics/graduate/professional_graduate_schools",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "음악학과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_m",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "본문 영역 바로가기",
+            "homepageUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "대학",
+            "homepageUrl": "https://www.snu.ac.kr/academics/undergraduate/snucollege",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "교과과정",
+            "homepageUrl": "https://www.snu.ac.kr/academics/undergraduate/curriculum",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "교과과정",
+            "homepageUrl": "https://www.snu.ac.kr/academics/graduate/curriculum",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "전공설계",
+            "homepageUrl": "https://www.snu.ac.kr/academics/programs/academic-advising",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "국어국문학과",
+            "homepageUrl": "https://korean.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "중어중문학과",
+            "homepageUrl": "http://snucll.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "영어영문학과",
+            "homepageUrl": "https://english.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "독어독문학과",
+            "homepageUrl": "http://german.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "노어노문학과",
+            "homepageUrl": "http://russian.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "서어서문학과",
+            "homepageUrl": "https://spanish.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "언어학과",
+            "homepageUrl": "http://linguist.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "철학과",
+            "homepageUrl": "http://philosophy.snu.ac.kr/board/html/main/index.php",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "종교학과",
+            "homepageUrl": "http://religion.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "미학과",
+            "homepageUrl": "http://meehak.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "정치외교학부(정치학전공)",
+            "homepageUrl": "https://psir.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "사회학과",
+            "homepageUrl": "http://sociology.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "심리학과",
+            "homepageUrl": "http://psych.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "지리학과",
+            "homepageUrl": "http://geog.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "사회복지학과",
+            "homepageUrl": "https://socialwelfare.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "언론정보학과",
+            "homepageUrl": "http://communication.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "통계학과",
+            "homepageUrl": "http://stat.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "물리천문학부(물리학전공)",
+            "homepageUrl": "https://physics.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "물리천문학부(천문학전공)",
+            "homepageUrl": "http://astron.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "간호학과",
+            "homepageUrl": "https://nursing.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "경영학과",
+            "homepageUrl": "http://cba.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "항공우주공학과",
+            "homepageUrl": "http://aerospace.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "건축학과",
+            "homepageUrl": "http://architecture.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "산업공학과",
+            "homepageUrl": "http://ie.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "에너지자원공학과",
+            "homepageUrl": "http://ere.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "원자핵공학과",
+            "homepageUrl": "http://nucleng.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "조선해양공학과",
+            "homepageUrl": "http://ship.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "스마트시스템과학과",
+            "homepageUrl": "http://smsys.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "교육학과",
+            "homepageUrl": "http://learning.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "소비자아동학부(소비자학전공)",
+            "homepageUrl": "http://consumer.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "소비자아동학부(아동가족학전공)",
+            "homepageUrl": "http://childfamily.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "식품영양학과",
+            "homepageUrl": "http://foodnutrition.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "의류학과",
+            "homepageUrl": "http://clothing.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "수의학과",
+            "homepageUrl": "http://vet.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "약학과",
+            "homepageUrl": "https://snupharm.snu.ac.kr/%ed%95%99%ea%b3%bc%eb%b3%84-%ea%b5%90%ec%9c%a1%eb%aa%a9%ed%91%9c",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "성악과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_vm",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "작곡과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_c",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "피아노과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_p",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "관현악과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_oi",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "국악과",
+            "homepageUrl": "https://music.snu.ac.kr/content/department_kt",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.48
+          },
+          {
+            "nameKo": "의학과",
+            "homepageUrl": "http://medicine.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          },
+          {
+            "nameKo": "자유전공학부",
+            "homepageUrl": "http://cls.snu.ac.kr/",
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.72
+          }
+        ],
+        "professors": [
+          {
+            "nameKo": "교직원행정",
+            "profileUrl": "https://www.snu.ac.kr/academics/resources/staff/faculty_certificates",
+            "researchInterests": [],
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.52
+          },
+          {
+            "nameKo": "교수학습지",
+            "profileUrl": "https://www.snu.ac.kr/academics/programs/learning_support",
+            "researchInterests": [],
+            "sourceUrl": "https://www.snu.ac.kr/academics/undergraduate/colleges",
+            "confidence": 0.52
+          }
+        ],
+        "labs": [],
+        "publications": []
+      }
+    },
+    {
+      "url": "https://cse.snu.ac.kr/people/faculty",
+      "finalUrl": "https://cse.snu.ac.kr/people/faculty",
+      "pageType": "faculty",
+      "httpStatus": 200,
+      "title": "교수진 ⋅ 서울대학교 컴퓨터공학부",
+      "textLength": 3064,
+      "linkCount": 90,
+      "entityCounts": {
+        "departments": 0,
+        "professors": 102,
+        "labs": 36,
+        "publications": 0
+      },
+      "sample": {
+        "departments": [],
+        "professors": [
+          {
+            "nameKo": "데이터",
+            "title": "교수",
+            "email": "ukang@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "nojunk@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "ggweon@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "인터넷",
+            "title": "교수",
+            "email": "tk@mmlab.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "시각",
+            "title": "교수",
+            "email": "gunhee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "sunkim.bioinfo@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "임베디드",
+            "title": "교수",
+            "email": "kjihong@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "시스템",
+            "title": "교수",
+            "email": "jinsoo.kim@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "changsoon@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "양자정보",
+            "title": "교수",
+            "email": "taehyun@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "최적화",
+            "title": "조교수",
+            "email": "moon@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "메타",
+            "title": "교수",
+            "email": "minhaocui@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "네트워킹",
+            "title": "부교수",
+            "email": "kyoungsoo93@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "시각",
+            "title": "교수",
+            "email": "jaesik.park@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "park73@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "bongwon@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "휴먼",
+            "title": "교수",
+            "email": "jseo@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "암호",
+            "title": "부교수",
+            "email": "y.song@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "인공지능"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "머신러닝",
+            "title": "교수",
+            "email": "hyunoh@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "gajh@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "분산시스템",
+            "title": "교수",
+            "email": "hseom@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "컴퓨터",
+            "title": "조교수",
+            "email": "bernhard@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "지능형",
+            "title": "교수",
+            "email": "nonaxis@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "컴퓨팅",
+            "title": "조교수",
+            "email": "sungjoo.yoo@gmail.com",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "AI"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "언어",
+            "title": "조교수",
+            "email": "youngjaeyu@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "데이터",
+            "title": "교수",
+            "email": "jaeminyoo@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "인공지능"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "프로그래밍",
+            "title": "교수",
+            "email": "kwang@ropas.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "kglee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "지능형",
+            "title": "교수",
+            "email": "sglee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "인간",
+            "title": "교수",
+            "email": "youngkilee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "wrhee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "AI"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "아키텍처",
+            "title": "교수",
+            "email": "jaewlee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "데이터사이언스"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "천둥",
+            "title": "교수",
+            "email": "jaejin@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "운동",
+            "title": "교수",
+            "email": "jehee@mrl.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "교수",
+            "title": "교수",
+            "email": "joonlee8@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "실시간",
+            "title": "교수",
+            "email": "cglee@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "바이오지능",
+            "title": "교수",
+            "email": "btzhang@bi.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "소프트웨어",
+            "title": "조교수",
+            "email": "bgchun@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "시스템",
+            "title": "부교수",
+            "email": "dae.r.jeong@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "비주얼",
+            "title": "조교수",
+            "email": "hbjoo@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "리얼리티",
+            "title": "조교수",
+            "email": "suyeon.choi@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "하순회",
+            "nameEn": "Algorithmic Foundations",
+            "title": "교수",
+            "email": "fanchenglin@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [
+              "Data Science"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "통합설계",
+            "title": "교수",
+            "email": "sha@iris.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "소프트웨어",
+            "title": "교수",
+            "email": "gil.hur@sf.snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "언어",
+            "title": "교수",
+            "email": "seungwonh@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "김남승",
+            "title": "교수",
+            "email": "nskim.illinois@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "김정한",
+            "title": "교수",
+            "email": "hmkkim@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "김태수",
+            "title": "교수",
+            "email": "tsgatesv@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "이의웅",
+            "title": "부교수",
+            "email": "luw0315@snu.ac.kr",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty",
+            "labUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.86
+          },
+          {
+            "nameKo": "강유교수",
+            "profileUrl": "https://cse.snu.ac.kr/people/faculty/1",
+            "researchInterests": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.52
+          }
+        ],
+        "labs": [
+          {
+            "nameKo": "데이터 마이닝 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/1",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "인터넷 융합 및 보안 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/21",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "시각 및 학습 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/11",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "생물정보 및 생명정보 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/8",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "임베디드 시스템 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/22",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "시스템 소프트웨어 및 구조 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/12",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "양자정보 및 양자컴퓨팅 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/16",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "최적화 및 금융공학 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/26",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "메타 인지 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/93",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "T-네트워킹 연구실",
+            "nameEn": "T-네트워킹 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/71",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "시각 및 기하지능 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/73",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "휴먼-컴퓨터 인터액션 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/33",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "암호 및 프라이버시 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/15",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "머신러닝 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/3",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "분산시스템 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/5",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "컴퓨터 시스템 및 플랫폼 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/28",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "지능형 동작 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/24",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "컴퓨팅 메모리 구조 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/30",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "언어 인지 및 피지컬 지능 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/87",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "데이터 인공지능 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/91",
+            "researchKeywords": [
+              "인공지능"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "프로그래밍 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/32",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "지능형 데이터 시스템 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/23",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "인간 중심 컴퓨터 시스템 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/20",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "아키텍처 및 코드 최적화 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/14",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "천둥 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/25",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "운동 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/18",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "실시간 유비쿼터스 시스템 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/13",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "바이오지능 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/4",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "소프트웨어 플랫폼 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/10",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "시스템 보안 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/83",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "비주얼 컴퓨팅 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/6",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "리얼리티 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/89",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "통합설계 및 병렬 처리 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/31",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "소프트웨어 원리 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/9",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameKo": "언어 및 데이터지능 연구실",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/17",
+            "researchKeywords": [],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          },
+          {
+            "nameEn": "Algorithmic Foundations of Data Science Lab",
+            "homepageUrl": "https://cse.snu.ac.kr/research/labs/69",
+            "researchKeywords": [
+              "Data Science"
+            ],
+            "sourceUrl": "https://cse.snu.ac.kr/people/faculty",
+            "confidence": 0.62
+          }
+        ],
+        "publications": []
+      }
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한양대학교 Seed Discovery 검증 리포트</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --ink: #1c2430;
+      --muted: #687385;
+      --line: #dce2ea;
+      --good: #147a4b;
+      --good-bg: #e7f6ee;
+      --warn: #9a5a00;
+      --warn-bg: #fff2d8;
+      --bad: #b42318;
+      --bad-bg: #fee4e2;
+      --info: #175cd3;
+      --info-bg: #e6f0ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: #243244;
+      color: white;
+      padding: 34px 40px 30px;
+    }
+    header h1 { margin: 0 0 10px; font-size: 30px; letter-spacing: 0; }
+    header p { margin: 0; color: #d7deea; max-width: 980px; }
+    main { max-width: 1280px; margin: 0 auto; padding: 28px; }
+    section.panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+    h2 { margin: 0 0 16px; font-size: 20px; }
+    h3 { margin: 0 0 8px; font-size: 16px; }
+    a { color: var(--info); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfcfe;
+    }
+    .metric span, .metric small { display: block; color: var(--muted); }
+    .metric strong { display: block; margin-top: 5px; font-size: 26px; }
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .finding {
+      border-left: 4px solid var(--line);
+      background: #fbfcfe;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .finding.good { border-color: var(--good); }
+    .finding.warn { border-color: var(--warn); }
+    .finding.bad { border-color: var(--bad); }
+    .finding p { margin: 0; color: var(--muted); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 2px 3px 2px 0;
+      white-space: nowrap;
+    }
+    .pill.good { color: var(--good); background: var(--good-bg); }
+    .pill.warn { color: var(--warn); background: var(--warn-bg); }
+    .pill.bad { color: var(--bad); background: var(--bad-bg); }
+    .pill.info { color: var(--info); background: var(--info-bg); }
+    .pill.muted { color: #526071; background: #eef2f6; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) 44px;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .bar-row div {
+      height: 10px;
+      background: #edf1f6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-row i {
+      display: block;
+      height: 100%;
+      background: #4b6b91;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 10px;
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      background: #f3f6fa;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    td.index { color: var(--muted); width: 42px; }
+    td.counts span { display: inline-block; margin-right: 8px; color: var(--muted); }
+    ul { margin: 0; padding-left: 18px; }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .muted-text { color: var(--muted); font-size: 12px; }
+    .rejected { margin-top: 6px; }
+    .verdict {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .verdict.good { color: var(--good); background: var(--good-bg); }
+    .verdict.bad { color: var(--bad); background: var(--bad-bg); }
+    code {
+      background: #eef2f6;
+      border-radius: 5px;
+      padding: 2px 5px;
+    }
+    @media (max-width: 820px) {
+      header { padding: 26px 22px; }
+      main { padding: 16px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      table { min-width: 1100px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>한양대학교 Seed Discovery 검증 리포트</h1>
+    <p>Seed URL: <a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">http://www.grad.hanyang.ac.kr/department/departmentintro.php</a> · 생성: 2026. 5. 21. 오후 9:57:54 · 설정: depth 2, max pages 25, domains grad.hanyang.ac.kr</p>
+  </header>
+  <main>
+    <section class="panel">
+      <span class="verdict good">접근 검증 통과</span>
+      <div class="metrics">
+        <section class="metric"><span>방문 페이지</span><strong>25</strong></section>
+        <section class="metric"><span>성공 페이지</span><strong>25</strong><small>100%</small></section>
+        <section class="metric"><span>실패 페이지</span><strong>0</strong></section>
+        <section class="metric"><span>학과 후보</span><strong>491</strong></section>
+        <section class="metric"><span>교수 후보</span><strong>0</strong></section>
+        <section class="metric"><span>연구실 후보</span><strong>62</strong></section>
+        <section class="metric"><span>분류 매칭 페이지</span><strong>25</strong><small>100%</small></section>
+        <section class="metric"><span>검토 필요 페이지</span><strong>0</strong></section>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>검증 요약</h2>
+      <div class="findings">
+        <article class="finding good"><h3>페이지 접근 안정성은 좋음</h3><p>25개 방문 페이지가 모두 200 계열로 처리되었고 실패 페이지는 없습니다.</p></article><article class="finding warn"><h3>교수 추출은 약함</h3><p>교수 후보가 0명만 잡혔습니다. 한양대 대학원 사이트는 학과 index와 연구실 소개 링크 중심이라 교수 상세 페이지까지 가는 adapter가 필요합니다.</p></article><article class="finding warn"><h3>연구실 후보는 잡히지만 정제 필요</h3><p>연구실 후보 62개가 잡혔습니다. 다만 학과 index 공통 메뉴에서 반복되는 항목도 포함될 수 있어 lab.php 및 상세 페이지 기준으로 중복 제거가 필요합니다.</p></article><article class="finding warn"><h3>탐색이 학과 소개 페이지에 치우침</h3><p>방문 페이지 중 24/25개가 department로 분류되었습니다. 연구실/교수 링크를 더 강하게 따라가려면 link score나 학교별 include rule 보강이 좋습니다.</p></article><article class="finding warn"><h3>분류는 모두 매칭됐지만 과신 위험 있음</h3><p>모든 페이지가 기존 taxonomy에 매칭되었습니다. 하지만 학과 소개 같은 넓은 페이지에서는 여러 분야 키워드가 섞여 있으므로 학과별/교수별 근거 텍스트 단위로 재분류하는 것이 안전합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="panel grid-2">
+      <div>
+        <h2>페이지 타입 분포</h2>
+        <div class="bar-row"><span>department</span><div><i style="width:96%"></i></div><strong>24</strong></div><div class="bar-row"><span>lab</span><div><i style="width:4%"></i></div><strong>1</strong></div>
+      </div>
+      <div>
+        <h2>다음 보강 포인트</h2>
+        <ul>
+          <li>seed 탐색이 안정적입니다. 필요하면 학교별 discover script 또는 adapter로 승격하세요.</li><li>학과 소개 index에서 추출한 taxonomy는 최종 라벨로 바로 쓰지 말고, 교수/연구실 상세 텍스트 기준으로 재분류하세요.</li><li>한양대는 `graduate/lab.php`와 학과별 `departmentintro_view.php`를 분리해 adapter 후보로 승격하는 것이 좋습니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>실패 페이지</h2>
+      <p class="muted-text">실패 페이지 없음</p>
+    </section>
+
+    <section class="panel">
+      <h2>페이지별 상세</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>URL</th>
+              <th>타입</th>
+              <th>엔티티</th>
+              <th>Taxonomy</th>
+              <th>상위 링크</th>
+              <th>Review</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+    <td class="index">1</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">grad.hanyang.ac.kr/department/departmentintro.php</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 180</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">디스플레이/광전자 95%</span> <span class="pill good">재료/공정 95%</span> <span class="pill good">건축학 89%</span> <span class="pill good">AI 81%</span> <span class="pill good">전기전자공학 81%</span><div class="rejected"><span class="pill muted">로보틱스 63%</span> <span class="pill muted">반도체/집적회로 63%</span> <span class="pill muted">산업공학 63%</span> <span class="pill muted">식품안전/식품과학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">2</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">grad.hanyang.ac.kr/graduate/lab.php</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill info">lab</span></td>
+    <td class="counts">
+      <span>D 25</span>
+      <span>P 0</span>
+      <span>L 14</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span> <span class="pill info">교육학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/graduate/research.php">- 교원연구성과검색</a> <span class="pill muted">faculty</span> <small>score 25</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">3</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/department.php">grad.hanyang.ac.kr/department/department.php</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 11</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">건설/환경공학 95%</span> <span class="pill good">통계학 95%</span> <span class="pill good">국어국문학 95%</span> <span class="pill good">문학 95%</span> <span class="pill good">재료/공정 89%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">로보틱스 63%</span> <span class="pill muted">반도체/집적회로 63%</span> <span class="pill muted">산업공학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">4</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">grad.hanyang.ac.kr/department/departmentEng.php</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 23</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">건설/환경공학 95%</span> <span class="pill good">간호학 95%</span> <span class="pill good">경영학 89%</span> <span class="pill good">문학 81%</span> <span class="pill info">철학 71%</span><div class="rejected"></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">5</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040009&amp;catcode=391800">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040009&amp;catcode=391800</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">6</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040010&amp;catcode=391900">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040010&amp;catcode=391900</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">관광/호스피탈리티 95%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">물리학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">7</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040008&amp;catcode=391700">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040008&amp;catcode=391700</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 95%</span> <span class="pill good">미디어/커뮤니케이션 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">화학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">8</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=1603300043&amp;catcode=393800">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=1603300043&amp;catcode=393800</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">기계공학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">9</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=1907160002&amp;catcode=393900">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=1907160002&amp;catcode=393900</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">디스플레이/광전자 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">반도체/집적회로 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">10</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040007&amp;catcode=391600">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040007&amp;catcode=391600</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">데이터 분석 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">네트워크 71%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">건설/환경공학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">11</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040012&amp;catcode=392100">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040012&amp;catcode=392100</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">물리학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">12</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040014&amp;catcode=392300">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040014&amp;catcode=392300</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">전기전자공학 63%</span> <span class="pill muted">기계공학 63%</span> <span class="pill muted">생명과학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">13</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2104280002&amp;catcode=393200">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2104280002&amp;catcode=393200</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">부동산/도시 81%</span> <span class="pill info">나노바이오/나노과학 71%</span> <span class="pill info">간호학 71%</span> <span class="pill info">교육학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">화학 63%</span> <span class="pill muted">물리학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">14</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040003&amp;catcode=391200">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040003&amp;catcode=391200</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">머신러닝 71%</span> <span class="pill info">교통/물류 시스템 71%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">제어/계측 63%</span> <span class="pill muted">산업공학 63%</span> <span class="pill muted">수학 63%</span> <span class="pill muted">통계학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">15</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040015&amp;catcode=392500">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040015&amp;catcode=392500</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">재료/공정 71%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">16</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2303140001&amp;catcode=390000">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2303140001&amp;catcode=390000</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">디스플레이/광전자 89%</span> <span class="pill good">재료/공정 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">무기/재료화학 71%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">17</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040019&amp;catcode=392900">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040019&amp;catcode=392900</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">18</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040005&amp;catcode=391400">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040005&amp;catcode=391400</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">생명과학 81%</span> <span class="pill good">식품안전/식품과학 81%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">재료/공정 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">화학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">19</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040017&amp;catcode=392700">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040017&amp;catcode=392700</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">재료/공정 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">물리학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">20</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040011&amp;catcode=392000">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040011&amp;catcode=392000</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">데이터 분석 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">AI 81%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill good">경영학 81%</span><div class="rejected"><span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span> <span class="pill muted">문화연구 63%</span> <span class="pill muted">AI 예술/콘텐츠 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">21</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040016&amp;catcode=392600">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040016&amp;catcode=392600</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">재료/공정 95%</span> <span class="pill good">전력/에너지 시스템 95%</span> <span class="pill good">열유체/에너지 95%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">화공생명공학 63%</span> <span class="pill muted">건설/환경공학 63%</span> <span class="pill muted">화학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">22</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040001&amp;catcode=391000">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040001&amp;catcode=391000</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 1</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">재료/공정 71%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">전기전자공학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">23</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040002&amp;catcode=391100">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040002&amp;catcode=391100</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">컴퓨터 비전 95%</span> <span class="pill good">음성/오디오 AI 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">디스플레이/광전자 71%</span><div class="rejected"><span class="pill muted">반도체/집적회로 63%</span> <span class="pill muted">전기전자공학 63%</span> <span class="pill muted">RF/무선통신 63%</span> <span class="pill muted">신호처리 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">24</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2104280001&amp;catcode=393100">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2104280001&amp;catcode=393100</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">미디어/커뮤니케이션 89%</span> <span class="pill good">교육학 89%</span> <span class="pill good">문화연구 81%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">언어학 63%</span> <span class="pill muted">문학 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr><tr>
+    <td class="index">25</td>
+    <td>
+      <a href="http://www.grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040004&amp;catcode=391300">grad.hanyang.ac.kr/department/departmentintro_view.php?prdcode=2103040004&amp;catcode=391300</a>
+      <div class="muted-text">한양대학교 대학원</div>
+    </td>
+    <td><span class="pill muted">department</span></td>
+    <td class="counts">
+      <span>D 12</span>
+      <span>P 0</span>
+      <span>L 2</span>
+      <span>Pub 0</span>
+    </td>
+    <td><span class="pill good">교육학 89%</span> <span class="pill good">부동산/도시 81%</span> <span class="pill info">간호학 71%</span><div class="rejected"><span class="pill muted">AI 63%</span> <span class="pill muted">건설/환경공학 63%</span> <span class="pill muted">생명과학 63%</span> <span class="pill muted">미디어/커뮤니케이션 63%</span></div></td>
+    <td><ul><li><a href="http://www.grad.hanyang.ac.kr/graduate/lab.php">대학원연구실소개</a> <span class="pill muted">lab</span> <small>score 35</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/department.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentintro.php">학과소개</a> <span class="pill muted">department</span> <small>score 20</small></li><li><a href="http://www.grad.hanyang.ac.kr/department/departmentEng.php">학과 및 학위명 영문표기</a> <span class="pill muted">department</span> <small>score 20</small></li></ul></td>
+    <td><span class="pill good">자동 review reason 없음</span></td>
+  </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

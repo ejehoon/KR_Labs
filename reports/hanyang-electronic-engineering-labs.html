@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한양대 전자공학과 연구실 리포트</title>
+  <style>
+    :root { color-scheme: light; --ink: #172026; --muted: #65717b; --line: #d9e0e6; --soft: #f5f7f8; --accent: #16615a; --warn: #a45b0b; --warn-bg: #fff5e8; --ok: #1f6f43; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: #fff; }
+    header { padding: 36px 40px 24px; border-bottom: 1px solid var(--line); background: #f8faf9; }
+    h1 { margin: 0 0 8px; font-size: 30px; line-height: 1.25; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 20px; line-height: 1.35; letter-spacing: 0; }
+    h3 { margin: 30px 0 12px; font-size: 18px; letter-spacing: 0; }
+    p { line-height: 1.6; }
+    a { color: #115d8c; overflow-wrap: anywhere; }
+    main { padding: 24px 40px 44px; max-width: 1260px; }
+    .muted { color: var(--muted); }
+    .metrics { display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; }
+    .metric { border: 1px solid var(--line); background: #fff; padding: 14px 16px; min-height: 74px; }
+    .metric span { display: block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .metric strong { font-size: 26px; line-height: 1; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+    .panel { border: 1px solid var(--line); padding: 18px; background: #fff; }
+    .list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { display: inline-flex; align-items: center; min-height: 24px; margin: 2px 5px 2px 0; padding: 3px 8px; border: 1px solid #b7ccd0; background: #eef7f6; color: #174e4a; font-size: 12px; }
+    .chip.suggestion { border-color: #d5b777; background: #fff8de; color: #6e5200; }
+    .warn-chip { border-color: #f0cf9d; background: var(--warn-bg); color: var(--warn); }
+    .ok-chip { border-color: #bad6c5; background: #eff8f1; color: var(--ok); }
+    .empty { color: #8a4700; font-weight: 650; }
+    .lab-card { border-top: 3px solid var(--accent); border-left: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 14px 0; padding: 18px; background: #fff; }
+    .lab-card.needs-review { border-top-color: var(--warn); background: #fffdf9; }
+    .lab-header { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; margin-bottom: 16px; }
+    .lab-header p { margin: 5px 0 0; color: var(--muted); }
+    .index { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+    .badge { white-space: nowrap; border: 1px solid var(--line); padding: 5px 9px; font-size: 12px; background: var(--soft); }
+    .badge.ok { border-color: #bad6c5; color: var(--ok); background: #eff8f1; }
+    .badge.warn { border-color: #f0cf9d; color: var(--warn); background: var(--warn-bg); }
+    dl { display: grid; gap: 10px; margin: 0; }
+    dl > div { display: grid; grid-template-columns: 130px 1fr; gap: 14px; border-top: 1px solid #edf1f3; padding-top: 10px; }
+    dt { color: var(--muted); font-size: 13px; }
+    dd { margin: 0; line-height: 1.55; overflow-wrap: anywhere; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: var(--soft); color: #33404a; }
+    @media (max-width: 900px) {
+      header, main { padding-left: 18px; padding-right: 18px; }
+      .metrics { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+      .split { grid-template-columns: 1fr; }
+      .lab-header { flex-direction: column; }
+      dl > div { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>한양대 전자공학과 연구실 리포트</h1>
+    <p class="muted">생성 시각: 2026-05-21T16:09:12.289Z · 원본: reports/hanyang-grad-discovery.json</p>
+    <div class="metrics">
+      <div class="metric"><span>연구실 후보</span><strong>32</strong></div>
+      <div class="metric"><span>홈페이지 URL 있음</span><strong>29</strong></div>
+      <div class="metric"><span>fallback URL</span><strong>3</strong></div>
+      <div class="metric"><span>분류 매칭</span><strong>30</strong></div>
+      <div class="metric"><span>분류 리뷰</span><strong>2</strong></div>
+      <div class="metric"><span>연구텍스트 누락</span><strong>0</strong></div>
+      <div class="metric"><span>교수 보강 후보</span><strong>32</strong></div>
+    </div>
+  </header>
+  <main>
+    <section class="split">
+      <div class="panel">
+        <h3>분류 분포</h3>
+        <div class="list">
+          <span class="chip">반도체/집적회로 10</span><span class="chip">RF/무선통신 8</span><span class="chip">신호처리 6</span><span class="chip">전력/에너지 시스템 4</span><span class="chip">임베디드 시스템 3</span><span class="chip">제어/계측 3</span><span class="chip">로보틱스 2</span><span class="chip">AI 1</span><span class="chip">데이터 분석 1</span><span class="chip">디스플레이/광전자 1</span><span class="chip">머신러닝 1</span><span class="chip">보안 1</span><span class="chip">분석화학 1</span><span class="chip">열유체/에너지 1</span><span class="chip">전기전자공학 1</span><span class="chip">컴퓨터 구조 1</span><span class="chip">컴퓨터 비전 1</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>리뷰 신호</h3>
+        <div class="list">
+          <span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강 32</span><span class="chip warn-chip">외부 연구실 홈페이지 없음 3</span>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3>교수 보강 후보</h3>
+      
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>교수</th><th>이메일</th><th>연구분야</th><th>상세</th></tr></thead>
+        <tbody>
+          
+            <tr>
+              <td>고현석(Hyunsuk Ko)</td>
+              <td>hyunsuk@hanyang.ac.kr</td>
+              <td>영상신호처리 (Image/Video Signal Processing) 컴퓨터비전 (Computer Vision) 비디오부호화 (Video Coding) 영상인지화질측정 (Perceptual Visual Quality Prediction) 딥러닝 (Deep Learning)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김동우(Dongwoo Kim)</td>
+              <td>dkim@hanyang.ac.kr</td>
+              <td>빅데이타 최적화, 초대규모 IoT, 5G 이동통신, 인공지능, 기후변화대응 최적화 (Big data optimization, Large-scale IoT, 5G wireless, Artificial intelligence, Climate change)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김병호(Byoungho Kim)</td>
+              <td>brandonkim@hanyang.ac.kr</td>
+              <td>고신뢰성 아날로그 및 혼성신호 회로 및 시스템, 디지털 적용 아날로그 회로 설계, 저왜곡 및 저잡음 회로, 고속 입출력 회로 설계 및 테스팅 Reliable analog and mixed-signal circuits and systems, Digitally-assisted analog circuits, Low-distortion and low-noise circuits, High-speed I/O design for testing</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김성민(Sungmin Kim)</td>
+              <td>ksminmoon@hanyang.ac.kr</td>
+              <td>전력전자, 전력변환, 전동기제어, 신재생에너지 계통 연계 Power electronics, Power conversion, Motor control, Renewable energy control</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김정현(Jung Hyun Kim)</td>
+              <td>junhkim@hanyang.ac.kr</td>
+              <td>마이크로파 회로설계, 밀리미터파 회로설계, 디바이스 및 패키지 열 분석 Microwave circuit design, Millimeterwave circuit design, Device and package thermal analysis</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김종석(Jong-Seok Kim)</td>
+              <td>jskim383@hanyang.ac.kr</td>
+              <td>AR/VR 디스플레이 회로설계, 바이오메디컬 회로설계, 전원관리회로 설계, 박막트랜지스터 회로설계, 센서회로 설계 AR/VR display circuit design, Biomedical circuit design, Power management circuit design, Thin-film transistor circuit design, Sensor circuit design</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>김호(Hu Jin)</td>
+              <td>hjin@hanyang.ac.kr</td>
+              <td>무선통신, 사물인터넷(IoT), 5G 통신시스템 Wireless communications Internet of Things 5G communication systems Wireless LANs</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>남해운(Haewoon Nam)</td>
+              <td>hnam@hanyang.ac.kr</td>
+              <td>드론, 드론 편대비행, 차세대 무선통신 시스템 디자인, 피지컬레이어 알고리즘 연구, 임베디드 통신 시스템 Wireless communications, Embedded software systems</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>노정진(Jeongjin Roh)</td>
+              <td>jroh@hanyang.ac.kr</td>
+              <td>Mixed-signal VLSI design, Over-sampling delta-sigma data converters, Power management circuit, IoT, Energy Harvesting 회로 설계 Mixed-signal VLSI design, Over-sampling delta-sigma data converters, Power management circuit, IoT, Energy Harvesting circuits</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>맹승준(Sung Joon Maeng)</td>
+              <td>sjmaeng@hanyang.ac.kr</td>
+              <td>무선 통신(Wireless communications) 드론 통신 (UAV communications) 5G/6G</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>박석환(Seok-Hwan Park)</td>
+              <td>seokhwanpark@hanyang.ac.kr</td>
+              <td>Communication Signal Processing 제3공학관 309호</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>박진석(Jin-Seok Park)</td>
+              <td>jinsp@hanyang.ac.kr</td>
+              <td>플렉서블 전자소자, 나노 신소재 및 응용, 미래 디스플레이, 투명전극 응용 Flexible electronic devices, Advanced nano-materials aand applications, Future displays, Transparent electrodes and applications</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>백상현(Sang Hyeon Baeg)</td>
+              <td>bau@hanyang.ac.kr</td>
+              <td>Memory/Soc 신뢰성 분석 및 테스트, 방사선에 의한 반도체 영향 연구, 신뢰성 감시 센서 회로 개발 Memory/Soc Reliability/Test Analysis, Radiation Induced Semiconductor Issue, Reliability Monitoring Sensor Development</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>서승현(Seung-Hyun Seo)</td>
+              <td>seosh77@hanyang.ac.kr</td>
+              <td>임베디드 시스템 보안, 지능형 보안 메커니즘 설계, IoT(사물인터넷) 보안, 블록체인 보안 Embedded System Security, Intelligent Security Mechanism Design, IoT Security, Blockchain Security</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>송지호(Jiho Song)</td>
+              <td>jihosong@hanyang.ac.kr</td>
+              <td>6세대 차량사물통신, 초고속 이동 통신 시스템 설계, Sub-THz 대역 지능형 무선 통신 시스템 설계 Signal designs for vehicle-to-everything (V2X), millimeter wave (mmWave) and terahertz (THz) communications, Transceiver designs for IoT, Beamforming architectures for extremely large-scale &amp; distributed MIMO, Machine learning aided communication system design, Any kind of intelligent communication systems</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>신상훈(SangHoon Shin)</td>
+              <td>sanshin@hanyang.ac.kr</td>
+              <td>Advanced Reliable Semiconductor Device</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>신승연(Seung Yeon Shin)</td>
+              <td>seungyeons@hanyang.ac.kr</td>
+              <td>컴퓨터비전 (Computer vision), 의료 인공지능 (Healthcare AI)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>심상완(Sangwan Sim)</td>
+              <td>swsim@hanyang.ac.kr</td>
+              <td>반도체 광전자공학( Semiconductor optoelectronics) 초고속 레이저 분광학(Ultrafast laser spectroscopy) 테라헤르츠 과학(Terahertz science) 광전류 소자(Photocurrent devices)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>오세용(Seyong Oh)</td>
+              <td>seyongoh89@hanyang.ac.kr</td>
+              <td>1) AI Semiconductor Device (인공지능 반도체 소자) - Advanced Semiconductor Device (2D Materials: Graphene, TMDs, h-BN etc.) - Brain-Inspired Neuromorphic Device (인공 시냅스/뉴런 소자) - Flexible Semiconductor Devices - 3D Bioelectronics for Human-Machine-Interfaces (Neural &amp; Cardiac interfaces) 2) Digital Healthcare System (디지털 헬스케어 시스템) - Wireless, Skin-Interfaced Bioelectronics (무선 생체신호 센서) - Bio-Sensor System Applications (바이오 센서 시스템 응용) - Flexible Electronics (유연 전자소자) - Implantable, Wireless Electronics (삽입형 무선 전자소자) 3) Smart Healthcare System (스마트 헬스케어 시스템) - Hardware neural network systems - Neuromorphic chips - AI-embedded sensory/neuromorphic systems</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>유경렬(Kyung Yul Yoo)</td>
+              <td>drwhoyoo@hanyang.ac.kr</td>
+              <td>통신 신호처리, 신호해석, 국방 무기체계 Signal processing for communications, Signal analysis, Milatary weapon system</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이도언(Doeon Lee)</td>
+              <td>leedoun@hanyang.ac.kr</td>
+              <td>센서내 뉴로모픽 컴퓨팅 계산 광학 이미징 메타표면 공정 및 응용 이종접합 소자 공정 및 응용</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이동호(Dong-Ho Lee)</td>
+              <td>dhlee77@hanyang.ac.kr</td>
+              <td>영상처리, 컴퓨터비젼 Image Processing and Computer Vision</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이민식(Minsik Lee)</td>
+              <td>mleepaper@hanyang.ac.kr</td>
+              <td>컴퓨터비전, 패턴인식, 3D복원, 딥러닝, 기계학습 Computer vision, Pattern recognition, 3D reconstruction, Deep learning, Machine learning</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이방욱(Bang-Wook Lee)</td>
+              <td>bangwook@hanyang.ac.kr</td>
+              <td>HVDC / MVDC 전력기기 절연설계 및 평가, 스페이서, 애자, DC 케이블, DC/AC 전계해석 기반 절연설계 연구, HVDC / MVDC 고장전류 분석 및 차단 기술 연구, 초전도 전력기기 절연설계 및 개발 연구, 극저온 부싱 / 케이블, 진공 interrupter 설계 기술 개발 연구 Insulation design and evaluation of HVDC / MVDC Power electric equipment, Spacer, Insulator, DC Cable, Insulation design research based on DC/AC Electric field Analysis, Research on HVDC / MVDC fault current anaysis and breaking technology, Research on Insulation design and development of superconductive electric power equipment, Research on cryogenic bushing and cable , Research on the design technology of Vacuum interrupter</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이영우(Youngwoo Lee)</td>
+              <td>stork@hanyang.ac.kr</td>
+              <td>인공위성 로봇 (Spacecraft Robot Manipulator) 전기자동차 충전기 (Electric Vehicle Charger - OBC) 하이브리드 에너지 저장장치 (Hybrid Energy Storage System) 전동기 제어 (Electric Machine Control)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이은수(Eunsoo Lee)</td>
+              <td>eunsoo86@hanyang.ac.kr</td>
+              <td>전력변환 회로 설계 무선전력시스템 설계 머신러닝 기반 전자기시스템 설계</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>이정훈(Frank Chung-Hoon Rhee)</td>
+              <td>frhee@hanyang.ac.kr</td>
+              <td>Computer Vision, Fuzzy Theory</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>장태환(Taehwan Jang)</td>
+              <td>hundredwin@hanyang.ac.kr</td>
+              <td>안테나 공학(Antenna Engineering) 마이크로파 집적회로 (Monolithic microwave integrated circuit) 양자 컴퓨팅을 위한 RF공학 (RF Engineering for Quantum Computing)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>전상운(Sang-Woon Jeon)</td>
+              <td>sangwoonjeon@hanyang.ac.kr</td>
+              <td>계산 지능, 무선 통신, 지능형 교통 시스템 Computational Intelligence, Wireless Communication, Intelligence Transportation System</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>준장(Jun Zhang)</td>
+              <td>junzhanghk@hanyang.ac.kr</td>
+              <td>고신뢰성 아날로그 및 혼성신호 회로 및 시스템, 디지털 적용 아날로그 회로 설계, 저왜곡 및 저잡음 회로, 고속 입출력 회로 설계 및 테스팅 Reliable analog and mixed-signal circuits and systems, Digitally-assisted analog circuits, Low-distortion and low-noise circuits, High-speed I/O design for testing</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>한승호(SeungHo Han)</td>
+              <td>seunghohan@hanyang.ac.kr</td>
+              <td>자율주행/로봇 제어 (Autonomous driving/robot control) 최적제어/강화학습 기반 제어 (Reinforcement learning and optimal control) 다중 에이전트 경로계획 (Path planning for multi-agent systems) 인지센서 기반 제어 (Perception sensor-based control)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+            <tr>
+              <td>한창희(ChangHee Han)</td>
+              <td>chhee@hanyang.ac.kr</td>
+              <td>전력계통 해석 (Power System Analysis) 전력계통 최적화 (Power System Optimization) 하이브리드 전력계통 (Hybrid AC/DC Power System)</td>
+              <td><a href="https://eece.hanyang.ac.kr/-8">profile</a></td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  
+    </section>
+    <section>
+      <h3>연구실 목록</h3>
+      
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#1</div>
+            <h2>Advanced Reliable Component Lab.</h2>
+            <p>신상훈 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">반도체</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/semi-arclab/home">https://sites.google.com/view/semi-arclab/home</a></dd></div>
+          <div><dt>위치</dt><dd>제 3공학관 415-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5177</dd></div>
+          <div><dt>분류 근거</dt><dd>반도체 | Advanced Reliable Component Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#2</div>
+            <h2>Computational Intelligence Lab.</h2>
+            <p>준장(Jun Zhang) · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">컴퓨터</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://aic2026.com/">https://aic2026.com/</a></dd></div>
+          <div><dt>위치</dt><dd>제 3공학관 418호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5212</dd></div>
+          <div><dt>분류 근거</dt><dd>컴퓨터 | Computational Intelligence Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="empty">매칭 없음</span></dd></div>
+          <div><dt>새 카테고리 후보</dt><dd><span class="chip suggestion">Computational Intelligence Lab.</span><span class="chip suggestion">컴퓨터</span><span class="chip suggestion">Computational Intelligence Lab.</span></dd></div>
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#3</div>
+            <h2>HVDC 전력연구실 High Voltage Direct Current Electric Power Lab.</h2>
+            <p>이방욱 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">전기에너지</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://hvdc.hanyang.ac.kr/frontpage.asp?catalogid=hvdcepl&amp;language=ko">http://hvdc.hanyang.ac.kr/frontpage.asp?catalogid=hvdcepl&amp;language=ko</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 415-2호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4752</dd></div>
+          <div><dt>분류 근거</dt><dd>전기에너지 | HVDC 전력연구실 High Voltage Direct Current Electric Power Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">전력/에너지 시스템</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#4</div>
+            <h2>SOC 연구실 System On Chip Lab.</h2>
+            <p>노정진 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">회로</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://soc.hanyang.ac.kr/">https://soc.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 522-2호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4672</dd></div>
+          <div><dt>분류 근거</dt><dd>회로 | SOC 연구실 System On Chip Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">임베디드 시스템</span><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#5</div>
+            <h2>고신뢰 및 고속컴퓨팅 연구실 Reliable and High-Speed Computing Lab.</h2>
+            <p>백상현 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">컴퓨터</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://rsc.hanyang.ac.kr/homepage_v2/page1.php">http://rsc.hanyang.ac.kr/homepage_v2/page1.php</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 309호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4674</dd></div>
+          <div><dt>분류 근거</dt><dd>컴퓨터 | 고신뢰 및 고속컴퓨팅 연구실 Reliable and High-Speed Computing Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">컴퓨터 구조</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#6</div>
+            <h2>고신뢰성회로 및 시스템 연구실 Reliable Circuits and Systems Lab.</h2>
+            <p>김병호 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">회로</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://rcashyu.wixsite.com/rcas">https://rcashyu.wixsite.com/rcas</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 418-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4109</dd></div>
+          <div><dt>분류 근거</dt><dd>회로 | 고신뢰성회로 및 시스템 연구실 Reliable Circuits and Systems Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#7</div>
+            <h2>광학 이미징 및 뉴로모픽 이미지 센서 연구실</h2>
+            <p>이도언 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">반도체</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://doeonlab.github.io/">https://doeonlab.github.io/</a></dd></div>
+          <div><dt>위치</dt><dd>제 3공학관 504호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5169</dd></div>
+          <div><dt>분류 근거</dt><dd>반도체 | 광학 이미징 및 뉴로모픽 이미지 센서 연구실</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span><span class="chip">분석화학</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#8</div>
+            <h2>마이크로파 회로 및 시스템 연구실 Microwave circuit and System Lab.</h2>
+            <p>김정현 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">회로</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://mcslab.hanyang.ac.kr/">http://mcslab.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 522-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4750</dd></div>
+          <div><dt>분류 근거</dt><dd>회로 | 마이크로파 회로 및 시스템 연구실 Microwave circuit and System Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#9</div>
+            <h2>메디컬컴퓨터비전 연구실 Medical Computer Vision Lab.</h2>
+            <p>신승연 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">신호처리</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/cvhai">https://sites.google.com/view/cvhai</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 409호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5217</dd></div>
+          <div><dt>분류 근거</dt><dd>신호처리 | 메디컬컴퓨터비전 연구실 Medical Computer Vision Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">컴퓨터 비전</span><span class="chip">신호처리</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#10</div>
+            <h2>모빌리티&amp;무선통신 연구실 Mobility&amp;Wireless Communication Lab</h2>
+            <p>맹승준 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/sungjoonmaeng/sung-joon-maeng?authuser=0">https://sites.google.com/view/sungjoonmaeng/sung-joon-maeng?authuser=0</a></dd></div>
+          <div><dt>위치</dt><dd>제 3공학관 303호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5196</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 모빌리티&amp;무선통신 연구실 Mobility&amp;Wireless Communication Lab</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#11</div>
+            <h2>무선통신시스템 연구실 Wireless Communication Systems Lab.</h2>
+            <p>김호(Hu Jin) · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://wcsl.hanyang.ac.kr/home">https://wcsl.hanyang.ac.kr/home</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 410-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-436-8197</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 무선통신시스템 연구실 Wireless Communication Systems Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card needs-review">
+        <div class="lab-header">
+          <div>
+            <div class="index">#12</div>
+            <h2>박막 및 나노소자 연구실 Thin Films and Nano-Device Lab.</h2>
+            <p>박진석 · email 없음</p>
+          </div>
+          <span class="badge warn">대학원 fallback</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">반도체</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://eece.hanyang.ac.kr/lab_all">https://eece.hanyang.ac.kr/lab_all</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 109,110호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4088</dd></div>
+          <div><dt>분류 근거</dt><dd>반도체 | 박막 및 나노소자 연구실 Thin Films and Nano-Device Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span><span class="chip warn-chip">외부 연구실 홈페이지 없음</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#13</div>
+            <h2>비전 및 머신러닝 연구실 Vision &amp; Machine Learning Lab.</h2>
+            <p>이민식 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">신호처리</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://vml.hanyang.ac.kr/">http://vml.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 519-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-436-8195</dd></div>
+          <div><dt>분류 근거</dt><dd>신호처리 | 비전 및 머신러닝 연구실 Vision &amp; Machine Learning Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">머신러닝</span><span class="chip">신호처리</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#14</div>
+            <h2>빅 데이타 최적화 및 네트워킹 연구실 Big Data Optimization and Networking Lab.</h2>
+            <p>김동우 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://bigdone.hanyang.ac.kr/">https://bigdone.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 409호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4039</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 빅 데이타 최적화 및 네트워킹 연구실 Big Data Optimization and Networking Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">제어/계측</span><span class="chip">RF/무선통신</span><span class="chip">데이터 분석</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#15</div>
+            <h2>시스템 집적회로 설계 연구실 System IC Design Laboratory</h2>
+            <p>김종석 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">회로</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/sidlab">https://sites.google.com/view/sidlab</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 410호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5194</dd></div>
+          <div><dt>분류 근거</dt><dd>회로 | 시스템 집적회로 설계 연구실 System IC Design Laboratory</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card needs-review">
+        <div class="lab-header">
+          <div>
+            <div class="index">#16</div>
+            <h2>신호와 시스템 연구실 Signal analysis lab.</h2>
+            <p>유경렬 · email 없음</p>
+          </div>
+          <span class="badge warn">대학원 fallback</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">신호처리</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://eece.hanyang.ac.kr/lab_all">https://eece.hanyang.ac.kr/lab_all</a></dd></div>
+          <div><dt>위치</dt><dd>제4공확관 308호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5167</dd></div>
+          <div><dt>분류 근거</dt><dd>신호처리 | 신호와 시스템 연구실 Signal analysis lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">신호처리</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span><span class="chip warn-chip">외부 연구실 홈페이지 없음</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#17</div>
+            <h2>영상통신 연구실 Reliable and High-Speed Computing Lab.</h2>
+            <p>이동호 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">신호처리</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://rsc.hanyang.ac.kr/homepage_v2/page1.php">http://rsc.hanyang.ac.kr/homepage_v2/page1.php</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 305호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4674</dd></div>
+          <div><dt>분류 근거</dt><dd>신호처리 | 영상통신 연구실 Reliable and High-Speed Computing Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">신호처리</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#18</div>
+            <h2>인공지능 반도체 소자 및 센서 시스템 연구실 Artificial Intelligence Semiconductor device and Sensor system (AISS) LAB</h2>
+            <p>오세용 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">반도체</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://seyongoh89site.wixsite.com/profseyongoh">https://seyongoh89site.wixsite.com/profseyongoh</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 302호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5195</dd></div>
+          <div><dt>분류 근거</dt><dd>반도체 | 인공지능 반도체 소자 및 센서 시스템 연구실 Artificial Intelligence Semiconductor device and Sensor system (AISS) LAB</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">AI</span><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#19</div>
+            <h2>임베디드보안 및 프라이버시 연구실 Embedded Security &amp; Privacy Lab.</h2>
+            <p>서승현 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">컴퓨터</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/esplab/home">https://sites.google.com/view/esplab/home</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 408-2호,313-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5163</dd></div>
+          <div><dt>분류 근거</dt><dd>컴퓨터 | 임베디드보안 및 프라이버시 연구실 Embedded Security &amp; Privacy Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">보안</span><span class="chip">임베디드 시스템</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#20</div>
+            <h2>전력전자 연구실 Power Electronics Lab.</h2>
+            <p>김성민 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">전기에너지</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/pelab/about">https://sites.google.com/view/pelab/about</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 106호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5172</dd></div>
+          <div><dt>분류 근거</dt><dd>전기에너지 | 전력전자 연구실 Power Electronics Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">전력/에너지 시스템</span><span class="chip">전기전자공학</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#21</div>
+            <h2>정보 및 계산 지능 연구실 Information and Computational Intelligence Lab.</h2>
+            <p>전상운 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/icl-lab">https://sites.google.com/view/icl-lab</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 308호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5918</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 정보 및 계산 지능 연구실 Information and Computational Intelligence Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#22</div>
+            <h2>제어 및 임베디드 시스템 연구실 Control &amp; Embedded Systems Laboratory</h2>
+            <p>이영우 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">제어/로봇</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://ces.hanyang.ac.kr/">https://ces.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제1공학관 330호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5211</dd></div>
+          <div><dt>분류 근거</dt><dd>제어/로봇 | 제어 및 임베디드 시스템 연구실 Control &amp; Embedded Systems Laboratory</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">임베디드 시스템</span><span class="chip">제어/계측</span><span class="chip">로보틱스</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#23</div>
+            <h2>지능통신시스템 연구실 Intelligent Communication Systems Lab.</h2>
+            <p>남해운 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://icsl.hanyang.ac.kr/">http://icsl.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 419-1호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4759</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 지능통신시스템 연구실 Intelligent Communication Systems Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#24</div>
+            <h2>지능형 무선통신 연구실 Intelligent Wireless Communications Laboratory</h2>
+            <p>송지호 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/jihosong82">https://sites.google.com/view/jihosong82</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 307호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5164</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 지능형 무선통신 연구실 Intelligent Wireless Communications Laboratory</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#25</div>
+            <h2>지능형 영상 미디어 연구실 Intelligent Visual Media Lab.</h2>
+            <p>고현석 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">신호처리</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/hanyang.ac.kr/ivml">https://sites.google.com/hanyang.ac.kr/ivml</a></dd></div>
+          <div><dt>위치</dt><dd>제4공학관 304호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5162</dd></div>
+          <div><dt>분류 근거</dt><dd>신호처리 | 지능형 영상 미디어 연구실 Intelligent Visual Media Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">신호처리</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#26</div>
+            <h2>지능형 전력변환 연구실 Smart Power &amp; energy Conversion Lab.</h2>
+            <p>이은수 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">전기에너지</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://spec.hanyang.ac.kr/">https://spec.hanyang.ac.kr/</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 412호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5191</dd></div>
+          <div><dt>분류 근거</dt><dd>전기에너지 | 지능형 전력변환 연구실 Smart Power &amp; energy Conversion Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">열유체/에너지</span><span class="chip">전력/에너지 시스템</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#27</div>
+            <h2>차세대 전력망 연구실 Advanced Power System Lab.</h2>
+            <p>한창희 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">전기에너지</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="http://hvdc.hanyang.ac.kr/frontpage.asp?catalogid=hvdcepl&amp;language=ko">http://hvdc.hanyang.ac.kr/frontpage.asp?catalogid=hvdcepl&amp;language=ko</a></dd></div>
+          <div><dt>위치</dt><dd>제1공학관 325</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5171</dd></div>
+          <div><dt>분류 근거</dt><dd>전기에너지 | 차세대 전력망 연구실 Advanced Power System Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">전력/에너지 시스템</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#28</div>
+            <h2>초고속 반도체 광전자공학 연구실 Ultrafast Optoelectronics Lab.</h2>
+            <p>심상완 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">반도체</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/swsimlab">https://sites.google.com/view/swsimlab</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 510호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5219</dd></div>
+          <div><dt>분류 근거</dt><dd>반도체 | 초고속 반도체 광전자공학 연구실 Ultrafast Optoelectronics Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">디스플레이/광전자</span><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#29</div>
+            <h2>초고주파 시스템 연구실 Innovative Microwave Systems Lab.</h2>
+            <p>장태환 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">회로</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/view/tjang">https://sites.google.com/view/tjang</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 305호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5192</dd></div>
+          <div><dt>분류 근거</dt><dd>회로 | 초고주파 시스템 연구실 Innovative Microwave Systems Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">반도체/집적회로</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card needs-review">
+        <div class="lab-header">
+          <div>
+            <div class="index">#30</div>
+            <h2>컴퓨터 및 퍼지 연구실 Computational Vision &amp; Fuzzy Systems Lab.</h2>
+            <p>이정훈 · email 없음</p>
+          </div>
+          <span class="badge warn">대학원 fallback</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">컴퓨터</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://eece.hanyang.ac.kr/lab_all">https://eece.hanyang.ac.kr/lab_all</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 516,517호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-4087</dd></div>
+          <div><dt>분류 근거</dt><dd>컴퓨터 | 컴퓨터 및 퍼지 연구실 Computational Vision &amp; Fuzzy Systems Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="empty">매칭 없음</span></dd></div>
+          <div><dt>새 카테고리 후보</dt><dd><span class="chip suggestion">컴퓨터</span></dd></div>
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span><span class="chip warn-chip">외부 연구실 홈페이지 없음</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#31</div>
+            <h2>통신신호처리 연구실 Communication Signal Processing Lab.</h2>
+            <p>박석환 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">통신</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://sites.google.com/site/commsiglab">https://sites.google.com/site/commsiglab</a></dd></div>
+          <div><dt>위치</dt><dd>제3공학관 309호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5161</dd></div>
+          <div><dt>분류 근거</dt><dd>통신 | 통신신호처리 연구실 Communication Signal Processing Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">신호처리</span><span class="chip">RF/무선통신</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+
+      <article class="lab-card ">
+        <div class="lab-header">
+          <div>
+            <div class="index">#32</div>
+            <h2>학습기반 제어 및 추정 연구실 CELOS Lab.</h2>
+            <p>한승호 · email 없음</p>
+          </div>
+          <span class="badge ok">외부/공식 홈페이지</span>
+        </div>
+        <dl>
+          <div><dt>단과대/학과</dt><dd>공학대학 / 전자공학과</dd></div>
+          <div><dt>학과 카테고리</dt><dd><span class="chip">제어/로봇</span></dd></div>
+          <div><dt>연구실 URL</dt><dd><a href="https://celos.super.site/">https://celos.super.site/</a></dd></div>
+          <div><dt>위치</dt><dd>제1공학관 324호</dd></div>
+          <div><dt>전화</dt><dd>+82-31-400-5170</dd></div>
+          <div><dt>분류 근거</dt><dd>제어/로봇 | 학습기반 제어 및 추정 연구실 CELOS Lab.</dd></div>
+          <div><dt>최종 분류</dt><dd><span class="chip">제어/계측</span><span class="chip">로보틱스</span></dd></div>
+          
+          <div><dt>경고/리뷰</dt><dd><span class="chip warn-chip">학과 홈페이지 연구실 페이지에서 보강</span></dd></div>
+        </dl>
+      </article>
+    
+    </section>
+  </main>
+</body>
+</html>
