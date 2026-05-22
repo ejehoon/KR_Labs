@@ -37,7 +37,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "ai",
     labelKo: "AI",
     labelEn: "Artificial Intelligence",
-    aliases: ["AI", "Artificial Intelligence", "인공지능", "지식공학", "Knowledge Engineering", "Intelligent/Interactive Computing", "Information & Intelligence System", "Software intelligent/interactive", "인지지능", "지능형 정보처리"],
+    aliases: ["AI", "Artificial Intelligence", "인공지능", "지식공학", "Knowledge Engineering", "Intelligent/Interactive Computing", "Information & Intelligence System", "Software intelligent/interactive", "인지지능", "지능형 정보처리", "지능정보융합", "지능정보융합공학", "지능정보융합공학과"],
   },
   {
     id: "ai.machine_learning",
@@ -51,14 +51,14 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     parentId: "ai.machine_learning",
     labelKo: "딥러닝",
     labelEn: "Deep Learning",
-    aliases: ["Deep Learning", "딥러닝", "신경망", "Neural Network", "Neural Networks"],
+    aliases: ["Deep Learning", "딥러닝", "심층학습", "신경망", "Neural Network", "Neural Networks"],
   },
   {
     id: "ai.computer_vision",
     parentId: "ai",
     labelKo: "컴퓨터 비전",
     labelEn: "Computer Vision",
-    aliases: ["Computer Vision", "컴퓨터비전", "컴퓨터 비전", "영상인식", "시각지능", "시각 및 지능시스템", "Visual AI", "Visual Intelligence", "비주얼 인텔리전스", "Image Recognition"],
+    aliases: ["Computer Vision", "컴퓨터비전", "컴퓨터 비전", "영상인식", "시각지능", "시각 및 지능시스템", "Visual AI", "Visual Intelligence", "비주얼 인텔리전스", "Image Recognition", "Multi-object Tracking", "Multi Object Tracking", "멀티오브젝트 트래킹", "객체 추적", "Object Tracking", "Visual Marker"],
   },
   {
     id: "ai.nlp",
@@ -72,7 +72,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     parentId: "ai.nlp",
     labelKo: "LLM",
     labelEn: "Large Language Models",
-    aliases: ["LLM", "Large Language Model", "Large Language Models", "언어모델", "대형언어모델", "거대언어모델", "자연어모델", "Foundation Model", "생성형 언어모델"],
+    aliases: ["LLM", "Large Language Model", "Large Language Models", "언어모델", "대형언어모델", "거대언어모델", "자연어모델", "Foundation Model", "생성형 언어모델", "RAG", "Retrieval-Augmented Generation", "medical chatbot", "medical chatbots"],
   },
   {
     id: "ai.speech",
@@ -85,7 +85,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     parentId: "ai",
     labelKo: "생성형 AI",
     labelEn: "Generative AI",
-    aliases: ["Generative AI", "생성형AI", "생성형 AI", "생성모델", "Generative Model"],
+    aliases: ["Generative AI", "생성형AI", "생성형 AI", "생성모델", "Generative Model", "Diffusion", "Diffusion Model", "Diffusion Models"],
   },
   {
     id: "ai.safety",
@@ -97,7 +97,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "ai.multimodal",
     parentId: "ai",
     labelKo: "멀티모달 AI",
-    aliases: ["Multimodal", "멀티모달", "Multi-modal", "Vision-Language", "VLM"],
+    aliases: ["Multimodal", "멀티모달", "Multi-modal", "Vision-Language", "VLM", "multimodal retrieval", "multimodal recommendation", "multimodal data analysis"],
   },
   {
     id: "ai.agent",
@@ -108,7 +108,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "robotics",
     labelKo: "로보틱스",
-    aliases: ["Robotics", "로보틱스", "로봇", "로봇지능"],
+    aliases: ["Robotics", "로보틱스", "로봇", "로봇지능", "로봇공학", "로봇시스템", "융합로봇시스템"],
   },
   {
     id: "systems.networks",
@@ -137,7 +137,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "software_engineering",
     labelKo: "소프트웨어 공학",
-    aliases: ["Software Engineering", "소프트웨어 공학", "소프트웨어 엔지니어링", "프로그램 분석", "프로그래밍 언어", "Programming Language"],
+    aliases: ["Software Engineering", "소프트웨어 공학", "소프트웨어 엔지니어링", "컴퓨터·소프트웨어학과", "컴퓨터소프트웨어학과", "컴퓨터소프트웨어", "프로그램 분석", "프로그래밍 언어", "Programming Language"],
   },
   {
     id: "graphics",
@@ -147,7 +147,25 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "data_science.analytics",
     labelKo: "데이터 분석",
-    aliases: ["Data Analytics", "데이터 분석", "Data Science", "데이터 사이언스", "Business Analytics", "Decision Analysis", "빅데이터", "Big Data"],
+    aliases: ["Data Analytics", "데이터 분석", "Data Science", "데이터 사이언스", "Business Analytics", "Decision Analysis", "빅데이터", "Big Data", "데이터마이닝", "데이터 마이닝", "Data Mining", "시계열 데이터 분석", "Time Series", "Time-series", "Anomaly Detection", "이상 탐지", "주가 예측", "Multimodal Data Analysis"],
+  },
+  {
+    id: "data_science.data_mining",
+    parentId: "data_science.analytics",
+    labelKo: "데이터마이닝",
+    aliases: ["데이터마이닝", "데이터 마이닝", "Data Mining"],
+  },
+  {
+    id: "data_science.time_series",
+    parentId: "data_science.analytics",
+    labelKo: "시계열 분석",
+    aliases: ["시계열 데이터 분석", "Time Series", "Time-series", "Anomaly Detection", "이상 탐지", "주가 예측"],
+  },
+  {
+    id: "data_science.digital_healthcare",
+    parentId: "data_science.analytics",
+    labelKo: "디지털 헬스케어",
+    aliases: ["Digital Healthcare", "디지털 헬스케어", "Smart Healthcare", "스마트 헬스케어", "Healthcare AI", "의료 인공지능", "medical AI", "AI-driven diagnostic", "rehabilitation"],
   },
   {
     id: "systems",
@@ -178,6 +196,11 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     aliases: ["암호론", "암호", "부호론", "Coding Theory", "Cryptography"],
   },
   {
+    id: "systems.blockchain_crypto",
+    labelKo: "블록체인/암호화폐",
+    aliases: ["블록체인", "암호화폐", "비트코인", "Bitcoin", "Blockchain", "Cryptocurrency", "Cryptoasset", "Digital Currency"],
+  },
+  {
     id: "theory.computation",
     labelKo: "계산이론",
     aliases: ["계산이론", "Theory of Computation", "Computability", "Complexity Theory", "계산복잡도"],
@@ -185,17 +208,23 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "theory.algorithms",
     labelKo: "알고리즘",
-    aliases: ["알고리즘", "Algorithm", "Algorithms", "Algorithm Design", "Computational Geometry", "계산기하", "자료구조"],
+    aliases: ["알고리즘", "Algorithm", "Algorithms", "Algorithm Design", "Solution Algorithms", "Heuristic Algorithms", "Computational Geometry", "계산기하", "자료구조", "그래프 이론", "Graph Theory", "조합적 최적화", "Combinatorial Optimization"],
   },
   {
     id: "electronics.semiconductor",
     labelKo: "반도체/집적회로",
-    aliases: ["반도체", "집적회로", "IC", "VLSI", "디지털 회로", "아날로그 회로", "혼성신호", "회로설계", "회로 설계", "SoC 설계", "SOC 디자인", "System-on-Chip", "Low Power", "디지털시스템설계", "고속디지털시스템설계", "Reliable analog", "mixed-signal", "Digitally-assisted analog", "Low-distortion", "low-noise circuits", "High-speed I/O", "High speed I/O", "박막트랜지스터", "투명전극", "박막", "나노소자", "Nano/Semiconductor", "Semiconductor Device", "Memory Devices", "Logic Devices", "나노전자소자", "정보통신소자", "MEMS", "NEMS", "마이크로시스템"],
+    aliases: ["반도체", "집적회로", "IC", "VLSI", "디지털 회로", "아날로그 회로", "혼성신호", "회로설계", "회로 설계", "SoC 설계", "SOC 디자인", "System-on-Chip", "Low Power", "디지털시스템설계", "고속디지털시스템설계", "Reliable analog", "mixed-signal", "Digitally-assisted analog", "Low-distortion", "low-noise circuits", "High-speed I/O", "High speed I/O", "SRAM", "TCAM", "DRAM", "DDR3", "DDR4", "HBM", "ASIC", "FPGA", "TCAD", "SPICE", "박막트랜지스터", "투명전극", "박막", "나노소자", "Nano/Semiconductor", "Semiconductor Device", "Memory Devices", "Logic Devices", "나노전자소자", "정보통신소자", "MEMS", "NEMS", "마이크로시스템"],
+  },
+  {
+    id: "electronics.semiconductor_reliability",
+    parentId: "electronics.semiconductor",
+    labelKo: "반도체 신뢰성",
+    aliases: ["반도체 신뢰성", "메모리 반도체 신뢰성", "DRAM 신뢰성", "신뢰성 테스트", "Soft Error", "Soft Error Rate", "Radiation Effects", "방사선 영향", "방사선에 의한 반도체 영향", "TID Effect", "One-Row Hammering", "Noise injection", "메모리 마진", "I/O 마진", "극저온 테스트", "고온 테스트", "3D NAND Flash SSD"],
   },
   {
     id: "electronics",
     labelKo: "전기전자공학",
-    aliases: ["전자공학", "전기전자", "전기공학", "Electrical Engineering", "Electronics"],
+    aliases: ["전자공학", "전자공학과", "전기전자", "전기공학", "Electrical Engineering", "Electronics", "전자컴퓨터통신공학", "전자컴퓨터통신공학과"],
   },
   {
     id: "electronics.display",
@@ -205,7 +234,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "electronics.rf",
     labelKo: "RF/무선통신",
-    aliases: ["RF", "마이크로파", "안테나", "무선통신", "이동무선통신", "모바일 커뮤니케이션", "Mobile Communication", "Mobile Communications", "6G", "5G", "위성통신", "전파공학", "EMI", "EMC", "Communications", "Wireless Communication", "통신"],
+    aliases: ["RF", "마이크로파", "안테나", "무선통신", "이동무선통신", "모바일 커뮤니케이션", "Mobile Communication", "Mobile Communications", "6G", "5G", "위성통신", "전파공학", "EMI", "EMC", "Communications", "Wireless Communication", "통신", "V2X", "V2X 통신", "V2X 통신 시스템", "통신 기반 실내외 측위", "실내외 측위"],
   },
   {
     id: "electronics.control",
@@ -221,6 +250,12 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "signal_processing",
     labelKo: "신호처리",
     aliases: ["Signal Processing", "신호처리", "영상처리", "음향/영상 신호처리", "지능형 신호처리"],
+  },
+  {
+    id: "signal_processing.acoustics",
+    parentId: "signal_processing",
+    labelKo: "음향/수중음향",
+    aliases: ["음향", "수중음향", "수중음향학", "Underwater Acoustics", "Acoustics"],
   },
   {
     id: "medical_imaging",
@@ -248,7 +283,13 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "mechanical.biomechanics",
     parentId: "mechanical",
     labelKo: "바이오역학/의공학",
-    aliases: ["생체역학", "바이오역학", "의공학", "바이오메디컬", "Biomechanics", "Biomedical", "생체인공근육", "생체모방", "자가구동인공근육"],
+    aliases: ["생체공학", "생체공학과", "생체역학", "바이오역학", "의공학", "바이오메디컬", "Biomechanics", "Biomedical", "생체인공근육", "생체모방", "자가구동인공근육"],
+  },
+  {
+    id: "mechanical.automotive_mobility",
+    parentId: "mechanical",
+    labelKo: "자동차/모빌리티",
+    aliases: ["미래자동차공학", "미래자동차공학과", "자동차공학", "자동차", "차량", "자율주행", "차량 제어", "모빌리티", "Automotive", "Mobility", "Autonomous Vehicle"],
   },
   {
     id: "mechanical.design_cae",
@@ -259,18 +300,66 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "chemical_engineering",
     labelKo: "화공생명공학",
-    aliases: ["화공", "화공생명", "Chemical Engineering", "유기전자", "태양전지", "Perovskite", "Photovoltaic", "촉매", "고분자", "Catalysis"],
+    aliases: ["화공", "화공학", "화학공학", "화학공학과", "화공생명", "Chemical Engineering", "유기전자", "태양전지", "Perovskite", "Photovoltaic", "촉매", "고분자", "Catalysis"],
+  },
+  {
+    id: "chemical_engineering.bioprocess_cell_culture",
+    parentId: "chemical_engineering",
+    labelKo: "바이오공정/세포배양",
+    aliases: ["바이오공정", "세포배양", "세포 배양", "동물 세포 배양", "CHO cell", "VERO cell", "배양 배지", "배양 배지 조성", "Cell Culture", "Animal Cell Culture", "Bioprocess", "Bioprocess Engineering"],
+  },
+  {
+    id: "chemical_engineering.environmental_chemical",
+    parentId: "chemical_engineering",
+    labelKo: "환경화학공학",
+    aliases: ["환경화학공학", "Environmental Chemical Engineering", "환경화학", "환경 촉매", "환경정화", "환경정화용소재", "광촉매", "전자폐수", "전자폐수 재이용", "생물학적 고도처리", "유해물질 검출", "지연형광", "수질유해물질"],
+  },
+  {
+    id: "chemical_engineering.process_separation",
+    parentId: "chemical_engineering",
+    labelKo: "화학공정/분리공정",
+    aliases: ["화학공정", "공정 합성", "공정설계", "공정 설계", "공정 모델링", "전산 모사", "분리공정", "연속분리공정", "연속흡착분리공정", "흡착분리", "Process Integration", "Process Design", "Process Modeling", "Separation Process", "Separation Processes"],
   },
   {
     id: "civil_environmental",
     labelKo: "건설/환경공학",
-    aliases: ["건설", "건축시공", "건설관리", "구조및지반공학", "지반공학", "교량공학", "콘크리트공학", "내진공학", "수자원", "환경공학", "환경학", "수질환경", "수질분석", "수질오염", "환경위해성", "환경 위해성", "유해물질관리", "유해물질 관리", "수생생태계", "수생 생태계", "환경 미생물", "기후변화", "해안환경", "건축환경", "스마트건설", "연안해양공학", "연안 재해", "연안탐사공학", "해안침식", "해양에너지", "Geotechnical", "Construction Management"],
+    aliases: ["건설", "건설환경", "건설환경시스템", "건설환경시스템공학", "건설환경시스템공학과", "건축시공", "건설관리", "건설경영", "건설경영/관리", "구조및지반공학", "지반공학", "교량공학", "콘크리트공학", "내진공학", "수자원", "환경공학", "환경학", "환경과학", "환경과학과", "수질환경", "수질분석", "수질오염", "환경위해성", "환경 위해성", "유해물질관리", "유해물질 관리", "수생생태계", "수생 생태계", "환경 미생물", "기후변화", "해안환경", "건축환경", "스마트건설", "연안해양공학", "연안 재해", "연안탐사공학", "해안침식", "해양에너지", "Geotechnical", "Construction Management", "상하수도 공학", "비점오염원 관리"],
+  },
+  {
+    id: "civil_environmental.water_wastewater",
+    parentId: "civil_environmental",
+    labelKo: "수처리/폐수처리",
+    aliases: ["하/폐수처리", "하·폐수처리", "하폐수처리", "폐수처리", "하수처리", "수처리", "물리화학적수처리", "생물학적 하·폐수처리", "생물학적 하/폐수처리", "Water Treatment", "Wastewater Treatment", "Water/Wastewater Treatment"],
+  },
+  {
+    id: "civil_environmental.structural_concrete",
+    parentId: "civil_environmental",
+    labelKo: "토목구조/콘크리트",
+    aliases: ["토목구조", "콘크리트 구조", "콘크리트 구조물", "콘크리트 구조물 내구성", "콘크리트 구조물 내구성능", "콘크리트 재료공학", "프리스트레스 공학", "섬유보강 콘크리트", "Concrete Structure", "Concrete Structures", "Structural Concrete"],
+  },
+  {
+    id: "civil_environmental.geotechnical_hazards",
+    parentId: "civil_environmental",
+    labelKo: "지반/지진재해",
+    aliases: ["지반", "지반공학", "지반증폭효과", "지진재해", "지진파", "산사태", "액상화", "지질도", "시추주상도", "Geotechnical Hazards", "Earthquake Hazards", "Liquefaction"],
+  },
+  {
+    id: "civil_environmental.marine_biogeochemistry",
+    parentId: "civil_environmental",
+    labelKo: "해양환경/생지화학",
+    aliases: ["해양환경", "해양융합", "생지화학", "유기생물지구화학", "안정동위원소 생태학", "동위원소 환경감식", "Marine Environment", "Biogeochemistry", "Organic Biogeochemistry", "Stable Isotope Ecology"],
+  },
+  {
+    id: "civil_environmental.circular_resources",
+    parentId: "civil_environmental",
+    labelKo: "자원순환/순환경제",
+    aliases: ["자원순환", "순환경제", "순환자원", "폐자원", "광물자원 처리", "습식공정 기반의 순환자원", "Circular Economy", "Resource Circulation", "Waste Resources"],
   },
   {
     id: "civil_environmental.transportation_logistics",
     parentId: "civil_environmental",
     labelKo: "교통/물류 시스템",
-    aliases: ["교통", "교통공학", "교통시스템", "교통 시스템", "도로교통", "교통시설", "교통운영", "교통운영관리", "교통영향평가", "교통안전", "교통정보", "교통정책", "교통경제", "화물교통", "철도", "궤도교통", "철도수요", "대중교통", "지능형 교통시스템", "교통류", "물류"],
+    aliases: ["교통", "교통공학", "교통시스템", "교통 시스템", "도로교통", "교통시설", "교통운영", "교통운영관리", "교통영향평가", "교통안전", "교통정보", "교통정책", "교통경제", "화물교통", "철도", "궤도교통", "철도수요", "대중교통", "지능형 교통시스템", "교통류", "물류", "Logistics", "Reverse Logistics", "Eco-Logistics", "Vehicle Routing"],
   },
   {
     id: "architecture.environment_acoustics",
@@ -281,17 +370,23 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "architecture",
     labelKo: "건축학",
-    aliases: ["건축학", "건축설계", "건축디자인", "건축이론", "근대건축", "Architectural Design"],
+    aliases: ["건축학", "건축공학", "건축공학과", "건축설계", "건축디자인", "건축이론", "근대건축", "Architectural Design"],
   },
   {
     id: "industrial_engineering",
     labelKo: "산업공학",
-    aliases: ["산업공학", "시스템경영공학", "제조/인간공학", "인간공학", "품질/생산성", "통계적 공정관리", "품질개선", "프로젝트 매니지먼트", "공급망관리", "생산운영", "SCM", "Supply Chain", "정보통신경영", "서비스공학", "e-manufacturing", "Technometrics", "Industrial Engineering", "Ergonomics"],
+    aliases: ["산업공학", "산업경영공학", "산업경영공학과", "산업데이터엔지니어링", "산업데이터엔지니어링학과", "시스템경영공학", "제조/인간공학", "인간공학", "품질/생산성", "통계적 공정관리", "품질개선", "프로젝트 매니지먼트", "공급망관리", "생산운영", "Production & Logistics", "Production and Logistics", "SCM", "Supply Chain", "정보통신경영", "서비스공학", "e-manufacturing", "Technometrics", "Industrial Engineering", "Ergonomics", "이산 사건 시스템", "스마트 제조"],
+  },
+  {
+    id: "industrial_engineering.operations_research",
+    parentId: "industrial_engineering",
+    labelKo: "운영/최적화",
+    aliases: ["Operations Research", "Operations Management", "Mathematical Optimization", "Production Planning", "Production Scheduling", "Planning and Scheduling", "Scheduling", "Inventory Management", "Lot-sizing", "Flow Shop", "Manufacturing Systems", "Reconfigurable Manufacturing Systems", "Flexible Manufacturing Systems", "AGV Systems", "Disassembly Process Planning", "Remanufacturing Systems", "생산계획", "스케줄링", "재제조", "제조 시스템", "조합적 최적화", "Combinatorial Optimization"],
   },
   {
     id: "chemistry",
     labelKo: "화학",
-    aliases: ["화학", "Chemistry"],
+    aliases: ["화학", "응용화학", "응용화학과", "Chemistry", "Applied Chemistry"],
   },
   {
     id: "chemistry.physical",
@@ -324,7 +419,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "chemistry.inorganic_materials",
     parentId: "chemistry",
     labelKo: "무기/재료화학",
-    aliases: ["무기화학", "Inorganic Chemistry", "재료화학", "Materials Chemistry", "고체화학", "나노소재화학"],
+    aliases: ["무기화학", "Inorganic Chemistry", "재료화학", "Materials Chemistry", "고체화학", "나노소재화학", "금속-유기 골격체", "금속 유기 골격체", "MOF", "Metal-organic Framework", "결정구조", "기체 흡착"],
   },
   {
     id: "chemistry.analytical",
@@ -353,17 +448,23 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "physics",
     labelKo: "물리학",
-    aliases: ["물리", "Physics", "양자", "Quantum", "광학", "Optics", "분광", "Spectroscopy", "물성", "입자물리", "플라즈마", "핵융합", "홀로그래피", "천체입자", "Spin Dynamics", "초전도", "Superconductivity", "Magnetism", "Heavy Electron", "High Tc"],
+    aliases: ["물리", "물리학", "물리학과", "Physics", "양자", "Quantum", "Quantum Optics", "Quantum optical", "Quantum light", "Quantum light sources", "Quantum metrology", "Nanophotonics", "나노포토닉스", "광학", "Optics", "Photonics", "분광", "Spectroscopy", "물성", "입자물리", "플라즈마", "핵융합", "홀로그래피", "천체입자", "Condensed Matter", "Strongly Correlated", "Spin Dynamics", "초전도", "Superconductivity", "Magnetism", "Heavy Electron", "High Tc"],
+  },
+  {
+    id: "physics.quantum_information",
+    parentId: "physics",
+    labelKo: "양자정보",
+    aliases: ["양자정보", "양자정보이론", "Quantum Information", "Quantum Information Theory", "Quantum Computing"],
   },
   {
     id: "mathematics",
     labelKo: "수학",
-    aliases: ["수학", "Mathematics", "해석학", "Mathematical Analysis", "확률", "Probability", "통계수학", "편미분방정식", "Partial Differential Equation", "PDE", "조화해석", "조화해석학", "위상수학", "위상기하학", "대수적위상수학", "대수기하학", "표현론", "대수적 조합론", "금융수학"],
+    aliases: ["수학", "수학과", "응용수학", "응용수학과", "Mathematics", "해석학", "Mathematical Analysis", "확률", "Probability", "통계수학", "편미분방정식", "Partial Differential Equation", "PDE", "조화해석", "조화해석학", "위상수학", "위상기하학", "대수적위상수학", "대수기하학", "표현론", "대수적 조합론", "금융수학", "매듭론", "Knot Theory"],
   },
   {
     id: "statistics",
     labelKo: "통계학",
-    aliases: ["통계학", "Statistics", "통계", "표본조사론", "표본조사", "시계열", "다변량자료분석", "다변량 자료분석", "보험통계", "응용통계", "확률과정"],
+    aliases: ["통계학", "Statistics", "통계", "표본조사론", "표본조사", "시계열", "다변량자료분석", "다변량 자료분석", "보험통계", "응용통계", "확률과정", "베이지안통계", "Bayesian Statistics", "통계계산", "Statistical Computing", "Computational Statistics"],
   },
   {
     id: "education.math",
@@ -373,13 +474,24 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "bio",
     labelKo: "생명과학",
-    aliases: ["생명과학", "생명공학", "Biology", "Biotechnology", "생물다양성", "생물 다양성", "생태독성", "생태 군집", "Biodiversity", "Ecology", "Ecotoxicology", "분자생물학", "세포생물학", "미생물학", "면역학", "유전", "RNA", "단백질", "식물분자", "대사염증", "Structural Biology", "분자구조생물학", "구조생물학", "Cell Biology", "Bacteriophage", "Phage", "biosensor", "biosenser", "Aeromonas", "bacteria", "균주"],
+    aliases: ["생명과학", "생명공학", "Biology", "Biotechnology", "생물다양성", "생물 다양성", "생태독성", "생태 군집", "Biodiversity", "Ecology", "Ecotoxicology", "분자생물학", "세포생물학", "미생물학", "면역학", "유전", "RNA", "단백질", "식물분자", "대사염증", "Structural Biology", "분자구조생물학", "구조생물학", "Cell Biology", "Bacteriophage", "Phage", "biosensor", "biosenser", "Aeromonas", "bacteria", "균주", "환경생물정보학", "환경생물정보학연구실"],
+  },
+  {
+    id: "bio.bioinformatics",
+    parentId: "bio",
+    labelKo: "바이오정보학",
+    aliases: ["바이오정보학", "생물정보학", "생물정보", "환경생물정보학", "Bioinformatics", "Environmental Bioinformatics"],
   },
   {
     id: "bio.nanoscience",
     parentId: "bio",
     labelKo: "나노바이오/나노과학",
-    aliases: ["나노과학", "나노융합", "나노바이오", "NanoBio", "Nanoscience", "Nanoscale", "나노 소재 및 신개념 응용 소자"],
+    aliases: ["바이오나노", "바이오나노학과", "나노과학", "나노융합", "나노바이오", "NanoBio", "Nanoscience", "Nanoscale", "나노 소재 및 신개념 응용 소자", "바이오칩", "마이크로/나노시스템", "초정밀조기진단", "미래의학"],
+  },
+  {
+    id: "nuclear_engineering",
+    labelKo: "원자력공학",
+    aliases: ["원자력공학", "원자력공학과", "원자력", "원자로", "원자력안전", "방사선", "Nuclear Engineering", "Nuclear Reactor", "Radiation"],
   },
   {
     id: "medicine",
@@ -402,7 +514,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "medicine.pharmacology",
     parentId: "medicine",
     labelKo: "약리/약학",
-    aliases: ["Pharmacology", "Pharmacokinetics", "Drug Delivery", "Toxicology", "약리학", "약동", "약력학", "약물학", "약물전달", "독성학", "제제학", "약제학", "생리학", "생약학", "임상약학", "사회약학", "임상실무실습", "의약품분석학", "생물약제학", "분자독성학", "바이오의약", "독성단백체학", "병태생리학"],
+    aliases: ["Pharmacology", "Pharmacokinetics", "Drug Delivery", "Toxicology", "약리학", "약동", "약력학", "약물학", "약물전달", "독성학", "제제학", "약제학", "생리학", "생약학", "임상약학", "사회약학", "임상실무실습", "의약품분석학", "생물약제학", "분자독성학", "바이오의약", "독성단백체학", "병태생리학", "약물유전체", "약물유전체학", "Pharmacogenomics", "Pharmacogenetics"],
   },
   {
     id: "food_safety_science",
@@ -425,7 +537,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
     id: "medicine.genomics",
     parentId: "medicine",
     labelKo: "유전체/정밀의학",
-    aliases: ["Genomics", "Genome", "Genome Editing", "CRISPR", "Precision Medicine", "유전체", "유전자교정", "정밀의학", "Digital Health", "디지털헬스"],
+    aliases: ["Genomics", "Genome", "Genome Editing", "CRISPR", "Precision Medicine", "유전체", "유전자교정", "정밀의학", "Digital Health", "디지털헬스", "약물유전체", "약물유전체학", "Pharmacogenomics", "Pharmacogenetics"],
   },
   {
     id: "medicine.public_health",
@@ -453,7 +565,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "business.finance_ai",
     labelKo: "금융 AI",
-    aliases: ["금융머신러닝", "AI 금융", "Finance AI", "Financial Machine Learning", "FinTech"],
+    aliases: ["금융머신러닝", "AI 금융", "Finance AI", "Financial Machine Learning", "FinTech", "핀테크", "핀테크와 인공지능", "재무금융", "금융공학", "Computational Finance"],
   },
   {
     id: "humanities.media_communication",
@@ -488,7 +600,7 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "humanities.philosophy",
     labelKo: "철학",
-    aliases: ["철학", "Philosophy", "분석철학", "인식론", "Kant", "German Idealism", "Korean Philosophy", "서양중세 철학", "서양고대철학", "서양철학", "중국고대철학", "중국철학", "도가철학", "사회철학", "미학"],
+    aliases: ["철학", "Philosophy", "분석철학", "인식론", "화폐철학", "비트코인화폐철학", "Kant", "German Idealism", "Korean Philosophy", "서양중세 철학", "서양고대철학", "서양철학", "중국고대철학", "중국철학", "도가철학", "사회철학", "미학"],
   },
   {
     id: "humanities.religion",
@@ -528,17 +640,17 @@ export const RESEARCH_FIELDS: ResearchFieldDefinition[] = [
   {
     id: "creative.design_fashion_craft",
     labelKo: "디자인/패션/공예",
-    aliases: ["서비스디자인", "디자인 씽킹", "금속디자인", "금속조형디자인", "테이블웨어", "리빙디자인", "패션디자인", "에코패션디자인", "니트패션디자인", "소셜패션디자인", "Fashion Design", "Service Design"],
+    aliases: ["디자인학부", "서비스디자인", "디자인 씽킹", "금속디자인", "금속조형디자인", "테이블웨어", "리빙디자인", "패션디자인", "에코패션디자인", "니트패션디자인", "소셜패션디자인", "Fashion Design", "Service Design"],
   },
   {
     id: "management.technology",
     labelKo: "기술경영",
-    aliases: ["기술경영", "MOT", "Technology Management", "R&D Management", "Technology Intelligence", "Technological change", "innovation", "Patent mining", "Product-service system", "Design-by-analogy"],
+    aliases: ["기술경영", "MOT", "Technology Management", "R&D Management", "Technology Intelligence", "Technological change", "innovation", "Patent mining", "Product-service system", "Design-by-analogy", "기업가정신", "Entrepreneurship", "Social Venture", "창업기업론", "창업", "기술가치평가", "기술사업화", "기술거래", "기술이전", "Collaborative Engineering Knowledge and Information Management", "Knowledge and Information Management"],
   },
   {
     id: "real_estate",
     labelKo: "부동산/도시",
-    aliases: ["부동산", "Real Estate", "PROPTECH", "PropTech", "Urban Economics", "도시경제", "도시", "프롭테크"],
+    aliases: ["부동산", "Real Estate", "PROPTECH", "PropTech", "Urban Economics", "도시경제", "도시", "프롭테크", "도시 및 지역계획", "도시계획", "지역계획", "지역경제모형", "지역경제 분석", "지역개발정책", "Urban Planning", "Regional Planning", "Regional Economy"],
   },
   {
     id: "business.management",
@@ -634,7 +746,7 @@ export function classifyResearchText(
       return [];
     }
 
-    const hasSpecificEvidence = evidence.some((alias) => normalize(alias).length >= 5);
+    const hasSpecificEvidence = evidence.some((alias) => normalize(alias).length >= 3);
     const confidence = Math.min(0.95, 0.45 + evidence.length * 0.18 + (field.parentId ? 0.08 : 0) + (hasSpecificEvidence ? 0.08 : 0));
 
     return [
@@ -648,8 +760,8 @@ export function classifyResearchText(
   }).sort((a, b) => b.confidence - a.confidence || b.evidence.length - a.evidence.length);
 
   const collapsedMatches = collapseBroadParentMatches(matches);
-  const acceptedMatches = collapsedMatches.filter((match) => match.confidence >= threshold).slice(0, 5);
-  const rejectedMatches = collapsedMatches.filter((match) => match.confidence < threshold).slice(0, 5);
+  const acceptedMatches = collapsedMatches.filter((match) => match.confidence >= threshold).slice(0, 8);
+  const rejectedMatches = collapsedMatches.filter((match) => match.confidence < threshold).slice(0, 8);
   const suggestions = buildSuggestions(text, acceptedMatches);
   const status: ResearchClassificationStatus = acceptedMatches.length > 0
     ? "matched"
@@ -729,7 +841,7 @@ function shouldSuppressMatch(field: ResearchFieldDefinition, evidence: string[],
   }
   if (field.id === "business.management" && evidence.every((alias) => ["management", "의사결정", "decision support"].includes(normalize(alias)))) {
     const businessContext = /경영|마케팅|회계|재무|조직관리|생산관리|공급망|business|market|finance|accounting|organization/.test(normalizedText);
-    const technicalContext = /thermal management|storage management|database|시스템|데이터|열관리|에너지|컴퓨터|정보검색|빅데이터|의사결정지원시스템/.test(normalizedText);
+    const technicalContext = /thermal management|storage management|inventory management|operations management|production planning|manufacturing systems?|remanufacturing|database|시스템|데이터|열관리|에너지|컴퓨터|정보검색|빅데이터|의사결정지원시스템/.test(normalizedText);
     return technicalContext && !businessContext;
   }
   if (field.id === "systems.distributed" && evidence.every((alias) => ["distributed", "분산", "클라우드", "cloud"].includes(normalize(alias)))) {
@@ -749,10 +861,25 @@ function shouldSuppressMatch(field: ResearchFieldDefinition, evidence: string[],
     const businessStrategyContext = /전략\s*최적화|시장|기업|비즈니스|경영|공급망|거버넌스|business|strategy|market|firm|organization/.test(normalizedText);
     return businessStrategyContext && !engineeringContext;
   }
+  if (field.id === "electronics.control" && evidence.every((alias) => ["제어", "최적화"].includes(normalize(alias)))) {
+    const explicitControlContext = /제어\s*시스템|제어공학|최적제어|control systems?|control engineering|feedback control/.test(normalizedText);
+    const memorySemiconductorContext = /메모리|반도체|dram|sram|tcam|ddr|hbm|asic|fpga|tester|테스터|테스트|신뢰성/.test(normalizedText);
+    return memorySemiconductorContext && !explicitControlContext;
+  }
   if (field.id === "electronics.rf" && evidence.every((alias) => normalize(alias) === "통신")) {
     const rfContext = /무선|rf|안테나|마이크로파|전파|wireless|communication systems?|network|네트워크|이동통신/.test(normalizedText);
     const chipContext = /반도체|칩|메모리|dram|hbm|ssd|ic|soc|processor|프로세서|집적회로/.test(normalizedText);
     return chipContext && !rfContext;
+  }
+  if (field.id === "business.management" && evidence.every((alias) => normalize(alias) === "management")) {
+    const businessContext = /경영|마케팅|회계|재무|조직관리|조직행동|인사조직|business|market|finance|accounting|organization|strategy/.test(normalizedText);
+    return !businessContext;
+  }
+  if (field.id === "mechanical.materials" && evidence.every((alias) => ["material", "materials"].includes(normalize(alias)))) {
+    return /quantum\s+materials?|condensed\s+matter|topological\s+matter|strongly\s+correlated/i.test(normalizedText);
+  }
+  if (field.id === "chemical_engineering" && evidence.every((alias) => normalize(alias) === "perovskite")) {
+    return /quantum|photon|optical|plasmonic|nanophotonics|single photons?|quantum dots?/i.test(normalizedText);
   }
   if (field.id === "creative.design_fashion_craft" && evidence.every((alias) => normalize(alias) === "디자인")) {
     const creativeDesignContext = /패션|공예|서비스디자인|디자인씽킹|ux|ui\/ux|user experience|product design|industrial design/.test(normalizedText);

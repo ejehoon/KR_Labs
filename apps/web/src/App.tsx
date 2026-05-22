@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { HomePage } from "./components/HomePage";
 import { LabCard } from "./components/LabCard";
@@ -42,7 +42,7 @@ export function App() {
   const [query, setQuery] = useState("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     setState({ status: "loading" });
     try {
       const data = await loadDashboardData();
@@ -50,11 +50,25 @@ export function App() {
     } catch (error) {
       setState({ status: "error", error: error instanceof Error ? error.message : String(error) });
     }
-  };
+  }, []);
 
   useEffect(() => {
     void refresh();
-  }, []);
+  }, [refresh]);
+
+  useEffect(() => {
+    const refreshWhenVisible = () => {
+      if (document.visibilityState === "visible") {
+        void refresh();
+      }
+    };
+    window.addEventListener("focus", refreshWhenVisible);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
+    return () => {
+      window.removeEventListener("focus", refreshWhenVisible);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
+  }, [refresh]);
 
   useEffect(() => {
     if (state.status === "ready" && !selectedSchool) {

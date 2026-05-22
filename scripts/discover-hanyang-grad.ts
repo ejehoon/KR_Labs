@@ -28,7 +28,7 @@ function optionalNumber(value: string | boolean | undefined): number | undefined
 }
 
 function printHelp() {
-  console.log(`Usage: pnpm discover:hanyang-grad [--max-lab-colleges=11] [--max-lab-departments=120] [--max-research-enrichment-labs=404] [--max-member-enrichment-labs=30]
+  console.log(`Usage: pnpm discover:hanyang-grad [--max-lab-colleges=11] [--max-lab-departments=120] [--max-research-enrichment-labs=9999] [--max-member-enrichment-labs=9999] [--homepage-enrichment=verified|all|off] [--max-department-homepages=125]
 
 Discovers Hanyang graduate departments and lab cards via Playwright.
 Writes reports/hanyang-grad-discovery.json without Supabase writes.
@@ -47,8 +47,10 @@ async function main() {
     const report = await discoverHanyangGraduateSeeds(browser.context, {
       maxLabColleges: optionalNumber(args.get("max-lab-colleges")),
       maxLabDepartments: optionalNumber(args.get("max-lab-departments")),
-      maxResearchEnrichmentLabs: optionalNumber(args.get("max-research-enrichment-labs")) ?? 0,
-      maxMemberEnrichmentLabs: optionalNumber(args.get("max-member-enrichment-labs")) ?? 0,
+      maxResearchEnrichmentLabs: optionalNumber(args.get("max-research-enrichment-labs")) ?? 9999,
+      maxMemberEnrichmentLabs: optionalNumber(args.get("max-member-enrichment-labs")) ?? 9999,
+      homepageEnrichmentMode: (args.get("homepage-enrichment") as "verified" | "all" | "off" | undefined) ?? "verified",
+      maxDepartmentHomepages: optionalNumber(args.get("max-department-homepages")),
     });
     await mkdir("reports", { recursive: true });
     const reportPath = join("reports", "hanyang-grad-discovery.json");

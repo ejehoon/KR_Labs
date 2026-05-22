@@ -149,13 +149,28 @@ type DepartmentHomepageLab = {
   sourceUrl: string;
 };
 
+type DepartmentHomepageProfessorRow = {
+  name: string;
+  title?: string;
+  researchText?: string;
+  phone?: string;
+  email?: string;
+  homepageUrl?: string;
+  profileDetailText?: string;
+  detailUrl?: string;
+};
+
 const defaultSourceUrl = "http://www.grad.hanyang.ac.kr/department/departmentintro.php";
 const labRootUrl = "http://www.grad.hanyang.ac.kr/graduate/lab.php";
 const gradBaseUrl = "http://www.grad.hanyang.ac.kr/";
 const verifiedDepartmentHomepageHosts = new Set([
+  "education.hanyang.ac.kr",
   "eece.hanyang.ac.kr",
   "fn.hanyang.ac.kr",
+  "physics.hanyang.ac.kr",
 ]);
+
+type HomepageEnrichmentMode = "off" | "verified" | "all";
 
 const hanyangEeceLocalCategoryMatches: Record<string, ResearchFieldMatch[]> = {
   "반도체": [{ fieldId: "electronics.semiconductor", labelKo: "반도체/집적회로", confidence: 0.86, evidence: ["local_category:반도체"] }],
@@ -252,7 +267,7 @@ function buildDiscoveryMetadata(
     professorListUrlPattern: "graduate/lab_03.php?catcode={departmentCatcode} renders lab cards with professor name/email/research fields.",
     professorDetailUrlPattern: undefined,
     labHomepageLinkPattern: ".lab_info a.homepage, optional per lab card; empty link text but stable class.",
-    membersTraversal: "For cards with a lab homepage, member pages are discovered from Homepage/Lab root links containing Members/People/Team/Students/구성원/연구원 and common derived paths. Counts are left unknown when current-member evidence is absent.",
+    membersTraversal: "Only professor personal lab homepages are used for member counts. Playwright opens Members/People/Team/Students/구성원/멤버/학생/연구원-style pages and common derived paths, excludes Alumni/Former/졸업/동문 sections, and leaves counts unknown when current-member evidence is absent.",
     publicationsTraversal: "No reliable DBLP/Scholar/publication URLs are exposed on the graduate lab cards; external lab homepages may contain publication pages but ambiguous name-only DBLP/Scholar matches are not stored.",
     structuralNotes: [
       "TARGET_URL is static EUC-KR HTML with department rows under .department_con .part_list and no iframe.",
@@ -639,9 +654,15 @@ function isUrl(value: string | undefined): boolean {
   return /^https?:\/\//i.test(value ?? "");
 }
 
-function shouldAttemptDepartmentHomepageEnrichment(program: HanyangGraduateProgram): boolean {
+function shouldAttemptDepartmentHomepageEnrichment(program: HanyangGraduateProgram, mode: HomepageEnrichmentMode): boolean {
   if (!program.homepageUrl) {
     return false;
+  }
+  if (mode === "off") {
+    return false;
+  }
+  if (mode === "all") {
+    return true;
   }
   try {
     const hostname = new URL(program.homepageUrl).hostname.toLowerCase();
@@ -651,11 +672,64 @@ function shouldAttemptDepartmentHomepageEnrichment(program: HanyangGraduateProgr
   }
 }
 
+function normalizeUrlForDiscovery(url: string | undefined): string | undefined {
+  if (!url) {
+    return undefined;
+  }
+  try {
+    const parsed = new URL(url);
+    parsed.hash = "";
+    return parsed.toString().replace(/\/+$/, "");
+  } catch {
+    return undefined;
+  }
+}
+
+function candidateFacultyUrls(homepageUrl: string, homeSnapshot: PlaywrightPageSnapshot): string[] {
+  const urls: string[] = [];
+  const push = (url: string | undefined) => {
+    const normalized = normalizeUrlForDiscovery(url);
+    if (normalized && /^https?:\/\//i.test(normalized)) {
+      urls.push(normalized);
+    }
+  };
+
+  for (const link of homeSnapshot.links) {
+    const haystack = `${link.text} ${link.href}`;
+    if (/교수소개|교수진|교원|faculty|professors?|people/i.test(haystack)) {
+      push(link.href);
+    }
+  }
+
+  try {
+    const url = new URL(homepageUrl);
+    const origin = url.origin;
+    const path = url.pathname.replace(/\/+$/, "");
+    push(`${origin}/faculty`);
+    push(`${origin}/professor`);
+    push(`${origin}/people`);
+    push(`${origin}/members`);
+    if (/\/dean$/i.test(path)) {
+      push(`${origin}${path.replace(/\/dean$/i, "/professor")}`);
+    }
+    if (/\/class$/i.test(path)) {
+      push(`${origin}${path.replace(/\/class$/i, "/professor")}`);
+    }
+    if (/\/introduce$/i.test(path)) {
+      push(`${origin}${path.replace(/\/introduce$/i, "/professor")}`);
+    }
+  } catch {
+    // Ignore malformed homepage URL.
+  }
+
+  return uniqueBy(urls, (url) => url).slice(0, 8);
+}
+
 function extractResearchInterestFromDetail(text: string | undefined): string | undefined {
   if (!text) {
     return undefined;
   }
-  const match = text.match(/연구(?:관심)?분야\s+([\s\S]*?)(?:\s+주요논문|\s+주요저서|\s+수상경력|\s+학회활동|$)/);
+  const match = text.match(/연구(?:관심)?분야\s+([\s\S]*?)(?:\s+주요\s*(?:논문|저서|연구실적)|\s+수상경력|\s+학회활동|$)/);
   return cleanResearchScopeText(match?.[1]);
 }
 
@@ -668,14 +742,17 @@ async function extractDepartmentHomepageProfessorCards(
   try {
     await page.goto(facultyUrl, { waitUntil: "domcontentloaded", timeout: 30_000 });
     await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => undefined);
-    const rows = await page.$$eval(".hyu-fragment-component-profile", (cards) => {
+    let rows = await page.$$eval(".hyu-fragment-component-profile", (cards) => {
       const clean = (value: string | null | undefined) => value?.replace(/\s+/g, " ").trim() ?? "";
       const isUrl = (value: string) => /^https?:\/\//i.test(value);
-      return cards.map((card) => {
-        const name = clean(card.querySelector(".hyu-profile-info-title-name")?.textContent);
+      return cards.filter((card) => Boolean((card as HTMLElement).offsetParent)).map((card) => {
+        const rawName = clean(card.querySelector(".hyu-profile-info-title-name")?.textContent);
+        const position = clean(card.querySelector(".hyu-profile-info-title-position")?.textContent);
+        const desc = clean(card.querySelector(".hyu-profile-info-desc")?.textContent);
+        const name = !/[가-힣]/.test(rawName) && /^[가-힣]{2,5}$/.test(position) ? position : rawName;
         const titleBlock = clean(card.querySelector(".hyu-profile-info-title")?.textContent);
-        const title = clean(titleBlock.replace(name, ""));
-        const researchText = clean(card.querySelector(".hyu-profile-info-desc")?.textContent);
+        const title = name === position ? desc : clean(titleBlock.replace(name, ""));
+        const researchText = name === position ? "" : desc;
         const links = [...card.querySelectorAll<HTMLAnchorElement>("a[href]")].map((link) => ({
           text: clean(link.textContent),
           href: link.href || link.getAttribute("href") || "",
@@ -688,9 +765,55 @@ async function extractDepartmentHomepageProfessorCards(
         const profileDetailText = clean(card.querySelector(".more-info-modal")?.textContent);
         return { name, title, researchText, phone, email, homepageUrl, profileDetailText };
       }).filter((row) => row.name && (row.email || row.researchText || row.profileDetailText));
-    });
+    }) as DepartmentHomepageProfessorRow[];
+
+    if (rows.length === 0) {
+      const educationRows = await page.$$eval(".module-professor-class > ul:not(.special) > li", (cards) => {
+        const clean = (value: string | null | undefined) => value?.replace(/\s+/g, " ").trim() ?? "";
+        const isUrl = (value: string) => /^https?:\/\//i.test(value);
+        return cards.map((card) => {
+          const name = clean(card.querySelector(".subject strong")?.textContent);
+          const subjectText = clean(card.querySelector(".subject")?.textContent);
+          const title = clean(subjectText.replace(name, ""));
+          const shortContent = clean(card.querySelector(".short-content")?.textContent);
+          const phone = clean(card.querySelector(".phone")?.textContent).replace(/^T\.\s*/, "");
+          const email = card.querySelector<HTMLAnchorElement>("a.email[href^='mailto:']")?.href.replace(/^mailto:/i, "").toLowerCase()
+            ?? shortContent.match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i)?.[0]?.toLowerCase();
+          const homepageUrl = [...card.querySelectorAll<HTMLAnchorElement>("a.website[href]")]
+            .map((link) => link.href || link.getAttribute("href") || "")
+            .find((href) => isUrl(href) && !/#website$/i.test(href));
+          const detailUrl = card.querySelector<HTMLAnchorElement>("a.trigger-modal-box[href]")?.href;
+          return {
+            name,
+            title,
+            researchText: "",
+            phone,
+            email,
+            homepageUrl,
+            profileDetailText: "",
+            detailUrl,
+          };
+        }).filter((row) => row.name && (row.email || row.homepageUrl || row.detailUrl));
+      });
+
+      rows = await mapWithConcurrencyResult(educationRows, 4, async (row) => {
+        if (!row.detailUrl) {
+          return row;
+        }
+        try {
+          const detailLines = await bodyLines(context, row.detailUrl);
+          return {
+            ...row,
+            profileDetailText: cleanText(detailLines.join(" | ")) ?? "",
+          };
+        } catch {
+          return row;
+        }
+      });
+    }
 
     return rows.map((row) => {
+      const detailUrl = row.detailUrl;
       const detailResearchText = extractResearchInterestFromDetail(row.profileDetailText);
       const researchText = detailResearchText ?? cleanResearchScopeText(row.researchText);
       return {
@@ -700,11 +823,11 @@ async function extractDepartmentHomepageProfessorCards(
         title: row.name.includes("학과장") ? "학과장 교수" : cleanText(row.title),
         email: cleanText(row.email)?.toLowerCase(),
         phone: cleanText(row.phone),
-        profileUrl: facultyUrl,
+        profileUrl: detailUrl ?? facultyUrl,
         labHomepageUrl: row.homepageUrl,
         researchText,
         profileDetailText: cleanText(row.profileDetailText),
-        profileDetailSourceUrl: facultyUrl,
+        profileDetailSourceUrl: detailUrl ?? facultyUrl,
         sourceUrl: facultyUrl,
         classification: classifyResearchText([researchText, program.name].filter(Boolean).join(" | ")),
         warnings: row.profileDetailText ? [] : ["교수 상세 프로필 모달 없음"],
@@ -713,6 +836,33 @@ async function extractDepartmentHomepageProfessorCards(
   } finally {
     await page.close();
   }
+}
+
+function labCandidateFromProfessorCandidate(professor: HanyangProfessorCandidate): HanyangLabCandidate {
+  const labName = cleanText(`${professor.name} 교수 연구실`) ?? professor.name;
+  const candidate: HanyangLabCandidate = {
+    collegeName: professor.collegeName,
+    departmentName: professor.departmentName,
+    labName,
+    professorName: normalizeProfessorName(professor.name),
+    email: professor.email,
+    phone: professor.phone,
+    researchText: professor.researchText,
+    labUrl: professor.labHomepageUrl ?? professor.profileUrl ?? professor.sourceUrl,
+    labHomepageUrl: professor.labHomepageUrl,
+    sourceUrl: professor.profileDetailSourceUrl ?? professor.sourceUrl,
+    affiliations: [{
+      collegeName: professor.collegeName,
+      departmentName: professor.departmentName,
+      sourceUrl: professor.sourceUrl,
+    }],
+    classification: professor.classification,
+    warnings: professor.labHomepageUrl
+      ? ["학과 홈페이지 교수소개에서 보강"]
+      : ["학과 홈페이지 교수소개에서 보강", "외부 연구실 홈페이지 없음"],
+  };
+  candidate.classification = classifyLabResearch(candidate);
+  return candidate;
 }
 
 async function extractEeceDepartmentHomepageLabs(
@@ -810,7 +960,7 @@ function parseDepartmentHomepageLab(lines: string[], sourceUrl: string): Departm
   };
 }
 
-async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, program: HanyangGraduateProgram): Promise<{
+export async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, program: HanyangGraduateProgram): Promise<{
   professors: HanyangProfessorCandidate[];
   labs: HanyangLabCandidate[];
 }> {
@@ -819,7 +969,7 @@ async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, 
   }
   const homepageUrl = program.homepageUrl;
   const homeSnapshot = await snapshotPlaywrightPage(context, homepageUrl);
-  const facultyUrl = homeSnapshot.links.find((link) => /교수진|교수|faculty|professor/i.test(link.text))?.href;
+  const facultyUrls = candidateFacultyUrls(homepageUrl, homeSnapshot);
   const labLinks = uniqueBy(
     homeSnapshot.links
       .filter((link) =>
@@ -831,9 +981,28 @@ async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, 
     (link) => link.url,
   );
 
-  const professorCandidates = facultyUrl
-    ? await extractDepartmentHomepageProfessorCards(context, facultyUrl, program)
-    : [];
+  let professorCandidates: HanyangProfessorCandidate[] = [];
+  let selectedFacultyUrl: string | undefined;
+  const facultyAttempts: string[] = [];
+  for (const facultyUrl of facultyUrls) {
+    facultyAttempts.push(facultyUrl);
+    try {
+      const candidates = await extractDepartmentHomepageProfessorCards(context, facultyUrl, program);
+      if (candidates.length > professorCandidates.length) {
+        professorCandidates = candidates;
+        selectedFacultyUrl = facultyUrl;
+      }
+    } catch {
+      // Keep trying other likely faculty pages. Failed attempts are recorded on candidates only when found.
+    }
+  }
+  if (selectedFacultyUrl) {
+    for (const professor of professorCandidates) {
+      professor.warnings = [...new Set([...professor.warnings, `교수진 페이지 자동탐색:${selectedFacultyUrl}`])];
+    }
+  } else if (facultyAttempts.length > 0) {
+    professorCandidates = [];
+  }
 
   const hostname = new URL(homepageUrl).hostname.toLowerCase();
   if (hostname === "eece.hanyang.ac.kr") {
@@ -842,6 +1011,13 @@ async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, 
     return {
       professors: professorCandidates,
       labs: await extractEeceDepartmentHomepageLabs(context, labAllUrl, program),
+    };
+  }
+
+  if (labLinks.length === 0 && professorCandidates.length > 0) {
+    return {
+      professors: professorCandidates,
+      labs: professorCandidates.map(labCandidateFromProfessorCandidate),
     };
   }
 
@@ -876,14 +1052,45 @@ async function extractDepartmentHomepageFacultyAndLabs(context: BrowserContext, 
   return { professors: professorCandidates, labs };
 }
 
-async function enrichMemberCounts(candidates: HanyangLabCandidate[], maxLabs: number): Promise<void> {
-  let enriched = 0;
-  for (const candidate of candidates) {
-    if (!candidate.labHomepageUrl || enriched >= maxLabs) {
-      continue;
+function shouldAttemptMemberCount(candidate: HanyangLabCandidate): boolean {
+  if (!candidate.labHomepageUrl) {
+    return false;
+  }
+  try {
+    const labUrl = new URL(candidate.labHomepageUrl);
+    const sourceUrl = new URL(candidate.sourceUrl);
+    const labPath = labUrl.pathname.toLowerCase();
+    if (labUrl.hostname === "grad.hanyang.ac.kr" || labUrl.hostname === "www.grad.hanyang.ac.kr") {
+      return false;
     }
-    enriched += 1;
-    const result = await enrichLabMemberCount(candidate.labHomepageUrl);
+    if (/docs\.google\.com|shinyapps\.io|cafe\.naver\.com/i.test(labUrl.hostname)) {
+      return false;
+    }
+    if (/faculty|professor|profile|교수진|교수소개|전임교원|\/[^/]*-/.test(labPath)) {
+      return false;
+    }
+    if (labUrl.hostname.endsWith(".hanyang.ac.kr") && labPath !== "/" && !/lab|members?|people|team|students?|group|구성원|멤버|맴버|학생|연구원|연구실/i.test(labPath)) {
+      return false;
+    }
+    if (labUrl.hostname !== sourceUrl.hostname) {
+      return true;
+    }
+    return /lab|members?|people|team|students?|group|구성원|멤버|맴버|학생|연구원|연구실/i.test(labPath);
+  } catch {
+    return false;
+  }
+}
+
+async function enrichMemberCounts(context: BrowserContext, candidates: HanyangLabCandidate[], maxLabs: number): Promise<void> {
+  for (const candidate of candidates) {
+    if (!shouldAttemptMemberCount(candidate)) {
+      candidate.warnings.push("연구원수 탐색 제외: 개인 연구실 홈페이지 없음");
+    }
+  }
+
+  const enrichable = candidates.filter(shouldAttemptMemberCount).slice(0, maxLabs);
+  await mapWithConcurrency(enrichable, 4, async (candidate) => {
+    const result = await enrichLabMemberCount(candidate.labHomepageUrl, { context });
     candidate.memberCountCandidatePages = result.candidatePages;
     if (typeof result.count === "number") {
       candidate.currentMemberCount = result.count;
@@ -893,10 +1100,10 @@ async function enrichMemberCounts(candidates: HanyangLabCandidate[], maxLabs: nu
     } else {
       candidate.warnings.push("연구원수 확인 불가");
     }
-  }
+  });
 }
 
-async function enrichResearchEvidence(context: BrowserContext, candidates: HanyangLabCandidate[], maxLabs: number): Promise<void> {
+export async function enrichResearchEvidence(context: BrowserContext, candidates: HanyangLabCandidate[], maxLabs: number): Promise<void> {
   const enrichable = candidates.filter((candidate) => candidate.labHomepageUrl).slice(0, maxLabs);
   const enrichableSet = new Set(enrichable);
   for (const candidate of candidates) {
@@ -936,12 +1143,32 @@ async function mapWithConcurrency<T>(items: T[], concurrency: number, worker: (i
   await Promise.all(workers);
 }
 
+async function mapWithConcurrencyResult<T, R>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T) => Promise<R>,
+): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let nextIndex = 0;
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
+    while (nextIndex < items.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await worker(items[index] as T);
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 export async function discoverHanyangGraduateSeeds(context: BrowserContext, options?: {
   sourceUrl?: string;
   maxLabColleges?: number;
   maxLabDepartments?: number;
   maxResearchEnrichmentLabs?: number;
   maxMemberEnrichmentLabs?: number;
+  homepageEnrichmentMode?: HomepageEnrichmentMode;
+  maxDepartmentHomepages?: number;
 }): Promise<HanyangGraduateDiscoveryReport> {
   const sourceUrl = options?.sourceUrl ?? defaultSourceUrl;
   const failedPages: HanyangGraduateDiscoveryReport["failedPages"] = [];
@@ -980,23 +1207,24 @@ export async function discoverHanyangGraduateSeeds(context: BrowserContext, opti
     }
   }
 
-  const maxMemberEnrichmentLabs = options?.maxMemberEnrichmentLabs ?? 0;
+  const maxMemberEnrichmentLabs = options?.maxMemberEnrichmentLabs ?? 9999;
   if (maxMemberEnrichmentLabs > 0) {
-    await enrichMemberCounts(uniqueLabs, maxMemberEnrichmentLabs);
+    await enrichMemberCounts(context, uniqueLabs, maxMemberEnrichmentLabs);
   }
 
   let finalLabCandidates = uniqueLabs;
   let professorCandidates: HanyangProfessorCandidate[] = [];
+  const homepageEnrichmentMode = options?.homepageEnrichmentMode ?? "verified";
   const departmentHomepagePrograms = uniqueBy(
     programs
-      .filter(shouldAttemptDepartmentHomepageEnrichment)
+      .filter((program) => shouldAttemptDepartmentHomepageEnrichment(program, homepageEnrichmentMode))
       .sort((a, b) => {
         const aIsBk21 = /BK21/.test(a.collegeName);
         const bIsBk21 = /BK21/.test(b.collegeName);
         return Number(aIsBk21) - Number(bIsBk21);
       }),
     (program) => program.homepageUrl ?? `${program.collegeName}|${program.name}`,
-  );
+  ).slice(0, options?.maxDepartmentHomepages ?? Number.POSITIVE_INFINITY);
   for (const program of departmentHomepagePrograms) {
     try {
       const enriched = await extractDepartmentHomepageFacultyAndLabs(context, program);
@@ -1015,6 +1243,15 @@ export async function discoverHanyangGraduateSeeds(context: BrowserContext, opti
         reason: error instanceof Error ? error.message : String(error),
       });
     }
+  }
+
+  const postHomepageResearchTargets = finalLabCandidates.filter((candidate) =>
+    candidate.labHomepageUrl
+      && !candidate.homepageResearchText
+      && candidate.warnings.some((warning) => warning.includes("학과 홈페이지 연구실 페이지에서 보강") || warning.includes("학과 홈페이지 교수소개에서 보강")),
+  );
+  if (maxResearchEnrichmentLabs > 0 && postHomepageResearchTargets.length > 0) {
+    await enrichResearchEvidence(context, postHomepageResearchTargets, maxResearchEnrichmentLabs);
   }
 
   return {

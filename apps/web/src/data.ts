@@ -298,6 +298,9 @@ function getBrowserSupabaseClient(url: string, publishableKey: string): Supabase
       detectSessionInUrl: false,
       storageKey: "kr-labs-disabled-auth",
     },
+    global: {
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
   });
   cachedClientKey = key;
   return cachedClient;
@@ -378,7 +381,7 @@ export async function loadKrRankingsData(url: string, publishableKey: string): P
       client.from("universities").select("id,name").order("name"),
       client
         .from("professors")
-        .select("id,name,department,paper_count,lab_member_count,lab_url,scholar_url,dblp_url,university_id,research_sub_fields")
+        .select("id,name,department,paper_count,lab_member_count,lab_url,scholar_url,dblp_url,university_id,research_sub_fields,research_detail_text,research_detail_topics,research_detail_source_url")
         .order("paper_count", { ascending: false, nullsFirst: false })
         .limit(1000),
       client.from("research_sub_fields").select("id,name").order("id"),
@@ -432,7 +435,11 @@ export async function loadKrRankingsData(url: string, publishableKey: string): P
       school: schoolsById.get(professor.university_id ?? -1) ?? "Unknown",
       department: professor.department ?? undefined,
       homepageUrl: professor.lab_url ?? undefined,
-      sourceUrl: professor.lab_url ?? professor.dblp_url ?? professor.scholar_url ?? undefined,
+      sourceUrl: professor.research_detail_source_url ?? professor.lab_url ?? professor.dblp_url ?? professor.scholar_url ?? undefined,
+      researchText: [
+        professor.research_detail_text,
+        Array.isArray(professor.research_detail_topics) ? professor.research_detail_topics.join(" ") : undefined,
+      ].filter(Boolean).join(" | ") || undefined,
       scholarUrl: professor.scholar_url ?? undefined,
       dblpUrl: professor.dblp_url ?? undefined,
       paperCount: professor.paper_count ?? 0,

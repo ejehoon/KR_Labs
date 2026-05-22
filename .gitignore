@@ -4,6 +4,7 @@ dist/
 reports/*.json
 reports/*.md
 reports/*.png
+reports/*.html
 !.gitkeep
 .vercel
 .playwright-mcp/

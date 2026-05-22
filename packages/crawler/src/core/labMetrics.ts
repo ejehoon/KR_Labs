@@ -1,4 +1,6 @@
+import type { BrowserContext } from "playwright";
 import { cleanText, decodeHtmlEntities, resolveUrl, textFromHtml, uniqueBy } from "./html.js";
+import { snapshotPlaywrightPage } from "./playwrightExtract.js";
 
 export type LabMemberCountResult = {
   count?: number;
@@ -17,11 +19,14 @@ type PageData = {
   links: Array<{ href: string; text: string }>;
 };
 
+type PageLoader = (url: string) => Promise<PageData | undefined>;
+
 const userAgent = process.env.CRAWLER_USER_AGENT ?? "Mozilla/5.0 (compatible; KR-Labs-Crawler/0.1)";
 const httpTimeoutMs = Number(process.env.LAB_METRICS_HTTP_TIMEOUT_MS ?? 8_000);
 const maxAutomaticMemberCount = Number(process.env.LAB_METRICS_MAX_MEMBER_COUNT ?? 80);
 const pageCache = new Map<string, Promise<PageData | undefined>>();
-const unreliableMemberSourcePattern = /(?:^|[\/_-])(?:publications?|papers?|projects?|research|current[-_]?news|news|awards?|posts?|contact|articles?|policy|privacy|terms|current[-_]?students|admissions?|welfare|support|schoollife\d*|activity|exchange[-_]?students|exhange[-_]?students|cscience[-_]?current|student[-_]?scg|student[-_]?sw|student[-_]?global[-_]?stu|student[-_]?(?:[a-z]+[-_])*[a-z]*stu|research[-_]?biotech|alumi|links?|group[-_]?photos?|photos?|galler(?:y|ies))(?:[\/_.-]|$|[?#])|(?:^|\/)(?:prof|professor|faculty|principal(?:[-_]?investigator)?|pi|fulltime)(?:[-_/]|$|[?#])|#role-member-pages$|bo_table=student|peopleprofe|researchfaculty|faculty|professor|교수진|전임교원|교원소개|login(?:\.php)?|nature\.com|samsungstf\.org|samsunghospital\.com\/home\/future\/|success\.skku\.edu\/success\/index\.do|coefs\.charlotte\.edu\/(?:ttxu|hzhang3)|coefs\.uncc\.edu\/hcho17|microsoft\.com\/en-us\/research\/people|researcher\/viewresearcher|viewresearcher\.do|researchgate\.net|scientific-contributions/i;
+const unreliableMemberSourcePattern = /(?:^|[\/_-])(?:publications?|papers?|projects?|research|current[-_]?news|news|awards?|posts?|contact|articles?|policy|privacy|terms|current[-_]?students|admissions?|welfare|support|schoollife\d*|activity|exchange[-_]?students|exhange[-_]?students|cscience[-_]?current|student[-_]?scg|student[-_]?sw|student[-_]?global[-_]?stu|student[-_]?(?:[a-z]+[-_])*[a-z]*stu|lecture[-_]?student|research[-_]?biotech|alumi|links?|group[-_]?photos?|photos?|galler(?:y|ies))(?:[\/_.-]|$|[?#])|(?:^|\/)(?:prof|professor|faculty|principal(?:[-_]?investigator)?|pi|fulltime)(?:[-_/]|$|[?#])|#role-member-pages$|bo_table=student|peopleprofe|researchfaculty|faculty|professor|교수진|전임교원|교원소개|login(?:\.php)?|nature\.com|samsungstf\.org|samsunghospital\.com\/home\/future\/|success\.skku\.edu\/success\/index\.do|coefs\.charlotte\.edu\/(?:ttxu|hzhang3)|coefs\.uncc\.edu\/(?:hcho17|ttxu)|microsoft\.com\/en-us\/research\/people|researcher\/viewresearcher|viewresearcher\.do|researchgate\.net|scientific-contributions/i;
+const memberKeywordPattern = /members?|people|team|students?|researchers?|group|current|구성원|멤버|맴버|구성|학생|대학원생|연구원|재학생|연구실\s*구성원|연구실\s*인원/i;
 
 function stripHtmlNoise(html: string): string {
   return html
@@ -91,6 +96,22 @@ async function fetchPage(url: string): Promise<PageData | undefined> {
   return promise;
 }
 
+async function fetchPlaywrightPage(context: BrowserContext, url: string): Promise<PageData | undefined> {
+  try {
+    const snapshot = await snapshotPlaywrightPage(context, url);
+    return {
+      url,
+      finalUrl: snapshot.finalUrl,
+      title: snapshot.title,
+      html: snapshot.html,
+      text: htmlToTextWithBreaks(snapshot.html),
+      links: snapshot.links.map((link) => ({ href: link.href, text: link.text })),
+    };
+  } catch {
+    return undefined;
+  }
+}
+
 function extractLinks(html: string, baseUrl: string): Array<{ href: string; text: string }> {
   const links = [...stripHtmlNoise(html).matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
     .map((match) => {
@@ -108,7 +129,7 @@ function memberLinkScore(link: { href: string; text: string }): { score: number;
   let score = 0;
   const reasons: string[] = [];
 
-  if (/members?|people|team|students?|researchers?|group|current|구성원|멤버|맴버|학생|연구원|재학생/i.test(haystack)) {
+  if (memberKeywordPattern.test(haystack)) {
     score += 12;
     reasons.push("member_keyword");
   }
@@ -123,6 +144,10 @@ function memberLinkScore(link: { href: string; text: string }): { score: number;
   if (/faculty|professor|교수|교수진|profile/i.test(haystack)) {
     score -= 8;
     reasons.push("faculty_penalty");
+  }
+  if (/news|notice|award|activity|publication|paper|논문|뉴스|공지|수상|활동/i.test(haystack)) {
+    score -= 20;
+    reasons.push("non_member_content_penalty");
   }
 
   return { score, reason: reasons.join(",") || "unknown" };
@@ -156,6 +181,14 @@ function candidateMemberUrls(rootPage: PageData): Array<{ url: string; score: nu
     "people/students/",
     "people/researchers/",
     "the-group/present/",
+    "member/current/",
+    "member/students/",
+    "members/students/",
+    "people/current/",
+    "구성원/",
+    "멤버/",
+    "학생/",
+    "연구원/",
   ]
     .map((path) => {
       const base = rootPage.finalUrl.endsWith("/") ? rootPage.finalUrl : `${rootPage.finalUrl}/`;
@@ -164,7 +197,7 @@ function candidateMemberUrls(rootPage: PageData): Array<{ url: string; score: nu
     .filter((url): url is string => Boolean(url))
     .map((url) => ({ url, score: 8, reason: "derived_common_member_path" }));
 
-  const rootLooksLikeMemberPage = /members?|people|team|students?|구성원|멤버|맴버|학생|연구원/i.test(`${rootPage.title ?? ""} ${rootPage.finalUrl}`);
+  const rootLooksLikeMemberPage = memberKeywordPattern.test(`${rootPage.title ?? ""} ${rootPage.finalUrl}`);
   const rootCandidate = rootLooksLikeMemberPage ? [{ url: rootPage.finalUrl, score: 20, reason: "root_is_member_page" }] : [];
 
   return uniqueBy([...rootCandidate, ...scoredLinks, ...derivedPaths], (item) => item.url)
@@ -185,13 +218,19 @@ function isProfessorHeading(heading: string): boolean {
 }
 
 function isCurrentMemberHeading(heading: string): boolean {
-  return /members?|people|team|students?|researchers?|post-?doc|postdoctoral|visiting|on leave|ph\.?\s*d|doctoral|master|\bm\.?\s*s\.?\b|undergraduate|intern|구성원|멤버|맴버|학생|연구원|재학생|박사|석사|학부|방문|휴학/.test(heading)
+  return /members?|people|team|students?|researchers?|post-?doc|postdoctoral|visiting|on leave|ph\.?\s*d|doctoral|master|\bm\.?\s*s\.?\b|undergraduate|intern|구성원|멤버|맴버|학생|대학원생|연구원|재학생|박사|석사|학부|방문|휴학/.test(heading)
+    && !isFormerHeading(heading)
+    && !isProfessorHeading(heading);
+}
+
+function isSpecificCurrentMemberHeading(heading: string): boolean {
+  return /post-?doc|postdoctoral|visiting|on leave|ph\.?\s*d|doctoral|master|\bm\.?\s*s\.?\b|undergraduate|intern|students?|researchers?|학생|대학원생|연구원|재학생|박사|석사|학부|방문|휴학/.test(heading)
     && !isFormerHeading(heading)
     && !isProfessorHeading(heading);
 }
 
 function hasMemberPageSignal(value: string | undefined): boolean {
-  return /members?|people|team|students?|researchers?|group[-_ ]?members?|lab[-_ ]?members?|current[-_ ]?members?|our[-_ ]?team|구성원|멤버|맴버|학생|연구원|재학생/i.test(value ?? "");
+  return memberKeywordPattern.test(value ?? "") || /group[-_ ]?members?|lab[-_ ]?members?|current[-_ ]?members?|our[-_ ]?team/i.test(value ?? "");
 }
 
 function redirectedAwayFromMemberPage(requestedUrl: string, page: PageData): boolean {
@@ -210,8 +249,30 @@ function headingRole(heading: string): string {
   if (/researcher|연구원/.test(heading)) return "researcher";
   if (/ph\.?\s*d|doctoral|박사/.test(heading)) return "phd";
   if (/master|\bm\.?\s*s\.?\b|석사/.test(heading)) return "master";
-  if (/student|학생/.test(heading)) return "student";
+  if (/student|학생|대학원생/.test(heading)) return "student";
   return "member";
+}
+
+function countPeopleInMemberSection(sectionHtml: string): number {
+  const lines = htmlToTextWithBreaks(sectionHtml).split(/\n+/).map((line) => line.replace(/\s+/g, " ").trim()).filter(Boolean);
+  const names = new Set<string>();
+  const emails = new Set<string>();
+  for (const line of lines) {
+    if (shouldIgnoreMemberLine(line) && !/@/.test(line)) {
+      continue;
+    }
+    const compactKoreanName = line.match(/(?:^|[\s:·,-])([가-힣]{2,4})(?:\s|$|[,/()·-])/u)?.[1];
+    const spacedKoreanName = line.match(/(?:^|[\s:·,-])([가-힣]\s*[가-힣]\s*[가-힣](?:\s*[가-힣])?)(?:\s|$|[,/()·-])/u)?.[1]?.replace(/\s+/g, "");
+    const englishName = line.match(/\b([A-Z][a-z]+(?:[-'][A-Z][a-z]+)?\s+[A-Z][a-z]+(?:[-'][A-Z][a-z]+)?)\b/)?.[1];
+    const name = cleanText(compactKoreanName ?? spacedKoreanName ?? englishName);
+    if (name) {
+      names.add(name.toLowerCase());
+    }
+    for (const email of line.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) ?? []) {
+      emails.add(email.toLowerCase());
+    }
+  }
+  return names.size > 0 ? names.size : emails.size;
 }
 
 function countStructuredHtmlMembers(html: string): { count?: number; breakdown?: Record<string, number> } {
@@ -249,7 +310,8 @@ function countStructuredHtmlMembers(html: string): { count?: number; breakdown?:
     const portraitCount = (sectionHtml.match(/class=["'][^"']*portrait-title[^"']*["']/gi) ?? []).length;
     const cardTitleCount = (sectionHtml.match(/class=["'][^"']*(?:member|people|profile|person)[^"']*["'][^>]*>[\s\S]{0,1200}?<h[2-4]\b/gi) ?? []).length;
     const wixRepeaterCount = Number(sectionHtml.match(/<fluid-columns-repeater\b[^>]*\bitems=["'](\d+)["']/i)?.[1] ?? 0);
-    const personCount = Math.max(portraitCount, cardTitleCount, wixRepeaterCount);
+    const textPersonCount = isSpecificCurrentMemberHeading(current.heading) ? countPeopleInMemberSection(sectionHtml) : 0;
+    const personCount = Math.max(portraitCount, cardTitleCount, wixRepeaterCount, textPersonCount);
     if (personCount > 0) {
       const role = headingRole(current.heading);
       total += personCount;
@@ -266,13 +328,18 @@ function shouldIgnoreMemberLine(line: string): boolean {
 
 function extractTextMemberCount(text: string): { count?: number; breakdown?: Record<string, number> } {
   const lines = text.split(/\n+/).map((line) => line.replace(/\s+/g, " ").trim()).filter(Boolean);
-  const start = lines.findIndex((line) => isCurrentMemberHeading(normalizeHeading(line)));
+  const specificStart = lines.findIndex((line) => isSpecificCurrentMemberHeading(normalizeHeading(line)));
+  const start = specificStart >= 0
+    ? specificStart
+    : lines.findIndex((line) => isCurrentMemberHeading(normalizeHeading(line)));
   if (start < 0) {
     return {};
   }
 
   const people = new Set<string>();
+  const emailPeople = new Set<string>();
   const breakdown: Record<string, number> = {};
+  const emailBreakdown: Record<string, number> = {};
   let currentRole = "member";
 
   for (const line of lines.slice(start)) {
@@ -288,13 +355,21 @@ function extractTextMemberCount(text: string): { count?: number; breakdown?: Rec
       currentRole = headingRole(normalized);
       continue;
     }
+    if (currentRole !== "professor") {
+      const email = line.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]?.toLowerCase();
+      if (email) {
+        emailPeople.add(email);
+        emailBreakdown[currentRole] = (emailBreakdown[currentRole] ?? 0) + 1;
+      }
+    }
     if (currentRole === "professor" || line.length > 140 || shouldIgnoreMemberLine(line)) {
       continue;
     }
 
-    const koreanName = line.match(/(?:^|[\s:·,-])([가-힣]{2,4})(?:\s|$|[,/()·-])/u)?.[1];
+    const compactKoreanName = line.match(/(?:^|[\s:·,-])([가-힣]{2,4})(?:\s|$|[,/()·-])/u)?.[1];
+    const spacedKoreanName = line.match(/(?:^|[\s:·,-])([가-힣]\s*[가-힣]\s*[가-힣](?:\s*[가-힣])?)(?:\s|$|[,/()·-])/u)?.[1]?.replace(/\s+/g, "");
     const englishName = line.match(/\b([A-Z][a-z]+(?:[-'][A-Z][a-z]+)?\s+[A-Z][a-z]+(?:[-'][A-Z][a-z]+)?)\b/)?.[1];
-    const key = cleanText(koreanName ?? englishName);
+    const key = cleanText(compactKoreanName ?? spacedKoreanName ?? englishName);
     if (!key) {
       continue;
     }
@@ -305,7 +380,10 @@ function extractTextMemberCount(text: string): { count?: number; breakdown?: Rec
     breakdown[currentRole] = (breakdown[currentRole] ?? 0) + 1;
   }
 
-  return people.size > 0 ? { count: people.size, breakdown } : {};
+  if (people.size > 0) {
+    return { count: people.size, breakdown };
+  }
+  return emailPeople.size > 0 ? { count: emailPeople.size, breakdown: emailBreakdown } : {};
 }
 
 function safeCount(result: { count?: number; breakdown?: Record<string, number> }, sourceUrl: string, method: LabMemberCountResult["method"], candidatePages: LabMemberCountResult["candidatePages"]): LabMemberCountResult {
@@ -325,8 +403,8 @@ function safeCount(result: { count?: number; breakdown?: Record<string, number> 
   };
 }
 
-async function countMembersFromPage(url: string, candidatePages: LabMemberCountResult["candidatePages"]): Promise<LabMemberCountResult> {
-  const page = await fetchPage(url);
+async function countMembersFromPage(url: string, candidatePages: LabMemberCountResult["candidatePages"], loadPage: PageLoader): Promise<LabMemberCountResult> {
+  const page = await loadPage(url);
   if (!page) {
     return { candidatePages };
   }
@@ -347,12 +425,18 @@ async function countMembersFromPage(url: string, candidatePages: LabMemberCountR
   return { candidatePages };
 }
 
-export async function enrichLabMemberCount(labUrl: string | undefined): Promise<LabMemberCountResult> {
+export async function enrichLabMemberCount(
+  labUrl: string | undefined,
+  options: { context?: BrowserContext } = {},
+): Promise<LabMemberCountResult> {
   if (!labUrl) {
     return { candidatePages: [] };
   }
 
-  const rootPage = await fetchPage(labUrl);
+  const loadPage: PageLoader = options.context
+    ? (url) => fetchPlaywrightPage(options.context as BrowserContext, url)
+    : fetchPage;
+  const rootPage = await loadPage(labUrl);
   if (!rootPage) {
     return { candidatePages: [] };
   }
@@ -360,7 +444,7 @@ export async function enrichLabMemberCount(labUrl: string | undefined): Promise<
   const candidates = candidateMemberUrls(rootPage);
   const results: LabMemberCountResult[] = [];
   for (const candidate of candidates) {
-    const result = await countMembersFromPage(candidate.url, candidates);
+    const result = await countMembersFromPage(candidate.url, candidates, loadPage);
     if (result.count) {
       results.push(result);
     }

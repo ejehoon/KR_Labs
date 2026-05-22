@@ -7,9 +7,10 @@ KR_Labs taxonomy is intentionally centralized and reviewed. Crawlers should trea
 1. Crawl or enrich a school report.
 2. Re-run classification against the central taxonomy.
 3. Accept existing categories when confidence is at least `0.7`.
-4. Review the generated taxonomy gap report for lower-confidence or unmatched evidence.
-5. Add reusable categories or aliases only when they can apply across schools.
-6. Reclassify the report and copy it to the frontend public data.
+4. Prefer alias additions to existing categories for lower-confidence or unmatched evidence.
+5. If no existing category fits, add at most one reusable new category per professor/lab record.
+6. If research evidence is missing or noisy, classify by department-name fallback.
+7. Reclassify the report and upsert to Supabase.
 
 For Sogang:
 
@@ -28,7 +29,9 @@ Outputs:
 
 - Prefer specific fields over broad labels. For example, use `물리/계산화학` for `양자화학` instead of `물리학`.
 - Keep general English labels only when Korean students commonly use them, such as `AI`, `LLM`, and `AI for Science`.
-- Do not add a category from a single noisy profile string. Add it when it is a stable research area or a reusable alias.
+- Do not add multiple categories from a single noisy profile string. Add a category only when it is a stable research area; otherwise add aliases to existing categories or use department fallback.
 - If a professor/lab belongs outside CS, classify it into the correct non-CS domain instead of forcing it into `기타`.
 - Lab homepage pages such as `Research`, `Introduction`, `People`, `Members`, and `Publications` should enrich the evidence, but the final label must still come from the shared taxonomy.
 - Raw profile text must not be displayed or stored as the final research category. Store it as evidence/review metadata, then store only taxonomy labels/ids as category fields.
+- Detailed research text should be stored separately for RAG fields such as `research_detail_text` and `research_detail_topics`.
+- Member count is independent from taxonomy. It is stored only when current lab members are found on a professor personal lab homepage.

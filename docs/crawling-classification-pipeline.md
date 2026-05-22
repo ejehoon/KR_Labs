@@ -53,6 +53,7 @@ Extract fields separately.
 - `localCategory`: department-specific track such as `반도체` or `통신`
 - `rawResearchText`: raw crawled research text, if present
 - `cleanResearchText`: raw text after removing biography, education, career, publications, awards, and society sections
+- `memberCount`: current lab member count only when a professor personal lab homepage exposes current members
 - `sourceUrl`: where the evidence came from
 
 Important: `rawResearchText` and `cleanResearchText` are evidence only. They are not the final KR_Labs category.
@@ -92,8 +93,8 @@ Evidence priority:
 Threshold rule:
 
 - `confidence >= 0.7`: assign existing KR_Labs category
-- `confidence < 0.7` and reusable concept exists in evidence: create new category candidate
-- no stable evidence: mark as `needs_review`
+- `confidence < 0.7` and reusable concept exists in evidence: create at most one new reusable category for the record
+- no stable research evidence: classify by department-name fallback
 
 The assigned values are stored in:
 
@@ -103,23 +104,34 @@ The assigned values are stored in:
 
 ## Step 7. New Category Candidate Handling
 
-When no existing category passes the threshold, the crawler should not silently create a permanent category.
+When no existing category passes the threshold, the crawler should avoid creating many fine-grained one-off labels.
 
-It emits:
+It should:
 
-- suggested label
-- evidence text
-- rejected low-confidence matches
-- source URL
-- affected school/department/lab
+- prefer adding aliases to existing categories
+- create at most one new reusable category per professor/lab record
+- keep detailed evidence text separately for RAG
+- include the source URL and evidence in validation reports
 
-Review decides whether to:
+Do not:
 
-- add an alias to an existing category
-- add a new reusable leaf category
-- keep the record as `needs_review`
+- create multiple categories from one long raw research paragraph
+- store raw crawled research text as the final category
+- leave an item as `재크롤링 필요` when department-name fallback can classify it
 
-## Step 8. Storage
+## Step 8. Member Count Enrichment
+
+Member count is optional and conservative.
+
+Rules:
+
+- Count members only from professor personal lab homepages.
+- Never count members from department pages, faculty lists, professor profile pages, graduate `lab_03.php` fallback pages, or official school-wide index pages.
+- Use Playwright to open member-like pages such as `Members`, `People`, `Team`, `Students`, `구성원`, `멤버`, `맴버`, `학생`, `대학원생`, and `연구원`.
+- Exclude sections labeled `Alumni`, `Former`, `Past`, `졸업`, or `동문`.
+- If current-member evidence is not clear, keep the count null.
+
+## Step 9. Storage
 
 Store final category fields separately from evidence.
 
@@ -129,6 +141,8 @@ Do:
 - store taxonomy ids in `normalized_keywords`
 - store raw/cleaned text as evidence/description/review metadata
 - show category labels in UI
+- store RAG evidence fields separately from category labels
+- store `lab_member_count` only when the source is a current-member lab page
 
 Do not:
 
@@ -136,7 +150,7 @@ Do not:
 - display long profile text as `연구 분야`
 - create one-off categories from a single noisy page
 
-## Step 9. Validation Report
+## Step 10. Validation Report
 
 Every run should report:
 
@@ -147,8 +161,9 @@ Every run should report:
 - source priority used per department
 - fallback URL count
 - missing evidence count
+- member-count known/unknown count
 
-## Step 10. Recipe Update Loop
+## Step 11. Recipe Update Loop
 
 When a user finds an error:
 

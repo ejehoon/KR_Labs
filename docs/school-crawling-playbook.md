@@ -11,9 +11,11 @@ KR_Labs는 학교별로 "대학원 학과 목록 -> 학과/전공 홈페이지 -
    - 학과별 adapter
    - generic table/card parser
 4. 크롤링한 연구분야 텍스트는 최종 카테고리가 아니라 taxonomy 분류를 위한 evidence로만 취급한다.
-5. 연구분야 분류는 중앙 taxonomy를 먼저 사용한다. `0.7` 이상이면 기존 카테고리에 배정하고, 그 미만이면 신규 카테고리 후보 또는 review로 넘긴다.
-6. taxonomy에 매칭되지 않는 표현은 바로 새 카테고리로 확정하지 않고 validation report의 suggestion으로 남긴다.
-7. Supabase 저장 전에는 항상 dry-run report를 확인한다.
+5. 연구분야 분류는 중앙 taxonomy를 먼저 사용한다. `0.7` 이상이면 기존 카테고리에 배정한다.
+6. taxonomy에 매칭되지 않는 표현은 기존 카테고리 alias를 먼저 보강하고, 그래도 없으면 교수/연구실 1개당 최대 1개의 재사용 가능한 신규 카테고리만 만든다.
+7. 연구근거가 없거나 메뉴/푸터/프로필 크롬만 잡히면 학과명 fallback으로 분류한다.
+8. 연구원 수는 교수 개인 연구실 홈페이지에서만 Playwright로 탐색하고, 학과 홈페이지/교수진 목록/교수 프로필/졸업생 섹션은 세지 않는다.
+9. Supabase 저장 전에는 항상 dry-run report를 확인한다.
 
 ## 서강대 기준 플로우
 
@@ -44,14 +46,17 @@ Primary source:
 - `labs`: 연구실 또는 교수 연구그룹
 - `crawl_jobs`, `crawl_pages`, `crawl_errors`, `review_items`: 실행 로그와 검수 항목
 
-초기 저장 방식:
+저장 방식:
 
 - `departments.college_name`에 계열을 저장한다.
 - `professors.research_interests`에는 원문이 아니라 taxonomy label을 저장한다.
 - `labs.research_keywords`에 taxonomy label을 저장한다.
 - `labs.normalized_keywords`에 taxonomy id를 저장한다.
+- ranking 호환 `professors.research_sub_fields`에는 taxonomy id를 저장한다.
+- `research_detail_text`, `research_detail_topics`, `research_detail_source_url`에는 RAG용 상세 연구근거를 저장한다.
+- `lab_member_count`에는 교수 개인 연구실 홈페이지에서 확인한 현재 연구원 수만 저장한다.
 - 원문 연구분야/홈페이지 본문은 최종 연구분야가 아니라 evidence, description, review metadata로만 저장한다.
-- 분류 실패/애매한 항목은 `review_items`로 넘긴다.
+- 분류 실패/애매한 항목은 가능한 한 alias/category/fallback 규칙으로 자동 해결하고, active 연구실 후보가 아닌 행만 제외 리포트로 남긴다.
 
 상세 파이프라인은 `docs/crawling-classification-pipeline.md`를 따른다.
 
@@ -69,8 +74,9 @@ Primary source:
 2. 학과 목록 parser로 전체 학과 seed를 만든다.
 3. dry-run report에서 학과 수와 링크 품질을 확인한다.
 4. 교수 후보가 적은 학과부터 adapter를 추가한다.
-5. taxonomy suggestion을 검토해 중앙 taxonomy를 보강한다.
-6. Supabase upsert dry-run을 거친 뒤 저장한다.
+5. taxonomy suggestion을 검토해 중앙 taxonomy alias 또는 최대 1개 신규 카테고리로 보강한다.
+6. Playwright member-count enrichment를 켠 상태로 discovery를 돌린다.
+7. Supabase upsert dry-run을 거친 뒤 저장한다.
 
 ## 링크 기반 탐색 루프
 
