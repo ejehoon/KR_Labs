@@ -96,6 +96,7 @@ The member-count process deliberately ignores department pages, faculty lists, p
 
 New school work should follow:
 
+- [docs/kr-labs-crawler-skill-guide.md](./docs/kr-labs-crawler-skill-guide.md) for Mac/Codex skill setup and execution.
 - [AGENTS.md](./AGENTS.md) for the Codex execution checklist.
 - [docs/school-crawling-playbook.md](./docs/school-crawling-playbook.md) for school onboarding.
 - [docs/crawling-classification-pipeline.md](./docs/crawling-classification-pipeline.md) for taxonomy-first classification.
